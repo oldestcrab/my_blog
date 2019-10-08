@@ -14,6 +14,14 @@ class ProfileInline(admin.StackedInline):
 # Define a new User admin
 class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline,)
+    list_display = ('pk', 'username', 'nickname', 'email', )
+
+    # 显示用户昵称
+    def nickname(self, obj):
+        return obj.profile.nickname
+
+    # 后台管理页面显示中文
+    nickname.short_description = '昵称'
 
 # Re-register UserAdmin
 admin.site.unregister(User)
