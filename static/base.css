@@ -1,0 +1,55 @@
+/* * {
+    margin: 0;
+    padding: 0;
+} */
+
+body {
+    margin-top: 70px !important;
+}
+
+/* 设置全局ul样式 */
+ul {
+    list-style-type: none !important;
+}
+
+.blog-footer {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 100px;
+    color: #99979c;
+    text-align: center;
+    background-color: #2a2730;
+
+}
+
+.blog-footer a {
+    color: #fff
+}
+
+.blog-footer-links {
+    padding-left: 0;
+    margin-bottom: 20px
+}
+
+.blog-footer-links li {
+    display: inline-block
+}
+
+.blog-footer-links li+li {
+    margin-left: 15px
+}
+
+@media (min-width:768px) {
+    .blog-footer {
+        text-align: left
+    }
+
+    .blog-footer p {
+        margin-bottom: 0
+    }
+}
+
+.blog-footer {
+    margin-top: 0;
+    border-top: 0
+}
