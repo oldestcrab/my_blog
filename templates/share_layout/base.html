@@ -1,31 +1,91 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>{% block title %}{% endblock title %}|OldestCrab Blog</title>
 
-    <!-- Bootstrap -->
-    <link href="{% staitc 'bootstrap-3.3.7/css/bootstrap.min.css' %}" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>{% block title %}{% endblock title %} | OldestCrab Blog</title>
 
-    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
-    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
-    <!--[if lt IE 9]>
+  <!-- Bootstrap -->
+  <link href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'base.css' %}" rel="stylesheet">
+
+  <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+  <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+  <!--[if lt IE 9]>
       <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
     <![endif]-->
-    {% block header_extends %}{% endblock header_extends %}
-  </head>
-  <body>
-    {% block content %}{% endblock content %}
+  {% block header_extends %}{% endblock header_extends %}
+</head>
 
-    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-    <script src="{% staitc 'jquery-1.12.4.min.js' %}"></script>
-    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-    <script src="{% staitc 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
-    {% block script_extends %}{% endblock script_extends %}
-  </body>
+<body>
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+          data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">我的博客</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="{% block nav_home_active %}{% endblock nav_home_active %}"><a href="#">首页</a></li>
+          <li class="{% block nav_blog_active %}{% endblock nav_blog_active %}"><a href="#">博客</a></li>
+          <li><a href="#">about</a></li>
+          <li><a href="#">contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">{{ user.username }}<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">个人中心</a></li>
+              <li><a href="#">后台管理</a></li>
+              <li><a href="#">退出</a></li>
+            </ul>
+          </li>
+          {% else %}
+          <li><a href="#">注册</a></li>
+          <li><a href="#">登录</a></li>
+          {% endif %}
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </div>
+
+  {% block content %}{% endblock content %}
+
+  <footer class="blog-footer">
+    <div class="container">
+      <ul class="blog-footer-links">
+        <li><a href="">GitHub</a></li>
+        <li><a href="">about</a></li>
+        <li><a href="">contact</a></li>
+      </ul>
+      <p>本项目源码受 <a rel="license" href="https://github.com/twbs/bootstrap/blob/master/LICENSE"
+          target="_blank">MIT</a>开源协议保护，文档受 <a rel="license" href="https://creativecommons.org/licenses/by/3.0/"
+          target="_blank">CC BY 3.0</a> 开源协议保护。
+      </p>
+    </div>
+  </footer>
+
+  <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+  <script src="{% static 'jquery-1.12.4.min.js' %}"></script>
+  <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+  <script src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+  {% block script_extends %}{% endblock script_extends %}
+</body>
+
 </html>
