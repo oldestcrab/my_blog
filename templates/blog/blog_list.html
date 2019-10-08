@@ -1,0 +1,32 @@
+{% extends "share_layout/base.html" %}
+{% block title %}博客{% endblock title %}
+{% load staticfiles %}
+{% block header_extends %}
+<link href="{% static 'blog.css' %}" rel="stylesheet">
+{% endblock header_extends %}
+{% block nav_blog_active %}active{% endblock nav_blog_active %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <!-- 设置在不同大小屏幕显示的大小 -->
+    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+      <div class="panel panel-default">
+        <div class="panel-heading">博客列表</div>
+        <div class="panel-body">
+          {% for blog in blog_list %}
+          <div class="blog">
+            <h3><a href="">{{ blog.title }}</a></h3>
+          </div>
+          {% empty %}
+          <div class="blog">
+            <h3>暂无博客，敬请期待</h3>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
