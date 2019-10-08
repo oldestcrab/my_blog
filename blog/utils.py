@@ -11,7 +11,7 @@ def common_paginator(request, object_list, per_page):
     # 获取分页器
     paginator = Paginator(object_list, per_page)
     # 获取页面传递的当前页，没有则为1
-    now_page = int(request.GET.get('page', 15))
+    now_page = int(request.GET.get('page', 1))
     # 分页器当前页
     current_page = paginator.page(now_page)
     # 页码列表

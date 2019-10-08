@@ -13,7 +13,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">博客列表</div>
         <div class="panel-body">
-          {% for blog in blog_list %}
+          {% for blog in current_page.object_list %}
           <div class="blog">
             <h3><a href="">{{ blog.title }}</a></h3>
           </div>
@@ -24,7 +24,8 @@
           {% endfor %}
         </div>
       </div>
-
+      {# 分页 #}
+      {% include "share_layout/pagination.html" %}
     </div>
   </div>
 </div>
