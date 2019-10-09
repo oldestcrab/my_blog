@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
+from django.contrib import auth
 from django.contrib.auth.models import User
 
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from .models import Profile
 
 def register(request):
@@ -27,7 +28,7 @@ def register(request):
                 profile.nickname = nickname
                 profile.save()
             # 跳转到登录页面
-            return redirect('home')
+            return redirect('accounts:login')
     else:
         # 初始化注册表单
         reg_form = RegisterForm()
@@ -35,6 +36,33 @@ def register(request):
     context = {
         'title': '注册',
         'form': reg_form,
+    }
+
+    return render(request, 'accounts/forms.html', context=context)
+
+def login(request):
+    """
+    登录视图
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        # 传递post数据
+        login_form = LoginForm(request.POST)
+        # 数据验证
+        if login_form.is_valid():
+            user = login_form.cleaned_data['user']
+            # 登录
+            auth.login(request, user)
+            # 跳转回之前的页面或者首页
+            return redirect(request.GET.get('from'), reverse('home'))
+    else:
+        # 初始化登录表单
+        login_form = LoginForm()
+
+    context = {
+        'title': '登录',
+        'form': login_form,
     }
 
     return render(request, 'accounts/forms.html', context=context)

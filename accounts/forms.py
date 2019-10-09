@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 class RegisterForm(forms.Form):
@@ -41,3 +42,27 @@ class RegisterForm(forms.Form):
         if password != password_again:
             raise forms.ValidationError('两次密码不一致')
         return password
+
+
+class LoginForm(forms.Form):
+    """
+    登录表单
+    """
+    username = forms.CharField(label='用户名', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名'}))
+    password = forms.CharField(label='密码', min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入密码'}))
+
+    def clean(self):
+        """
+        验证数据是否有效
+        :return:
+        """
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+        # 验证
+        user = authenticate(username=username, password=password)
+        if user:
+            self.cleaned_data['user'] = user
+        else:
+            raise forms.ValidationError('用户名或者密码错误')
+
+        return self.cleaned_data

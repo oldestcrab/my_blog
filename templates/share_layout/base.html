@@ -59,7 +59,7 @@
           </li>
           {% else %}
           <li><a href="{% url 'accounts:register' %}">注册</a></li>
-          <li><a href="#">登录</a></li>
+          <li><a href="{% url 'accounts:login' %}?from={{ request.get_full_path }}">登录</a></li>
           {% endif %}
         </ul>
       </div><!-- /.navbar-collapse -->
