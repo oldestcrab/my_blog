@@ -8,8 +8,6 @@ def blog_list(request):
     blog_list = Blog.objects.all()
     # 获取分页器当前页以及页码列表
     current_page, range_page = common_paginator(request, blog_list, 7)
-    print(current_page.object_list)
-    print(current_page.number)
 
     context = {
         'current_page': current_page,

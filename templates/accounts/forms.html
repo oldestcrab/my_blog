@@ -1,0 +1,29 @@
+{% extends "share_layout/base.html" %}
+{% block title %}{{ title }}{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4">
+            {% if not user.is_authenticated %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ title }}</h3>
+                </div>
+                <div class="panel-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ reg_form }}
+                        <input type="submit" class="btn btn-primary pull-right" value="{{ title }}">
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <span>您已登录，2秒即将跳转到首页</span>
+            <script type="text/javascript">
+                setTimeout("window.location.href='/'",2000);
+            </script>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

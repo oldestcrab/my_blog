@@ -13,9 +13,9 @@ ul {
 }
 
 .blog-footer {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    margin-top: 100px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top:40px;
     color: #99979c;
     text-align: center;
     background-color: #2a2730;
@@ -47,9 +47,4 @@ ul {
     .blog-footer p {
         margin-bottom: 0
     }
-}
-
-.blog-footer {
-    margin-top: 0;
-    border-top: 0
 }
