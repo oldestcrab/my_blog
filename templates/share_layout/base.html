@@ -54,7 +54,7 @@
             <ul class="dropdown-menu">
               <li><a href="#">个人中心</a></li>
               <li><a href="#">后台管理</a></li>
-              <li><a href="#">退出</a></li>
+              <li><a href="{% url 'accounts:logout' %}?from={{ request.get_full_path }}">退出</a></li>
             </ul>
           </li>
           {% else %}

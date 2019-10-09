@@ -66,3 +66,14 @@ def login(request):
     }
 
     return render(request, 'accounts/forms.html', context=context)
+
+def logout(request):
+    """
+    退出登录视图
+    :param request:
+    :return:
+    """
+    # 退出登录
+    auth.logout(request)
+    # 跳转回之前的页面或者首页
+    return redirect(request.GET.get('from'), reverse('home'))
