@@ -1,7 +1,7 @@
-/* * {
+* {
     margin: 0;
     padding: 0;
-} */
+}
 
 body {
     margin-top: 70px !important;
@@ -15,7 +15,7 @@ ul {
 .blog-footer {
     padding-top: 30px;
     padding-bottom: 30px;
-    margin-top:40px;
+    margin-top: 70px !important;
     color: #99979c;
     text-align: center;
     background-color: #2a2730;
@@ -41,7 +41,7 @@ ul {
 
 @media (min-width:768px) {
     .blog-footer {
-        text-align: left
+        text-align: left;
     }
 
     .blog-footer p {
