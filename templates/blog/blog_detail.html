@@ -17,6 +17,22 @@
                 <li>最近更新:{{ blog.last_update_time }}</li>
             </ul>
             <div class="blog-content">{{ blog.content|safe }}</div>
+            <div class="blog-more">
+                <p>上一篇:
+                    {% if previously_blog %}
+                    <a href="{% url 'blog:blog_detail' previously_blog.pk %}">{{ previously_blog.title }}</a>
+                    {% else %}
+                    这是最早的一篇了呢
+                    {% endif %}
+                </p>
+                <p>下一篇:
+                    {% if next_blog %}
+                    <a href="{% url 'blog:blog_detail' next_blog.pk %}">{{ next_blog.title }}</a>
+                    {% else %}
+                    这是最新的一篇了呢
+                    {% endif %}
+                </p>
+            </div>
         </div>
     </div>
 </div>

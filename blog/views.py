@@ -94,7 +94,15 @@ def blog_detail(request, blog_pk):
     # 获取博客，没有则404
     blog = get_object_or_404(Blog, pk=blog_pk)
 
+    # 获取同个分类下的上一篇博客
+    previously_blog = Blog.objects.filter(blog_type=blog.blog_type, created_time__lt=blog.created_time).first()
+
+    # 获取同个分类下的下一篇博客
+    next_blog = Blog.objects.filter(blog_type=blog.blog_type, created_time__gt=blog.created_time).last()
+
     context = {
         'blog': blog,
+        'previously_blog': previously_blog,
+        'next_blog': next_blog,
     }
     return render(request, 'blog/blog_detail.html', context=context)

@@ -25,3 +25,8 @@ div.blog-content {
     text-indent: 2em;
     margin-bottom: 2em;
 }
+
+/* 上下篇博客 */
+div.blog-more {
+    margin-top: 1em;
+}
