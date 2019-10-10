@@ -11,7 +11,7 @@
     <!-- 设置在不同大小屏幕显示的大小 -->
     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
       <div class="panel panel-default">
-        <div class="panel-heading">博客列表</div>
+        <div class="panel-heading">{{ blog_title }}</div>
         <div class="panel-body">
           {% for blog in current_page.object_list %}
           <div class="blog">
@@ -40,7 +40,7 @@
         <div class="panel-body">
           <ul class="blog-types">
             {% for blog_type in blog_type_list %}
-            <li><a href="">{{ blog_type }}({{ blog_type.blog_count }})</a></li>
+            <li><a href="{% url 'blog:blog_with_type' blog_type.pk %}">{{ blog_type }}({{ blog_type.blog_count }})</a></li>
             {% empty %}
             <li>暂无分类</li>
             {% endfor %}
