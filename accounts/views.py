@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import auth
 from django.contrib.auth.models import User
 
-from .forms import RegisterForm, LoginForm, ChangeNicknameForm
+from .forms import RegisterForm, LoginForm, ChangeNicknameForm, ChangeEmailForm
 from .models import Profile
 
 def register(request):
@@ -111,5 +111,31 @@ def change_nickname(request):
     context = {
         'title': '更换昵称',
         'form': change_nickname_form,
+    }
+    return render(request, 'accounts/change_info_forms.html', context=context)
+
+def change_email(request):
+    """
+    更换邮箱视图
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        # 传递post数据
+        change_email_form = ChangeEmailForm(request.POST, user=request.user)
+        # 数据验证
+        if change_email_form.is_valid():
+            # 更新邮箱
+            request.user.email = change_email_form.cleaned_data['email_new']
+            request.user.save()
+            # 跳转回用户中心
+            return redirect('accounts:user_info')
+    else:
+        # 初始化登录表单
+        change_email_form = ChangeEmailForm()
+
+    context = {
+        'title': '更换邮箱',
+        'form': change_email_form,
     }
     return render(request, 'accounts/change_info_forms.html', context=context)

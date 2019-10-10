@@ -68,7 +68,9 @@ class LoginForm(forms.Form):
         return self.cleaned_data
 
 class ChangeNicknameForm(forms.Form):
-
+    """
+    昵称修改表单
+    """
     nickname_new = forms.CharField(label='请输入新的昵称', max_length=20, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入新的昵称'}))
 
     def __init__(self, *args, **kwargs):
@@ -85,6 +87,40 @@ class ChangeNicknameForm(forms.Form):
         if not nickname_new:
             raise forms.ValidationError('新的昵称不能为空！')
         return nickname_new
+
+    def clean(self):
+        """
+        判断用户是否登录
+        :return:
+        """
+        if self.user.is_authenticated:
+            self.cleaned_data['user'] = self.user
+        else:
+            raise forms.ValidationError('您尚未登录')
+        return self.cleaned_data
+
+class ChangeEmailForm(forms.Form):
+    """
+    修改邮箱表单
+    """
+    email_new = forms.EmailField(label='请输入新的邮箱', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入新的邮箱'}))
+
+    def __init__(self, *args, **kwargs):
+        if 'user' in kwargs:
+            self.user = kwargs.pop('user')
+        super(ChangeEmailForm, self).__init__(*args, **kwargs)
+
+    def clean_email_new(self):
+        """
+        判断新的邮箱是否为空或者已注册
+        :return:
+        """
+        email_new = self.cleaned_data['email_new'].strip()
+        if not email_new:
+            raise forms.ValidationError('新的邮箱不能为空！')
+        if User.objects.filter(email=email_new).exists():
+            raise forms.ValidationError('该邮箱已注册！')
+        return email_new
 
     def clean(self):
         """

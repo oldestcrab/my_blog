@@ -13,11 +13,6 @@
                     <form action="" method="POST">
                         {% csrf_token %}
                         {{ form }}
-                        <div class="clear-fix"></div>
-                        <div class="pull-left">
-                            {% block other_button %}
-                            {% endblock other_button %}
-                        </div>
                         <div class="pull-right">
                             <button class="btn btn-deafult"
                             onclick="window.location.href='{% url 'accounts:user_info' %}'">返回</button>
