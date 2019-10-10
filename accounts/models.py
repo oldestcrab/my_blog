@@ -9,3 +9,16 @@ class Profile(models.Model):
     def __str__(self):
         return f'<Profile:{self.nickname} for {self.user}>'
 
+def get_nickname_or_username(self):
+    """
+    获取昵称或者用户名
+    :param self:
+    :return:昵称或者用户名
+    """
+    if Profile.objects.filter(user=self).exists():
+        return Profile.objects.get(user=self).nickname
+    else:
+        return self.username
+
+# 动态绑定
+User.get_nickname_or_username = get_nickname_or_username
