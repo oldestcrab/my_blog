@@ -55,7 +55,7 @@ def login(request):
             # 登录
             auth.login(request, user)
             # 跳转回之前的页面或者首页
-            return redirect(request.GET.get('from'), reverse('home'))
+            return redirect(request.GET.get('from', reverse('home')))
     else:
         # 初始化登录表单
         login_form = LoginForm()
@@ -77,3 +77,11 @@ def logout(request):
     auth.logout(request)
     # 跳转回之前的页面或者首页
     return redirect(request.GET.get('from'), reverse('home'))
+
+def user_info(request):
+    """
+    用户中心视图
+    :param request:
+    :return:
+    """
+    return render(request, 'accounts/user_info.html')
