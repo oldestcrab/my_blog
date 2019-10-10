@@ -7,7 +7,7 @@ class RegisterForm(forms.Form):
     注册表单
     """
     username = forms.CharField(label='用户名(不可修改)', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名'}))
-    nickname = forms.CharField(label='昵称(可为空)', required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入昵称'}))
+    nickname = forms.CharField(label='昵称(可为空)', max_length=20,required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入昵称'}))
     email = forms.EmailField(label='邮箱', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入邮箱'}))
     password = forms.CharField(label='密码', min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入密码'}))
     password_again = forms.CharField(label='密码确认', min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请再次输入密码'}))
@@ -65,4 +65,34 @@ class LoginForm(forms.Form):
         else:
             raise forms.ValidationError('用户名或者密码错误')
 
+        return self.cleaned_data
+
+class ChangeNicknameForm(forms.Form):
+
+    nickname_new = forms.CharField(label='请输入新的昵称', max_length=20, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入新的昵称'}))
+
+    def __init__(self, *args, **kwargs):
+        if 'user' in kwargs:
+            self.user = kwargs.pop('user')
+        super(ChangeNicknameForm, self).__init__(*args, **kwargs)
+
+    def clean_nickname_new(self):
+        """
+        判断新的昵称是否为空
+        :return:
+        """
+        nickname_new = self.cleaned_data['nickname_new'].strip()
+        if not nickname_new:
+            raise forms.ValidationError('新的昵称不能为空！')
+        return nickname_new
+
+    def clean(self):
+        """
+        判断用户是否登录
+        :return:
+        """
+        if self.user.is_authenticated:
+            self.cleaned_data['user'] = self.user
+        else:
+            raise forms.ValidationError('您尚未登录')
         return self.cleaned_data

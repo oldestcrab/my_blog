@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import auth
 from django.contrib.auth.models import User
 
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, ChangeNicknameForm
 from .models import Profile
 
 def register(request):
@@ -76,7 +76,7 @@ def logout(request):
     # 退出登录
     auth.logout(request)
     # 跳转回之前的页面或者首页
-    return redirect(request.GET.get('from'), reverse('home'))
+    return redirect(request.GET.get('from', reverse('home')))
 
 def user_info(request):
     """
@@ -85,3 +85,31 @@ def user_info(request):
     :return:
     """
     return render(request, 'accounts/user_info.html')
+
+def change_nickname(request):
+    """
+    更换昵称视图
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        # 传递post数据
+        change_nickname_form = ChangeNicknameForm(request.POST, user=request.user)
+        # 数据验证
+        if change_nickname_form.is_valid():
+            nickname_new = change_nickname_form.cleaned_data['nickname_new']
+            # 更新或者新建昵称
+            profile, created = Profile.objects.get_or_create(user=request.user)
+            profile.nickname = nickname_new
+            profile.save()
+            # 跳转回用户中心
+            return redirect('accounts:user_info')
+    else:
+        # 初始化登录表单
+        change_nickname_form = ChangeNicknameForm()
+
+    context = {
+        'title': '更换昵称',
+        'form': change_nickname_form,
+    }
+    return render(request, 'accounts/change_info_forms.html', context=context)
