@@ -11,7 +11,7 @@ class BlogType(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return f'<博客分类:{self.type_name}>'
+        return self.type_name
 
 class Blog(models.Model):
     title = models.CharField(max_length=50, verbose_name='标题')
