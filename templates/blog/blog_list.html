@@ -15,7 +15,7 @@
         <div class="panel-body">
           {% for blog in current_page.object_list %}
           <div class="blog">
-            <h3><a href="">{{ blog.title }}</a></h3>
+            <h3><a href="{% url 'blog:blog_detail' blog.pk %}">{{ blog.title }}</a></h3>
             <p class="blog-info">
               <span class="glyphicon glyphicon-tag"></span>
               <a href="">{{ blog.blog_type }}</a>&nbsp;&nbsp;

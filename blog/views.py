@@ -82,3 +82,19 @@ def blog_with_date(request, year, month):
     context['blog_title'] = f'日期:{year}-{month}'
 
     return render(request, 'blog/blog_list.html', context=context)
+
+
+def blog_detail(request, blog_pk):
+    """
+    博客内容展示
+    :param request:
+    :param blog_pk: 博客ID
+    :return:
+    """
+    # 获取博客，没有则404
+    blog = get_object_or_404(Blog, pk=blog_pk)
+
+    context = {
+        'blog': blog,
+    }
+    return render(request, 'blog/blog_detail.html', context=context)
