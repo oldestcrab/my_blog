@@ -65,3 +65,20 @@ def blog_with_type(request, blog_type_pk):
     context['blog_title'] = f'分类:{blog_type.type_name}'
 
     return render(request, 'blog/blog_list.html', context=context)
+
+def blog_with_date(request, year, month):
+    """
+    展示某个月的所有博客
+    :param request:
+    :param year: 年份
+    :param month: 月份
+    :return:
+    """
+    # 获取某个月的博客列表
+    blog_count = Blog.objects.filter(created_time__year=year, created_time__month=month)
+
+    # 获取通用信息
+    context = get_blog_common_data(request, blog_count)
+    context['blog_title'] = f'日期:{year}-{month}'
+
+    return render(request, 'blog/blog_list.html', context=context)
