@@ -71,6 +71,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'comment_tags': 'comment.templatetags.comment_tags',
+            },
         },
     },
 ]
