@@ -32,3 +32,13 @@ def get_comment_list(obj):
     # 获取顶级评论
     comments = Comment.objects.filter(content_type=content_type, object_id=obj.pk, parent=None)
     return comments.order_by('-comment_time')
+
+@register.simple_tag()
+def get_comment_count(obj):
+    """
+    评论数量统计
+    :param obj: 模型对象
+    :return: 评论数量统计
+    """
+    content_type = ContentType.objects.get_for_model(obj)
+    return Comment.objects.filter(content_type=content_type, object_id=obj.pk).count()
