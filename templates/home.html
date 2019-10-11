@@ -1,13 +1,49 @@
 {% extends "share_layout/base.html" %}
 {% block title %}首页{% endblock title %}
+{% load staticfiles %}
+{% block header_extends %}
+<link rel="stylesheet" href="{% static 'home.css' %}">
+<script src="{% static 'highcharts.js' %}"></script>
+{% endblock header_extends %}
 {% block nav_home_active %}active{% endblock nav_home_active %}
 {% block content %}
-<h1>你好呀</h1>
-<h1>你好呀</h1>
-<h1>你好呀</h1>
-
-<h1>你好呀</h1>
-<h1>你好呀</h1>
-<h1>你好呀</h1>
-<h1>你好呀</h1>
+<!-- 图标容器 DOM -->
+<div id="container"></div>
+<script>
+    var options = {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: null
+        },
+        xAxis: {
+            categories: {{days | safe}},
+            tickmarkPlacement: 'on',
+            title: {
+                text: '前7天博客阅读量',
+            },
+        },
+        yAxis: {
+            title: {
+                text: null
+            },
+            labels: {
+                enabled: false
+            },
+            gridLineDashSytle: 'Dash',
+        },
+        series: [{
+            name: '阅读量',
+            data: {{read_nums}}
+        }],
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+    };
+    var char = Highcharts.chart('container', options);
+</script>
 {% endblock content %}
