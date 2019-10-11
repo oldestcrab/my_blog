@@ -3,6 +3,7 @@ from django.db.models import Count
 
 from .models import BlogType, Blog
 from .utils import common_paginator
+from read_statistics.utils import read_statistics_once_read
 
 def get_blog_common_data(request, object_list ):
     """
@@ -100,9 +101,17 @@ def blog_detail(request, blog_pk):
     # 获取同个分类下的下一篇博客
     next_blog = Blog.objects.filter(blog_type=blog.blog_type, created_time__gt=blog.created_time).last()
 
+    # 判断是否需要阅读量+1
+    key = read_statistics_once_read(request, blog)
+
     context = {
         'blog': blog,
         'previously_blog': previously_blog,
         'next_blog': next_blog,
     }
-    return render(request, 'blog/blog_detail.html', context=context)
+
+    response = render(request, 'blog/blog_detail.html', context=context)
+    # cookies增加阅读量判断凭据
+    response.set_cookie(key, 'true')
+
+    return response

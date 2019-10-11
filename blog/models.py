@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 from ckeditor_uploader.fields import RichTextUploadingField
 
+from read_statistics.models import ReadNumExpandMethod
+
 class BlogType(models.Model):
     type_name = models.CharField(max_length=15, verbose_name='博客分类')
 
@@ -13,7 +15,7 @@ class BlogType(models.Model):
     def __str__(self):
         return self.type_name
 
-class Blog(models.Model):
+class Blog(models.Model, ReadNumExpandMethod):
     title = models.CharField(max_length=50, verbose_name='标题')
     content = RichTextUploadingField(verbose_name='内容')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')

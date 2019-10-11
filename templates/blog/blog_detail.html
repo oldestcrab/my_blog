@@ -19,6 +19,7 @@
                 <li>发表日期:&nbsp;{{ blog.created_time }}</li>
                 <li>最近更新:&nbsp;{{ blog.last_update_time }}</li>
                 <li>评论数:&nbsp;{% get_comment_count blog %}</li>
+                <li>阅读量:&nbsp;{{ blog.get_read_num }}</li>
             </ul>
             <div class="blog-content">{{ blog.content|safe }}</div>
             <div class="blog-more">
