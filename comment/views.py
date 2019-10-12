@@ -25,7 +25,7 @@ def comment_update(request):
             'username': comment.user.get_nickname_or_username(),
             'comment_time': comment.comment_time.strftime('%Y-%m-%d %H:%M:%S'),
             'comment_content': comment.content,
-            'comment_type': ContentType.objects.get_for_model(comment).model,
+            'content_type': ContentType.objects.get_for_model(comment).model,
             'status': 'SUCCESS',
             'pk': comment.pk,
             'root_pk': comment.root.pk if comment.root else '',

@@ -2,6 +2,7 @@
 {% block title %}{{ blog.title }}{% endblock title %}
 {% load staticfiles %}
 {% load comment_tags %}
+{% load likes_tags %}
 {% block header_extends %}
 <link href="{% static 'blog.css' %}" rel="stylesheet">
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
@@ -20,8 +21,13 @@
                 <li>最近更新:&nbsp;{{ blog.last_update_time }}</li>
                 <li>评论数:&nbsp;{% get_comment_count blog %}</li>
                 <li>阅读量:&nbsp;{{ blog.get_read_num }}</li>
+                <li>点赞:&nbsp;{% get_like_num blog %}</li>
             </ul>
             <div class="blog-content">{{ blog.content|safe }}</div>
+            <div class="like" onclick="like_change(this, '{% get_content_type blog %}', '{{ blog.pk }}')">
+                <span class="glyphicon glyphicon-thumbs-up {% get_like_status blog %}"></span>
+                <span class="liked-num">{% get_like_num blog %}</span>
+            </div>
             <div class="blog-more">
                 <p>上一篇:
                     {% if previously_blog %}
@@ -71,6 +77,10 @@
                         <span>{{ comment.user.get_nickname_or_username }}</span>
                         <span>({{ comment.comment_time|date:'Y-m-d H:i:s' }})</span>
                         <div id="comment_{{ comment.pk }}">{{ comment.content|safe }}</div>
+                        <div class="like" onclick="like_change(this, '{% get_content_type comment %}', '{{ comment.pk }}')">
+                            <span class="glyphicon glyphicon-thumbs-up {% get_like_status comment %}"></span>
+                            <span class="liked-num">{% get_like_num comment %}</span>
+                        </div>
                         <a href="javascript:reply({{ comment.pk }})">回复</a>
 
                         {% for reply in comment.root_comment.all %}
@@ -80,6 +90,12 @@
                             <span>回复</span>
                             <span>{{ reply.reply_to.get_nickname_or_username }}:</span>
                             <div id="comment_{{ reply.pk }}">{{ reply.content|safe }}</div>
+                            <div class="like"
+                                onclick="like_change(this, '{% get_content_type reply %}', '{{ reply.pk }}')">
+                                <span class="glyphicon glyphicon-thumbs-up {% get_like_status reply %}"></span>
+                                <span class="liked-num">{% get_like_num reply %}</span>
+
+                            </div>
                             <a href="javascript:reply({{reply.pk}})">回复</a>
                         </div>
                         {% endfor %}
@@ -119,6 +135,7 @@
         });
     };
 
+    // 提交评论
     $('#comment_form').submit(function () {
         // 清空错误信息
         $('#comment_error').text('');
@@ -143,6 +160,10 @@
                             '<span>{1}</span>' +
                             '<span>({2})</span>' +
                             '<div id="comment_{0}">{3}</div>' +
+                            '<div class="like" onclick="like_change(this, \'{4}\', {0})">' +
+                            '<span class="glyphicon glyphicon-thumbs-up"></span>' +
+                            '<span class="liked-num">0</span>' +
+                            '</div>' +
                             '<a href="javascript:reply({0});">回复</a>' +
                             '</div>' +
                             '</div>';
@@ -159,10 +180,15 @@
                             '<span> 回复</span>' +
                             '<span>{4}:</span>' +
                             '<div id="comment_{0}">{3}</div>' +
+                            '<div class="like" onclick="like_change(this, \'{5}\', {0})">' +
+                            '<span class="glyphicon glyphicon-thumbs-up"></span>' +
+                            '<span class="liked-num">0</span>' +
+                            '</div>' +
                             '<a href="javascript:reply({0});">回复</a>' +
                             '</div>';
                         var reply_html = reply_html.format(data['pk'], data['username'], data[
-                            'comment_time'], data['comment_content'], data['reply_to'], )
+                            'comment_time'], data['comment_content'], data['reply_to'],  data[
+                            'content_type'],)
 
                         $("#root_" + data['root_pk']).append(reply_html)
                     };
@@ -186,5 +212,38 @@
         });
         return false;
     });
+
+    // 提交点赞
+    function like_change(obj, content_type, object_id) {
+        var is_like = obj.getElementsByClassName('active').length == 0;
+        $.ajax({
+            url: "{% url 'likes:like_change' %}",
+            type: 'get',
+            data: {
+                content_type: content_type,
+                object_id: object_id,
+                is_like: is_like,
+            },
+            cache: false,
+            success: function (data) {
+                if (data['status'] == 'SUCCESS') {
+                    // 更新点赞状态
+                    var element = $(obj.getElementsByClassName('glyphicon'));
+                    if (is_like) {
+                        element.addClass('active');
+                    } else {
+                        element.removeClass('active');
+                    }
+                    var liked_num = $(obj.getElementsByClassName('liked-num'));
+                    liked_num.text(data['liked_num']);
+                } else {
+                    alert(data['message'])
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr)
+            },
+        });
+    }
 </script>
 {% endblock script_extends %}

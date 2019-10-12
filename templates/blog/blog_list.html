@@ -2,6 +2,7 @@
 {% block title %}博客{% endblock title %}
 {% load staticfiles %}
 {% load comment_tags %}
+{% load likes_tags %}
 {% block header_extends %}
 <link href="{% static 'blog.css' %}" rel="stylesheet">
 {% endblock header_extends %}
@@ -23,6 +24,7 @@
               <span class="glyphicon glyphicon-time">{{ blog.created_time|date:'Y-m-d' }}</span>&nbsp;&nbsp;
               <span class="glyphicon glyphicon-comment">{% get_comment_count blog %}</span>&nbsp;&nbsp;
               <span class="glyphicon glyphicon-eye-open">{{ blog.get_read_num }}</span>&nbsp;&nbsp;
+              <span class="glyphicon glyphicon-thumbs-up">{% get_like_num blog %}</span>&nbsp;&nbsp;
             </p>
             <p>{{ blog.content|striptags|truncatechars:120 }}</p>
           </div>
