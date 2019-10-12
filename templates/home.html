@@ -9,6 +9,26 @@
 {% block content %}
 <!-- 图标容器 DOM -->
 <div id="container"></div>
+<div class="hot-data">
+    <h3>今日热门博客</h3>
+    <ul>
+        {% for blog in range_day_hot_blog_0 %}
+        <li><a href="{% url 'blog:blog_detail' blog.id %}">{{ blog.title }}({{  blog.read_num_detail }})</a></li>
+        {% empty %}
+        <li>暂无热门博客</li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="hot-data">
+    <h3>一周内热门博客</h3>
+    <ul>
+        {% for blog in range_day_hot_blog_7 %}
+        <li><a href="{% url 'blog:blog_detail' blog.id %}">{{ blog.title }}({{  blog.read_num_detail }})</a></li>
+        {% empty %}
+        <li>暂无热门博客</li>
+        {% endfor %}
+    </ul>
+</div>
 <script>
     var options = {
         chart: {

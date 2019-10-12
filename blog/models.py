@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericRelation
 
 from ckeditor_uploader.fields import RichTextUploadingField
 
-from read_statistics.models import ReadNumExpandMethod
+from read_statistics.models import ReadNumExpandMethod, ReadNumDetail
 
 class BlogType(models.Model):
     type_name = models.CharField(max_length=15, verbose_name='博客分类')
@@ -23,6 +24,8 @@ class Blog(models.Model, ReadNumExpandMethod):
     last_update_time = models.DateTimeField(auto_now=True, verbose_name='更新时间')
     blog_type = models.ForeignKey(BlogType, on_delete=models.CASCADE,verbose_name='博客分类')
     is_delete = models.BooleanField(default=False, verbose_name='删除')
+    # # 反向关联模型，产生对应关系，不会产生字段
+    read_num_details = GenericRelation(ReadNumDetail)
 
     class Meta:
         verbose_name = '博客'
