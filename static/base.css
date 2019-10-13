@@ -5,38 +5,55 @@
 
 body {
     margin-top: 80px !important;
+    background: #f8f8f8;
 }
 
-/* 设置全局ul样式 */
+/* 设置全局样式 */
+
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
 ul {
     list-style-type: none !important;
 }
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+/* 导航栏设置 */
+div.navbar {
+    line-height: 46px;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    height: 46px;
+    font-size: 12px;
+    z-index: 2;
+}
+
 
 .blog-footer {
     padding-top: 30px;
     padding-bottom: 30px;
     margin-top: 70px !important;
-    color: #99979c;
-    text-align: center;
-    background-color: #2a2730;
+    padding: 20px 0;
+    background-color: #ececec;
+    font-size: 12px;
 
-}
-
-.blog-footer a {
-    color: #fff
-}
-
-.blog-footer-links {
-    padding-left: 0;
-    margin-bottom: 20px
-}
-
-.blog-footer-links li {
-    display: inline-block
-}
-
-.blog-footer-links li+li {
-    margin-left: 15px
 }
 
 @media (min-width:768px) {
@@ -47,4 +64,116 @@ ul {
     .blog-footer p {
         margin-bottom: 0
     }
+}
+
+.footer {
+    padding: 20px 0;
+    background-color: #ececec;
+    font-size: 12px;
+}
+
+.footer .footer-top {
+    margin-bottom: 20px;
+}
+
+.footer .footer-nav div {
+    float: left;
+    height: 86px;
+    line-height: 28px;
+    border-right: 1px solid #e5e5e5;
+    padding: 0 44px;
+}
+
+.footer .footer-nav div:last-of-type {
+    border-right: none
+}
+
+.footer .footer-nav div h5 {
+    line-height: 30px;
+    color: #b5b5b5
+}
+
+.footer .footer-nav div a {
+    color: #333;
+    margin-right: 24px;
+    display: inline-block
+}
+
+.footer .footer-nav .item-cooperation {
+    padding-left: 0
+}
+
+
+.footer .footer-nav .item-function a:nth-child(3) {
+    margin-right: 0
+}
+
+.footer-avatar-ac {
+    position: relative;
+    background: #fff;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.footer-avatar-ac img {
+    vertical-align: middle
+}
+
+.footer-avatar-ac .num.active{
+    position: absolute;
+    color: #fff;
+    background-color: #ff4136;
+    right: 4px;
+    top: 12px;
+    height: 16px;
+    line-height: 16px;
+    padding: 0 4px;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    font-size: 12px
+}
+
+.footer .footer-link {
+    line-height: 24px;
+    margin-bottom: 20px;
+    color: #999;
+    position: relative;
+}
+
+.footer .footer-link a {
+    color: #999
+}
+
+.footer .footer-link div {
+    float: left;
+    width: auto;
+    padding-left: 18px
+}
+
+.footer .footer-link .item-link1 {
+    padding-left: 0
+}
+
+.footer .footer-link .item-link2,
+.footer .footer-link .item-link3 {
+    width: auto;
+    padding-left: 59px
+}
+
+.footer .footer-link .item-icon-1 {
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAQCAMAAABA3o1rAAABTVBMVEUAAADWAA8EnOfWAA/YAA8Ald7nAAHfAAgAluDYAA8Anu0AkuIAl94Alt8CoO8Am+LYAA8GmeUAo/TUBhHgAQfWAgvgAAcAieToAANbWosAnOU+dKzjAATVAA/VABAAj9kAneXTAA/lAAHsAAAAmOcDoe8Aq//QChQAluDwAAHaChAApejHEh0AmucAld/VABEAe75TW40Ahc3UAAYAl+rxAAZgWIwAn+LJAAbwAAZSYJRmVYMnis4AqPyrGyneAAoAqv3WABG1KT213evWAA/S6vMAluD6/PwAh7vg8fcFi74BdrDC4+9MqM7q9fr1+/3N6PIBgbTy+f3t9/vc7/bJ5fCNyuF4wNwxnsj////w+Puq1+cAleBpt9X2/f6Z0uYAmeM1l8QelsMakL3TABDl8PuOw93X6fj98vEAn+0AneoAkd/tcnLXABHZABBZG46EAAAAQ3RSTlMAzybp3/399+zV0dHMyL25tbCrjIVqXkFBQDIVDPvy39jY1cLAsp2dm5iTko2MiHJhWVNTUVBNSEhFNjQhIB4ZFxML8b/YSQAAAWlJREFUKM91kcVWY1EURCsQaNy1od3d3fu6Pbe4Aa3w/0PCW8kM9qzOXmdShfMQsQqCpC5wAR5JG78UscTDmIlHi4tzT/ZQ4jeimtewfhQ1/LFf/cf/LL34WoaEkSRzhel16jZNytPl5almd3V3/dYOABEQz4WDWu5CF7HUP/O3m83u2seH0yeV94BgXkubrOa1jM7rLAK2Fzjna59/PrhCj2+8gmLQskey3GipwRK8nud85v4X4Nv6JKXVLQsmddHL2qGRmiHF8vB/YQJDfqxQSisWVvYLZ48OW6G0SPH8WpfPPP0O7D+rUjr5XykhtevkxtUK01YKeHmd86m7e/sbV4d+87cI4GTYOur0w75DUAfwbr75d+nTxiV6UN0CBGnHUkszyAfG80lZ1fbcnd3HQz/75iwpIpJC6tDksSBq1OTbe9P0oPJhVDUBgiwLABJhxObN2crKzjgdEhYDHiv/L5ibpZbF5dynAIdWsI2ALm4AAAAASUVORK5CYII=") no-repeat 0 0;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    vertical-align: middle
+}
+
+
+.footer .footer-bottom {
+    text-align: center;
+    color: #b5b5b5;
 }
