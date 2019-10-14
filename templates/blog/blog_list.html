@@ -5,6 +5,7 @@
 {% load likes_tags %}
 {% block header_extends %}
 <link href="{% static 'blog.css' %}" rel="stylesheet">
+<link href="{% static 'blogchannel.min.css' %}" rel="stylesheet">
 {% endblock header_extends %}
 {% block nav_blog_active %}active{% endblock nav_blog_active %}
 {% block content %}
@@ -12,11 +13,11 @@
   <div class="row">
     <!-- 设置在不同大小屏幕显示的大小 -->
     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
-      <div class="panel panel-default">
-        <div class="panel-heading">{{ blog_title }}</div>
-        <div class="panel-body">
+      <div class="a-column-left">
+        <!-- <div class="panel-heading">{{ blog_title }}</div> -->
+        <div class="article-list">
           {% for blog in current_page.object_list %}
-          <div class="blog">
+          <!-- <div class="blog">
             <h3><a href="{% url 'blog:blog_detail' blog.pk %}">{{ blog.title }}</a></h3>
             <p class="blog-info">
               <span class="glyphicon glyphicon-tag"></span>
@@ -27,7 +28,29 @@
               <span class="glyphicon glyphicon-thumbs-up">{% get_like_num blog %}</span>&nbsp;&nbsp;
             </p>
             <p>{{ blog.content|striptags|truncatechars:120 }}</p>
+          </div> -->
+
+          <div class="article-item clearfix weblog-item">
+            <div class="atc-left fl clearfix">
+              <div class="comm-count">{% get_comment_count blog %}</div>
+              <div class="comm-tt">评论</div>
+            </div>
+            <div class="atc-right fl clearfix">
+              <div class="act-cont-top clearfix"><a href="{% url 'blog:blog_detail' blog.pk %}" target="_blank"
+                  class="atc-title fl">{{ blog.title }}</a>
+              </div>
+              <div class="atc-content clearfix">{{ blog.content|striptags|truncatechars:120 }}
+              </div>
+              <div class="atc-info clearfix">
+                <a href="" target="_blank" class="atc-up act-info-mg fl">UP：{{ request.user }}</a>
+                <p class="atc-time act-info-mg fl">{{ blog.created_time }}</p>
+                <p class="atc-view act-info-mg fl"><span class="glyphicon glyphicon-eye-open"></span><span
+                    class="views">{{ blog.get_read_num }}</span>
+                <p class="atc-domain-t fr">来自：<a>{{ blog.blog_type }}</a></p>
+              </div>
+            </div>
           </div>
+          <hr class="article-item-hr">
           {% empty %}
           <div class="blog">
             <h3>暂无博客，敬请期待</h3>
@@ -45,7 +68,8 @@
         <div class="panel-body">
           <ul class="blog-types">
             {% for blog_type in blog_type_list %}
-            <li><a href="{% url 'blog:blog_with_type' blog_type.pk %}">{{ blog_type }}({{ blog_type.blog_count }})</a></li>
+            <li><a href="{% url 'blog:blog_with_type' blog_type.pk %}">{{ blog_type }}({{ blog_type.blog_count }})</a>
+            </li>
             {% empty %}
             <li>暂无分类</li>
             {% endfor %}
@@ -58,7 +82,9 @@
         <div class="panel-body">
           <ul class="blog-types">
             {% for blog_date,blog_count in blog_date_dict.items %}
-            <li><a href="{% url 'blog:blog_with_date' blog_date.year blog_date.month %}">{{ blog_date|date:'Y-m' }}({{ blog_count }})</a></li>
+            <li><a
+                href="{% url 'blog:blog_with_date' blog_date.year blog_date.month %}">{{ blog_date|date:'Y-m' }}({{ blog_count }})</a>
+            </li>
             {% empty %}
             <li>暂无分类</li>
             {% endfor %}

@@ -1,0 +1,253 @@
+#container .a-column-left {
+    width: 800px;
+    float: left;
+    margin-top: 30px
+}
+
+#container .a-column-right {
+    width: 290px;
+    float: right;
+    margin-top: 30px
+}
+
+.article-list {
+    width: 800px;
+    margin-bottom: 50px;
+}
+
+.article-list .article-item {
+    position: relative;
+    height: 80px;
+}
+
+.article-list .article-item .atc-left {
+    width: 70px;
+    text-align: right;
+}
+
+.article-list .article-item .atc-left .comm-count {
+    margin: 0 0 4px 4px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fd4c5b;
+    letter-spacing: 0;
+    line-height: 20px
+}
+
+.article-list .article-item .atc-left .comm-tt {
+    font-size: 12px;
+    color: #999;
+    letter-spacing: 0;
+    line-height: 12px
+}
+
+/* .article-list .article-item .atc-left .impression {
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+}
+
+.article-list .article-item .atc-left .impression img {
+    width: 40px;
+    height: 40px
+} */
+
+/* .article-list .article-item .atc-center {
+    width: 548px;
+    height: 80px;
+    margin-left: 20px;
+} */
+
+/* .article-list .article-item .atc-image img {
+    width: 140px;
+    height: 80px;
+    margin-left: 20px;
+    border-radius: 4px
+} */
+
+.article-list .article-item .atc-right {
+    width: 705px;
+    margin-left: 20px;
+}
+
+.article-list .article-item .atc-right .act-cont-top {
+    width: 705px;
+}
+
+.article-list .article-item .atc-right .act-cont-top .atc-title {
+    max-width: 630px;
+    font-weight: bold
+}
+
+.article-list .article-item .atc-right .atc-content {
+    width: 685px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis
+}
+
+.act-cont-top {
+    width: 560px;
+}
+
+.act-cont-top .atc-title {
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 500px;
+    font-size: 18px;
+    color: #333;
+    letter-spacing: 0;
+    line-height: 20px;
+    height: 20px;
+}
+
+.act-cont-top .atc-title:visited {
+    color: #999
+}
+
+.act-cont-top .atc-title:hover {
+    color: #fd4c5b
+}
+
+.act-cont-top .atc-original {
+    width: 44px;
+    height: 20px;
+    border: 1px solid #58a3ff;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #58a3ff;
+    letter-spacing: 0;
+    line-height: 20px;
+    text-align: center;
+    margin-left: 10px
+}
+
+.atc-content {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 540px;
+    height: 14px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #999;
+    line-height: 14px;
+}
+
+.atc-content:hover {
+    color: #999
+}
+
+.atc-info {
+    font-size: 12px;
+    color: #999;
+    letter-spacing: 0;
+    margin-top: 21px;
+    line-height: 14px;
+}
+
+.atc-info .icon {
+    font-size: 12px
+}
+
+.atc-info .act-domain-t {
+    color: #000;
+}
+
+.atc-info .act-domain-t:hover {
+    color: #fd4c5b
+}
+
+.atc-info .act-info-mg {
+    font-size: 12px;
+    margin-right: 20px;
+    color: #999;
+}
+
+.atc-info .act-info-mg .views {
+    padding-left: 4px
+}
+
+.article-item-hr {
+    height: 1px;
+    border: none;
+    border-top: 1px;
+    background: #e6e6e6;
+    margin: 21px 0 21px 0;
+}
+
+.article-item-hr:last-child {
+    display: none
+}
+
+/* .wait-hide {
+    display: none
+}
+
+.article-wait {
+    width: 800px;
+    font-size: 14px;
+    color: #999;
+}
+
+.article-wait .article-wait-hr {
+    height: 1px;
+    border: none;
+    border-top: 1px;
+    background: #e6e6e6;
+    margin: 29px 0 29px 0
+}
+
+.article-wait .not-found {
+    text-align: center;
+    margin-bottom: 30px
+}
+
+.article-wait .found-wait {
+    width: 130px;
+    height: 60px;
+    margin: 0 auto 30px;
+}
+
+.article-wait .found-wait .wait-img {
+    width: 40px;
+    height: 60px;
+    background-image: url("../../img/page/articlechannel/loading.gif")
+}
+
+.article-wait .found-wait p {
+    padding-top: 40px
+}
+ */
+
+.article-hr {
+    height: 1px;
+    border: none;
+    border-top: 1px;
+    background: #e6e6e6
+}
+
+/* .a-area-ad {
+    width: 800px;
+    height: 110px;
+    margin-top: 30px
+}
+
+.a-area-ad-800 {
+    width: 800px;
+    height: 110px;
+    margin: 20px 0;
+    position: relative
+} */
+
+@media screen and (max-width:1280px) {
+    .main .wp {
+        width: 1120px
+    }
+}
