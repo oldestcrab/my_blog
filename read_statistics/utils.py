@@ -21,7 +21,9 @@ def read_statistics_once_read(request, obj):
         readnum.read_num +=1
         readnum.save()
 
-        readnumdetail, create = ReadNumDetail.objects.get_or_create(content_type=content_type, object_id=obj.pk)
+        # 当前时间
+        date = timezone.now().date()
+        readnumdetail, create = ReadNumDetail.objects.get_or_create(content_type=content_type, object_id=obj.pk, date=date)
         readnumdetail.read_num +=1
         readnumdetail.save()
 
