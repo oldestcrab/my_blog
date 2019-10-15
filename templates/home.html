@@ -2,32 +2,63 @@
 {% block title %}首页{% endblock title %}
 {% load staticfiles %}
 {% block header_extends %}
+// todo:样式css文件整理
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link href="{% static 'css/blogchannel.css' %}" rel="stylesheet">
 <script src="{% static 'js/highcharts.js' %}"></script>
 {% endblock header_extends %}
 {% block nav_home_active %}active{% endblock nav_home_active %}
 {% block content %}
-<!-- 图标容器 DOM -->
-<div id="container"></div>
-<div class="hot-data">
-    <h3>今日热门博客</h3>
-    <ul>
-        {% for blog in range_day_hot_blog_0 %}
-        <li><a href="{% url 'blog:blog_detail' blog.id %}">{{ blog.title }}({{  blog.read_num_detail }})</a></li>
-        {% empty %}
-        <li>暂无热门博客</li>
-        {% endfor %}
-    </ul>
-</div>
-<div class="hot-data">
-    <h3>一周内热门博客</h3>
-    <ul>
-        {% for blog in range_day_hot_blog_7 %}
-        <li><a href="{% url 'blog:blog_detail' blog.id %}">{{ blog.title }}({{  blog.read_num_detail }})</a></li>
-        {% empty %}
-        <li>暂无热门博客</li>
-        {% endfor %}
-    </ul>
+<div class="container">
+    <div class="row">
+        {# 内容左侧 #}
+        <div class="col-md-9">
+            <div class="a-column-left">
+                <!-- 图标容器 DOM -->
+                <div id="container"></div>
+            </div>
+        </div>
+        {# 内容右侧 #}
+        <div class="col-md-3">
+            {# 内容右侧 #}
+            <div class="a-column-right">
+                {# 今日热门博客 #}
+                <div class="recom">
+                    <div class="recom-head">
+                        <div class="recom-title">今日热门博客</div>
+                        <hr class="article-hr recom-hr">
+                    </div>
+                    {% for blog in range_day_hot_blog_0 %}
+                    <div class="recom-list clearfix">
+                        <div class="recom-item fl clearfix">
+                            <div class="item-info fl clearfix"><a href="{% url 'blog:blog_detail' blog.id %}"
+                                    target="_blank" class="item-title">{{ blog.title }}</a>
+                                <p><span class="item-count">阅读量: {{  blog.read_num_detail }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {# 一周内热门博客 #}
+                <div class="recom">
+                    <div class="recom-head">
+                        <div class="recom-title">一周内热门博客</div>
+                        <hr class="article-hr recom-hr">
+                    </div>
+                    {% for blog in range_day_hot_blog_7 %}
+                    <div class="recom-list clearfix">
+                        <div class="recom-item fl clearfix">
+                            <div class="item-info fl clearfix"><a href="{% url 'blog:blog_detail' blog.id %}"
+                                    target="_blank" class="item-title">{{ blog.title }}</a>
+                                <p><span class="item-count">阅读量: {{  blog.read_num_detail }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     var options = {
@@ -39,7 +70,7 @@
             text: null
         },
         xAxis: {
-            categories: {{days | safe}},
+            categories: {{ days|safe }},
             tickmarkPlacement: 'on',
             title: {
                 text: '前7天博客阅读量',
