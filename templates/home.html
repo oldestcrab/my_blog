@@ -2,8 +2,8 @@
 {% block title %}首页{% endblock title %}
 {% load staticfiles %}
 {% block header_extends %}
-<link rel="stylesheet" href="{% static 'home.css' %}">
-<script src="{% static 'highcharts.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<script src="{% static 'js/highcharts.js' %}"></script>
 {% endblock header_extends %}
 {% block nav_home_active %}active{% endblock nav_home_active %}
 {% block content %}
@@ -32,7 +32,7 @@
 <script>
     var options = {
         chart: {
-            backgroundColor: '#f8f8f8',
+            // backgroundColor: '#f8f8f8',
             type: 'line',
         },
         title: {

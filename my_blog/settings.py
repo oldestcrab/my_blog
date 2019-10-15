@@ -16,7 +16,6 @@ from decouple import config, Csv
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-
 
 # Application definition
 
@@ -64,7 +62,7 @@ ROOT_URLCONF = 'my_blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,7 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'my_blog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -94,10 +91,9 @@ DATABASES = {
         'USER': config('MYSQL_USER'),
         'PASSWORD': config('MYSQL_PASSWORD'),
         'HOST': config('MYSQL_HOST'),
-        'PORT':  config('MYSQL_PORT'),
+        'PORT': config('MYSQL_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -117,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -131,12 +126,11 @@ USE_L10N = True
 
 USE_TZ = False
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = '/static/'
 
 # media
@@ -146,21 +140,41 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # 配置ckeditor
 CKEDITOR_UPLOAD_PATH = 'upload/'
 CKEDITOR_CONFIGS = {
-    'default':{},
-    'comment_ckeditor':{
-        # 工具栏样式
+    'default': {
+# 工具栏风格
         'toolbar': 'Custom',
+        # 工具栏按钮
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
-            ['TextColor', 'BGcolor', 'RemoveFormat'],
+            ['TextColor', 'BGColor', 'RemoveFormat'],
             ['NumberedList', 'BulletedList'],
             ['Link', 'Unlink'],
-            ['Smiley', 'specialChar', 'Blockquote'],
+            ['Smiley', 'SpecialChar', 'CodeSnippet', 'Markdown'],
         ],
+        # tab键转换空格数
+        'tabSpaces': 4,
+        #  添加插件
+        'extraPlugins': ','.join(['codesnippet', 'markdown']),
+    },
+    'comment_ckeditor': {
+        # 工具栏风格
+        'toolbar': 'Custom',
+        # 工具栏按钮
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+            ['TextColor', 'BGColor', 'RemoveFormat'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['Smiley', 'SpecialChar', 'CodeSnippet', 'Markdown'],
+        ],
+        # 编辑器宽度自适应
         'width': 'auto',
         'height': '180',
+        # tab键转换空格数
         'tabSpaces': 4,
         'removePlugins': 'elementspath',
         'resize_enabled': False,
+        #  添加插件
+        'extraPlugins': ','.join(['codesnippet', 'markdown']),
     }
 }
