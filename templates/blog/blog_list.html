@@ -4,32 +4,41 @@
 {% load comment_tags %}
 {% load likes_tags %}
 {% block header_extends %}
-<link href="{% static 'blog.css' %}" rel="stylesheet">
-<link href="{% static 'blogchannel.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/blog.css' %}" rel="stylesheet">
+<link href="{% static 'css/blogchannel.css' %}" rel="stylesheet">
 {% endblock header_extends %}
 {% block nav_blog_active %}active{% endblock nav_blog_active %}
 {% block content %}
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <!-- 设置在不同大小屏幕显示的大小 -->
     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+      {# 内容左侧 #}
       <div class="a-column-left">
-        <!-- <div class="panel-heading">{{ blog_title }}</div> -->
+        {# 列表标题栏 #}
+        <div class="refresh-bar">
+          <div class="bar-action clearfix">
+            <div class="btn-all ref-bar-btn action fl">{{ blog_title }}</div>
+          </div>
+          <div class="bar-filter">
+            <div class="select article-select article-select2 fl hidden" style="display: none;">
+            </div>
+            <div data-select-type="1" style="margin-right:-10px" class="select article-select article-select1 fl">
+              <div class="atc-select-label clearfix">
+                <p class="atc-label fl">最新发表</p>
+                <div class="icon fr"><img
+                    src="https://cdn.aixifan.com/acfun-pc/2.8.31/img/page/articlechannel/arrow.png"></div>
+              </div>
+              <div data-defaultsort="1" class="atc-select-list atcslect-list" style="display: none;">
+                <div data-type="1" data-select="true" class="ast-item action">最新发表</div>
+                <div data-type="2" data-showtimetpace="true" data-select="false" class="ast-item">最热文章</div>
+              </div>
+            </div>
+          </div>
+          <hr class="refres-hr">
+        </div>
         <div class="article-list">
           {% for blog in current_page.object_list %}
-          <!-- <div class="blog">
-            <h3><a href="{% url 'blog:blog_detail' blog.pk %}">{{ blog.title }}</a></h3>
-            <p class="blog-info">
-              <span class="glyphicon glyphicon-tag"></span>
-              <a href="">{{ blog.blog_type }}</a>&nbsp;&nbsp;
-              <span class="glyphicon glyphicon-time">{{ blog.created_time|date:'Y-m-d' }}</span>&nbsp;&nbsp;
-              <span class="glyphicon glyphicon-comment">{% get_comment_count blog %}</span>&nbsp;&nbsp;
-              <span class="glyphicon glyphicon-eye-open">{{ blog.get_read_num }}</span>&nbsp;&nbsp;
-              <span class="glyphicon glyphicon-thumbs-up">{% get_like_num blog %}</span>&nbsp;&nbsp;
-            </p>
-            <p>{{ blog.content|striptags|truncatechars:120 }}</p>
-          </div> -->
-
           <div class="article-item clearfix weblog-item">
             <div class="atc-left fl clearfix">
               <div class="comm-count">{% get_comment_count blog %}</div>
@@ -42,11 +51,12 @@
               <div class="atc-content clearfix">{{ blog.content|striptags|truncatechars:120 }}
               </div>
               <div class="atc-info clearfix">
-                <a href="" target="_blank" class="atc-up act-info-mg fl">UP：{{ request.user }}</a>
+                <a href="" class="atc-up act-info-mg fl">UP：{{ request.user }}</a>
                 <p class="atc-time act-info-mg fl">{{ blog.created_time }}</p>
                 <p class="atc-view act-info-mg fl"><span class="glyphicon glyphicon-eye-open"></span><span
                     class="views">{{ blog.get_read_num }}</span>
-                <p class="atc-domain-t fr">来自：<a>{{ blog.blog_type }}</a></p>
+                  <p class="atc-domain-t fr">来自：<a class="act-domain-t fr"
+                      href="{% url 'blog:blog_with_type' blog.blog_type.pk %}">{{ blog.blog_type }}</a></p>
               </div>
             </div>
           </div>
@@ -62,33 +72,42 @@
       {% include "share_layout/pagination.html" %}
     </div>
     <div class="hidden-xs col-sm-4 col-md-3 col-lg-3">
-      {# 按类型分类 #}
-      <div class="panel panel-default">
-        <div class="panel-heading">博客分类</div>
-        <div class="panel-body">
-          <ul class="blog-types">
-            {% for blog_type in blog_type_list %}
-            <li><a href="{% url 'blog:blog_with_type' blog_type.pk %}">{{ blog_type }}({{ blog_type.blog_count }})</a>
-            </li>
-            {% empty %}
-            <li>暂无分类</li>
-            {% endfor %}
-          </ul>
+      {# 内容右侧 #}
+      <div class="a-column-right">
+        {# 按类型分类 #}
+        <div class="recom">
+          <div class="recom-head">
+            <div class="recom-title">博客分类</div>
+            <hr class="article-hr recom-hr">
+          </div>
+          {% for blog_type in blog_type_list %}
+          <div class="recom-list clearfix">
+            <div class="recom-item fl clearfix">
+              <div class="item-info fl clearfix"><a href="{% url 'blog:blog_with_type' blog_type.pk %}" target="_blank"
+                  class="item-title">{{ blog_type }}</a>
+                <p><span class="item-count">文章: {{ blog_type.blog_count }}</span></p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
         </div>
-      </div>
-      {# 按月分类 #}
-      <div class="panel panel-default">
-        <div class="panel-heading">日期归档</div>
-        <div class="panel-body">
-          <ul class="blog-types">
-            {% for blog_date,blog_count in blog_date_dict.items %}
-            <li><a
-                href="{% url 'blog:blog_with_date' blog_date.year blog_date.month %}">{{ blog_date|date:'Y-m' }}({{ blog_count }})</a>
-            </li>
-            {% empty %}
-            <li>暂无分类</li>
-            {% endfor %}
-          </ul>
+        {# 按月分类 #}
+        <div class="recom">
+          <div class="recom-head">
+            <div class="recom-title">日期归档</div>
+            <hr class="article-hr recom-hr">
+          </div>
+          {% for blog_date,blog_count in blog_date_dict.items %}
+          <div class="recom-list clearfix">
+            <div class="recom-item fl clearfix">
+              <div class="item-info fl clearfix"><a
+                  href="{% url 'blog:blog_with_date' blog_date.year blog_date.month %}" target="_blank"
+                  class="item-title">{{ blog_date|date:'Y-m' }}</a>
+                <p><span class="item-count">文章: {{ blog_count }}</span></p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
         </div>
       </div>
     </div>

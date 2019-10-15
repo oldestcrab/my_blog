@@ -1,15 +1,118 @@
-#container .a-column-left {
+.a-column-left {
     width: 800px;
     float: left;
     margin-top: 30px
 }
 
-#container .a-column-right {
-    width: 290px;
+.a-column-right {
+    width: 250px;
     float: right;
     margin-top: 30px
 }
 
+/* 列表标题样式 */
+.refresh-bar {
+    width: 800px;
+    height: 70px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.refresh-bar .bar-action .ref-bar-btn {
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    line-height: 44px;
+    margin-right: 36px;
+}
+
+.refresh-bar .bar-action .ref-bar-btn:hover {
+    color: #fd4c5b
+}
+
+.refresh-bar .bar-action .action {
+    color: #fd4c5b;
+    border-bottom: 4px solid #fd4c5d
+}
+
+.refresh-bar .bar-filter {
+    position: absolute;
+    right: 0;
+    bottom: 28px
+}
+
+.refresh-bar .article-select {
+    width: 85px;
+    font-size: 14px;
+    color: #333;
+    position: relative;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.refresh-bar .article-select .atc-select-label {
+    curosr: pointer;
+}
+
+.refresh-bar .article-select .atc-select-label .atc-label {
+    width: 60px;
+    text-align: center
+}
+
+.refresh-bar .article-select .atc-select-label .icon {
+    margin-right: 10px;
+}
+
+.refresh-bar .article-select .atc-select-label .icon img {
+    margin-top: 8px
+}
+
+.refresh-bar .article-select .atcslect-list {
+    padding: 5px 0;
+    display: none;
+    background: #fff;
+    box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, 0.3);
+    position: absolute;
+    width: 100px;
+    text-align: center;
+    margin-left: -22px;
+    z-index: 1;
+}
+
+.refresh-bar .article-select .atcslect-list .ast-item {
+    cursor: pointer;
+    height: 36px;
+    line-height: 36px;
+}
+
+.refresh-bar .article-select .atcslect-list .ast-item:hover {
+    color: #fd4c5b
+}
+
+.refresh-bar .article-select .atcslect-list .action {
+    color: #fd4c5b
+}
+
+.refresh-bar .article-select .atcslect-list .atc-select-list {
+    top: 26px;
+    left: -21px
+}
+
+.refresh-bar .article-select .atcslect-list .atc-select-list-time {
+    top: 26px;
+    left: -21px
+}
+
+
+.refres-hr {
+    height: 1px;
+    border: none;
+    border-top: 1px;
+    background: #e6e6e6;
+    margin-top: -2px
+}
+
+/* 列表内容样式 */
 .article-list {
     width: 800px;
     margin-bottom: 50px;
@@ -174,6 +277,10 @@
     padding-left: 4px
 }
 
+.atc-info .act-domain-t {
+    color: #000;
+}
+
 .article-item-hr {
     height: 1px;
     border: none;
@@ -245,6 +352,89 @@
     margin: 20px 0;
     position: relative
 } */
+
+/* 右侧样式 */
+.recom {
+    width: 280px;
+    color: #999;
+}
+
+.recom .recom-head .recom-title {
+    color: #333;
+    font-size: 20px;
+    line-height: 40px
+}
+
+.recom-item {
+    width: 130px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.recom-item:nth-child(2n+0) {
+    margin-right: 0
+}
+
+.recom-item .item-face img {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px
+}
+
+.recom-item .item-info {
+    margin-left: 10px;
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.recom-item .item-info .item-title {
+    color: #333;
+    font-size: 14px;
+    line-height: 28px;
+}
+
+.recom-item .item-info .item-titlehover {
+    color: #fd4c5b
+}
+
+.recom-item .item-info p {
+    width: 68px;
+    height: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 3px;
+}
+
+.recom-item .item-info p .item-view {
+    margin-left: 20px
+}
+
+.recom-hr {
+    margin-top: 6px;
+}
+
+.recom-ad {
+    width: 280px;
+    margin-top: 40px;
+    color: #999;
+}
+
+.recom-ad .recom-head .recom-title {
+    color: #333;
+    font-size: 20px;
+    line-height: 20px
+}
+
+.recom-ad .recomad-item {
+    margin-bottom: 20px;
+}
+
+.recom-ad .recomad-item img {
+    width: 280px;
+    height: 110px;
+    border-radius: 4px
+}
+
 
 @media screen and (max-width:1280px) {
     .main .wp {
