@@ -128,3 +128,7 @@ div.navbar {
     color: #31708f;
     border: 1px solid #bce8f1
 }
+
+div .paginator {
+    padding-left: 48px;
+}

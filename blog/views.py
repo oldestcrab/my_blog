@@ -13,7 +13,7 @@ def get_blog_common_data(request, object_list ):
     :return: 博客的一些通用信息
     """
     # 获取分页器当前页以及页码列表
-    current_page, range_page = common_paginator(request, object_list, 7)
+    current_page, range_page = common_paginator(request, object_list, 10)
 
     # 获取所有博客分类
     blog_type_list = BlogType.objects.annotate(blog_count=Count('blog'))
