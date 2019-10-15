@@ -9,11 +9,11 @@
 {% endblock header_extends %}
 {% block nav_blog_active %}active{% endblock nav_blog_active %}
 {% block content %}
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <!-- 设置在不同大小屏幕显示的大小 -->
     {# 内容左侧 #}
-    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+    <div class="col-md-9">
       <div class="a-column-left">
         {# 列表标题栏 #}
         <div class="refresh-bar">
@@ -67,12 +67,12 @@
           </div>
           {% endfor %}
         </div>
+        {# 分页 #}
+        {% include "share_layout/pagination.html" %}
       </div>
-      {# 分页 #}
-      {% include "share_layout/pagination.html" %}
     </div>
     {# 内容右侧 #}
-    <div class="hidden-xs col-sm-4 col-md-3 col-lg-3">
+    <div class="col-md-3">
       {# 内容右侧 #}
       <div class="a-column-right">
         {# 按类型分类 #}

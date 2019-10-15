@@ -24,7 +24,7 @@
 </head>
 
 <body>
-  <div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar navbar-default navbar-fixed-top navbar-top">
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -113,7 +113,7 @@
   </footer>
 
   <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-  <script src="{% static 'jquery-1.12.4.min.js' %}"></script>
+  <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
   <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
   <script src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
   <script type="text/javascript">
@@ -124,7 +124,7 @@
       // 获取底部导航的高度
       var footerHeight = $("#footer").height();
       // 获取顶部部导航的高度
-      var navHeight = $(".navbar").height();
+      var navHeight = $(".navbar-top").height();
       // 获取显示屏的高度
       var iHeight = document.documentElement.clientHeight || document.body.clientHeight;
       // 如果内容的高度大于（窗口的高度 - 导航的高度）,移除属性样式
