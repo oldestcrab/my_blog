@@ -89,7 +89,7 @@
 }
 
 #footer .footer-con .footer-avatar-ac {
-    position: absolute;
+    /* position: absolute; */
     right: 0;
     background: #fff;
     width: 80px;
