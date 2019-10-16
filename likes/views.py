@@ -39,9 +39,8 @@ def like_change(request):
         model_obj = model_class.objects.get(pk=object_id)
     except ObjectDoesNotExist:
         return error_response('点赞对象不存在')
-
     #  判断是点赞还是取消点赞
-    if request.GET.get('is_like') == 'true':
+    if request.GET.get('is_like') == 'false':
         like_record, created = LikeRecord.objects.get_or_create(content_type=content_type, object_id=object_id, user=user)
         if created:
             # 点赞总数+1

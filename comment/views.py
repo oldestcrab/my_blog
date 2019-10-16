@@ -20,7 +20,7 @@ def comment_update(request):
             comment.parent = parent
             comment.reply_to = parent.user
         comment.save()
-
+        # 测试顶级评论和父辈评论是否一致，新评论ajax提交
         data = {
             'username': comment.user.get_nickname_or_username(),
             'comment_time': comment.comment_time.strftime('%Y-%m-%d %H:%M:%S'),

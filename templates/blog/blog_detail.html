@@ -52,10 +52,10 @@
                     </div>
                     <div id="article-operation" class="clearfix">
                         <div id="art-operate">
-                            <div class="like"
-                                onclick="like_change(this, '{% get_content_type blog %}', '{{ blog.pk }}')">
-                                <span class="glyphicon glyphicon-thumbs-up {% get_like_status blog %}"></span>
-                                <span class="liked-num">{% get_like_num blog %}</span>
+                            <div class="area-comment-tool">
+                                <a class="area-comment-up {% get_like_status blog %}"
+                                    onclick="like_change(this, '{% get_content_type blog %}', '{{ blog.pk }}')">
+                                    赞{% get_like_num blog %}</a>
                             </div>
                         </div>
                     </div>
@@ -78,76 +78,109 @@
                     {% endif %}
                 </p>
             </div>
+            {# 评论区域 #}
+
             <div class="comment-area">
-                <div class="area-comm-title">
-                    <div class="area-comm-title-left">
-                        <span class="area-comm-str">评论</span>
-                        <span
-                            class="area-comm-number">{% get_comment_count blog as comment_count %}{{ comment_count }}</span>
-                    </div>
-                    <div class="area-comm-title-right">
-                        <a class="area-updateComm" style="padding: 0px 23px;"><img
-                                src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTRweCIgaGVpZ2h0PSIxNHB4IiB2aWV3Qm94PSIwIDAgMTQgMTQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUyLjUgKDY3NDY5KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT7liLfmlrA8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZyBpZD0i5Yi35pawIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMi4wMDAwMDAsIC0zLjAwMDAwMCkiPgogICAgICAgICAgICA8cGF0aCBkPSJNMTMuNzcxMDUwNSw5Ljg2Nzg3MSBMMTIuOTQ2NjAwNCw5Ljg2Nzg3MSBDMTIuNjQwMzk4Miw5Ljg2Nzg3MSAxMi4zOTIxNzIyLDkuNjEzNDg3MzMgMTIuMzkyMTcyMiw5LjI5OTY4OTE4IEMxMi4zOTIxNzIyLDkuMTc5NjA4MjEgMTIuNDI5Mjk1OCw5LjA2MjYxNDUzIDEyLjQ5ODIxNDMsOC45NjU1MDA3MiBMMTMuOTA0MzcxNyw2Ljk4NDA3MTA2IEMxNC4wODQ0NzEyLDYuNzMwMjkxMTcgMTQuNDMxMjIsNi42NzQxODMyIDE0LjY3ODg1NjgsNi44NTg3NTAzOSBDMTQuNzI1NzY0OCw2Ljg5MzcxMTU2IDE0Ljc2NzAyOSw2LjkzNTk5OTQ1IDE0LjgwMTE0MzksNi45ODQwNzEwNiBMMTYuMjA3MzAxMyw4Ljk2NTUwMDcyIEMxNi4zODc0MDA4LDkuMjE5MjgwNiAxNi4zMzI2NTEsOS41NzQ2MzExMyAxNi4wODUwMTQyLDkuNzU5MTk4MzIgQzE1Ljk5MDI1MTIsOS44Mjk4MjY1NSAxNS44NzYwODk1LDkuODY3ODcxIDE1Ljc1ODkxNTIsOS44Njc4NzEgTDE0Ljg4MTIxOTgsOS44Njc4NzEgQzE0LjczOTgzMDcsMTMuMTkxMTUzNCAxMi4wNjYwNjU1LDE1Ljg0MDk0NjcgOC43ODgzODg5NiwxNS44NDA5NDY3IEM1LjQyMDE2NDM2LDE1Ljg0MDk0NjcgMi42ODk2Nzg4MiwxMy4wNDI3MjY0IDIuNjg5Njc4ODIsOS41OTA5NDY3MiBDMi42ODk2Nzg4Miw2LjEzOTE2NzAzIDUuNDIwMTY0MzYsMy4zNDA5NDY3MiA4Ljc4ODM4ODk2LDMuMzQwOTQ2NzIgQzkuNTAwMzQyOSwzLjM0MDk0NjcyIDEwLjE5NjM1MzQsMy40NjYyNDA0IDEwLjg1MzE3NiwzLjcwODM5OTc3IEMxMS4xNDEzLDMuODE0NjI2MjEgMTEuMjkwODQxNiw0LjE0MDEwNDU2IDExLjE4NzE4NjUsNC40MzUzNzYgQzExLjA4MzUzMTQsNC43MzA2NDc0NCAxMC43NjU5MzE3LDQuODgzODk4NjkgMTAuNDc3ODA3Nyw0Ljc3NzY3MjI1IEM5Ljk0MDk2NzQsNC41Nzk3NDgzMSA5LjM3MTkyMTIsNC40NzczMTAzNSA4Ljc4ODM4ODk2LDQuNDc3MzEwMzUgQzYuMDMyNTY4ODMsNC40NzczMTAzNSAzLjc5ODUzNTIxLDYuNzY2NzYzMzQgMy43OTg1MzUyMSw5LjU5MDk0NjcyIEMzLjc5ODUzNTIxLDEyLjQxNTEzMDEgNi4wMzI1Njg4MywxNC43MDQ1ODMxIDguNzg4Mzg4OTYsMTQuNzA0NTgzMSBDMTEuNDUzNTUwNCwxNC43MDQ1ODMxIDEzLjYzMDY5MTMsMTIuNTYzMjg1NCAxMy43NzEwNTA1LDkuODY3ODcxIFoiIGlkPSJDb21iaW5lZC1TaGFwZSIgZmlsbD0iIzY2NjY2NiIgZmlsbC1ydWxlPSJub256ZXJvIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5LjUwMTUzMSwgOS41OTA5NDcpIHNjYWxlKDEsIC0xKSByb3RhdGUoMzcuMDAwMDAwKSB0cmFuc2xhdGUoLTkuNTAxNTMxLCAtOS41OTA5NDcpICI+PC9wYXRoPgogICAgICAgICAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlIiBmaWxsPSIjRDhEOEQ4IiBvcGFjaXR5PSIwIiB4PSIyIiB5PSIzIiB3aWR0aD0iMTQiIGhlaWdodD0iMTQiPjwvcmVjdD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==">
-                            刷新评论</a>
-                    </div>
-                </div>
-                {% if comment_count == 0 %}
-                <div id="area-comment-inner" style=""><span class="alert info" style="">目前尚未有评论。</span>
-                </div>
-                {% endif %}
-                {% if user.is_authenticated %}
-                <form action="" id="comment_form" method="POST" style="overflow: hidden">
-                    {% csrf_token %}
-                    <div id="reply_content_container" style="display: none">
-                        <p>回复:</p>
-                        <div id="reply_content"></div>
-                    </div>
-                    {% get_comment_form blog %}
-                    <span id="comment_error" class="text-danger pull-left"></span>
-                    <input type="submit" value="发送评论" class="btn btn-primary pull-right">
-                </form>
-                {% else %}
-                未登录，登录之后即可评论
-                <a href="{% url 'accounts:register' %}?from={{ request.get_full_path }}" class="btn btn-danger">注册</a>
-                <a href="{% url 'accounts:login' %}?from={{ request.get_full_path }}" class="btn btn-primary">登录</a>
-                {% endif %}
-            </div>
-            <div class="comment-area">
-                <div class="comment-list" id="comment_list">
-                    {% get_comment_list blog as comments %}
-                    {% for comment in comments %}
-                    <div class="comment" id="root_{{ comment.pk }}">
-                        <span>{{ comment.user.get_nickname_or_username }}</span>
-                        <span>({{ comment.comment_time|date:'Y-m-d H:i:s' }})</span>
-                        <div id="comment_{{ comment.pk }}">{{ comment.content|safe }}</div>
-                        <div class="like"
-                            onclick="like_change(this, '{% get_content_type comment %}', '{{ comment.pk }}')">
-                            <span class="glyphicon glyphicon-thumbs-up {% get_like_status comment %}"></span>
-                            <span class="liked-num">{% get_like_num comment %}</span>
+                <div id="comment">
+                    <div class="area-comm-title">
+                        <div class="area-comm-title-left">
+                            <span class="area-comm-str">评论</span>
+                            <span
+                                class="area-comm-number">{% get_comment_count blog as comment_count %}{{ comment_count }}</span>
                         </div>
-                        <a href="javascript:reply({{ comment.pk }})">回复</a>
-
-                        {% for reply in comment.root_comment.all %}
-                        <div class="reply">
-                            <span>{{ reply.user.get_nickname_or_username }}</span>
-                            <span>({{ reply.comment_time|date:'Y-m-d H:i:s' }})</span>
-                            <span>回复</span>
-                            <span>{{ reply.reply_to.get_nickname_or_username }}:</span>
-                            <div id="comment_{{ reply.pk }}">{{ reply.content|safe }}</div>
-                            <div class="like"
-                                onclick="like_change(this, '{% get_content_type reply %}', '{{ reply.pk }}')">
-                                <span class="glyphicon glyphicon-thumbs-up {% get_like_status reply %}"></span>
-                                <span class="liked-num">{% get_like_num reply %}</span>
-
+                        <div class="area-comm-title-right">
+                            <a class="area-updateComm" style="padding: 0px 23px;"><img
+                                    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTRweCIgaGVpZ2h0PSIxNHB4IiB2aWV3Qm94PSIwIDAgMTQgMTQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUyLjUgKDY3NDY5KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT7liLfmlrA8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZyBpZD0i5Yi35pawIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMi4wMDAwMDAsIC0zLjAwMDAwMCkiPgogICAgICAgICAgICA8cGF0aCBkPSJNMTMuNzcxMDUwNSw5Ljg2Nzg3MSBMMTIuOTQ2NjAwNCw5Ljg2Nzg3MSBDMTIuNjQwMzk4Miw5Ljg2Nzg3MSAxMi4zOTIxNzIyLDkuNjEzNDg3MzMgMTIuMzkyMTcyMiw5LjI5OTY4OTE4IEMxMi4zOTIxNzIyLDkuMTc5NjA4MjEgMTIuNDI5Mjk1OCw5LjA2MjYxNDUzIDEyLjQ5ODIxNDMsOC45NjU1MDA3MiBMMTMuOTA0MzcxNyw2Ljk4NDA3MTA2IEMxNC4wODQ0NzEyLDYuNzMwMjkxMTcgMTQuNDMxMjIsNi42NzQxODMyIDE0LjY3ODg1NjgsNi44NTg3NTAzOSBDMTQuNzI1NzY0OCw2Ljg5MzcxMTU2IDE0Ljc2NzAyOSw2LjkzNTk5OTQ1IDE0LjgwMTE0MzksNi45ODQwNzEwNiBMMTYuMjA3MzAxMyw4Ljk2NTUwMDcyIEMxNi4zODc0MDA4LDkuMjE5MjgwNiAxNi4zMzI2NTEsOS41NzQ2MzExMyAxNi4wODUwMTQyLDkuNzU5MTk4MzIgQzE1Ljk5MDI1MTIsOS44Mjk4MjY1NSAxNS44NzYwODk1LDkuODY3ODcxIDE1Ljc1ODkxNTIsOS44Njc4NzEgTDE0Ljg4MTIxOTgsOS44Njc4NzEgQzE0LjczOTgzMDcsMTMuMTkxMTUzNCAxMi4wNjYwNjU1LDE1Ljg0MDk0NjcgOC43ODgzODg5NiwxNS44NDA5NDY3IEM1LjQyMDE2NDM2LDE1Ljg0MDk0NjcgMi42ODk2Nzg4MiwxMy4wNDI3MjY0IDIuNjg5Njc4ODIsOS41OTA5NDY3MiBDMi42ODk2Nzg4Miw2LjEzOTE2NzAzIDUuNDIwMTY0MzYsMy4zNDA5NDY3MiA4Ljc4ODM4ODk2LDMuMzQwOTQ2NzIgQzkuNTAwMzQyOSwzLjM0MDk0NjcyIDEwLjE5NjM1MzQsMy40NjYyNDA0IDEwLjg1MzE3NiwzLjcwODM5OTc3IEMxMS4xNDEzLDMuODE0NjI2MjEgMTEuMjkwODQxNiw0LjE0MDEwNDU2IDExLjE4NzE4NjUsNC40MzUzNzYgQzExLjA4MzUzMTQsNC43MzA2NDc0NCAxMC43NjU5MzE3LDQuODgzODk4NjkgMTAuNDc3ODA3Nyw0Ljc3NzY3MjI1IEM5Ljk0MDk2NzQsNC41Nzk3NDgzMSA5LjM3MTkyMTIsNC40NzczMTAzNSA4Ljc4ODM4ODk2LDQuNDc3MzEwMzUgQzYuMDMyNTY4ODMsNC40NzczMTAzNSAzLjc5ODUzNTIxLDYuNzY2NzYzMzQgMy43OTg1MzUyMSw5LjU5MDk0NjcyIEMzLjc5ODUzNTIxLDEyLjQxNTEzMDEgNi4wMzI1Njg4MywxNC43MDQ1ODMxIDguNzg4Mzg4OTYsMTQuNzA0NTgzMSBDMTEuNDUzNTUwNCwxNC43MDQ1ODMxIDEzLjYzMDY5MTMsMTIuNTYzMjg1NCAxMy43NzEwNTA1LDkuODY3ODcxIFoiIGlkPSJDb21iaW5lZC1TaGFwZSIgZmlsbD0iIzY2NjY2NiIgZmlsbC1ydWxlPSJub256ZXJvIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5LjUwMTUzMSwgOS41OTA5NDcpIHNjYWxlKDEsIC0xKSByb3RhdGUoMzcuMDAwMDAwKSB0cmFuc2xhdGUoLTkuNTAxNTMxLCAtOS41OTA5NDcpICI+PC9wYXRoPgogICAgICAgICAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlIiBmaWxsPSIjRDhEOEQ4IiBvcGFjaXR5PSIwIiB4PSIyIiB5PSIzIiB3aWR0aD0iMTQiIGhlaWdodD0iMTQiPjwvcmVjdD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==">
+                                刷新评论</a>
+                        </div>
+                    </div>
+                    {% if comment_count == 0 %}
+                    <div id="area-comment-inner"><span class="alert info">目前尚未有评论。</span>
+                    </div>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <form action="" id="comment_form" method="POST" style="overflow: hidden">
+                        {% csrf_token %}
+                        <div id="reply_content_container" style="display: none">
+                            <p>回复:</p>
+                            <div id="reply_content"></div>
+                        </div>
+                        {% get_comment_form blog %}
+                        <span id="comment_error" class="text-danger pull-left"></span>
+                        <input type="submit" value="发送评论" class="btn btn-primary pull-right">
+                    </form>
+                    {% else %}
+                    <div class="area-comment-login">
+                        <p class="vhcenter"><a href="{% url 'accounts:register' %}?from={{ request.get_full_path }}"
+                                class="button">注册</a>或者<a
+                                href="{% url 'accounts:login' %}?from={{ request.get_full_path }}" class="button">登录</a>
+                            <span>后,才可以发表评论哟~</span></p>
+                    </div>
+                    {% endif %}
+                    <div class="area-top-close">
+                        {% get_comment_list blog as comments %}
+                        {% for comment in comments %}
+                        <div class="area-comment-top clearfix">
+                            <div class="area-comment-first clearfix">
+                                <div class="area-comment-right">
+                                    <div class="area-comment-title">{{ comment.user.get_nickname_or_username }}<span
+                                            class="time_day">发表于</span> <span
+                                            class="time_times">{{ comment.comment_time|date:'Y-m-d H:i:s' }}
+                                        </span>
+                                    </div>
+                                    <div class="area-comment-des">
+                                        <p>{{ comment.content|safe }}</p>
+                                    </div>
+                                    <div class="area-comment-tool">
+                                        <a class="area-comment-up {% get_like_status comment %}"
+                                            onclick="like_change(this, '{% get_content_type comment %}', '{{ comment.pk }}')">
+                                            赞{% get_like_num comment %}</a>
+                                        <a href="javascript:reply({{ comment.pk }})" class="area-comment-reply">
+                                            回复
+                                        </a>
+                                    </div>
+                                    {% if comment.root_comment.all %}
+                                    <div class="area-sec-close clearfix">
+                                        {% for reply in comment.root_comment.all %}
+                                        <div class="area-comment-sec clearfix">
+                                            <div class="area-comment-title">
+                                                {{ reply.user.get_nickname_or_username }}<span
+                                                    class="time_day">发表于</span> <span
+                                                    class="time_times">{{ reply.comment_time|date:'Y-m-d H:i:s' }}
+                                                </span>
+                                            </div>
+                                            <div class="area-comment-des">
+                                                {% if reply.parent == reply.root %}
+                                                <p>{{ reply.content|safe }}</p>
+                                                {% else %}
+                                                <p>回复 {{ reply.reply_to.get_nickname_or_username }}
+                                                        :{{ reply.content|safe }}</p>
+                                                {% endif %}
+                                            </div>
+                                            <div class="area-comment-tool">
+                                                <a class="area-comment-up {% get_like_status comment %}"
+                                                    onclick="like_change(this, '{% get_content_type comment %}', '{{ comment.pk }}')">
+                                                    赞{% get_like_num comment %}</a>
+                                                <a href="javascript:reply({{ comment.pk }})" class="area-comment-reply">
+                                                    回复
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    <hr>
+                                </div>
                             </div>
-                            <a href="javascript:reply({{reply.pk}})">回复</a>
+
+
                         </div>
                         {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>
+
         {# 内容右侧 #}
         <div class="col-md-3">
             <div class="a-column-right">
@@ -267,8 +300,10 @@
                             '</div>' +
                             '<a href="javascript:reply({0});">回复</a>' +
                             '</div>';
-                        var reply_html = reply_html.format(data['pk'], data['username'], data[
-                                'comment_time'], data['comment_content'], data['reply_to'],
+                        var reply_html = reply_html.format(data['pk'], data['username'],
+                            data[
+                                'comment_time'], data['comment_content'], data[
+                                'reply_to'],
                             data[
                                 'content_type'], )
 
@@ -298,7 +333,7 @@
 
     // 提交点赞
     function like_change(obj, content_type, object_id) {
-        var is_like = obj.getElementsByClassName('active').length == 0;
+        var is_like = $(obj).hasClass('active')
         $.ajax({
             url: "{% url 'likes:like_change' %}",
             type: 'get',
@@ -311,14 +346,12 @@
             success: function (data) {
                 if (data['status'] == 'SUCCESS') {
                     // 更新点赞状态
-                    var element = $(obj.getElementsByClassName('glyphicon'));
                     if (is_like) {
-                        element.addClass('active');
+                        $(obj).removeClass('active');
                     } else {
-                        element.removeClass('active');
+                        $(obj).addClass('active');
                     }
-                    var liked_num = $(obj.getElementsByClassName('liked-num'));
-                    liked_num.text(data['liked_num']);
+                    $(obj).text('赞' + data['liked_num']);
                 } else {
                     alert(data['message'])
                 }
