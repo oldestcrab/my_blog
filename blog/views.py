@@ -104,10 +104,20 @@ def blog_detail(request, blog_pk):
     # 判断是否需要阅读量+1
     key = read_statistics_once_read(request, blog)
 
+    # 获取所有博客分类
+    blog_type_list = BlogType.objects.annotate(blog_count=Count('blog'))
+    # 按月分类，以及数量统计
+    blog_date_dict = {}
+    for b in Blog.objects.dates('created_time', 'month', 'DESC'):
+        blog_count = Blog.objects.filter(created_time__year=b.year, created_time__month=b.month).count()
+        blog_date_dict[b] = blog_count
+
     context = {
         'blog': blog,
         'previously_blog': previously_blog,
         'next_blog': next_blog,
+        'blog_type_list': blog_type_list,
+        'blog_date_dict': blog_date_dict,
     }
 
     response = render(request, 'blog/blog_detail.html', context=context)
