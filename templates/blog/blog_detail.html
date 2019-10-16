@@ -123,13 +123,13 @@
                         <div class="area-comment-top clearfix">
                             <div class="area-comment-first clearfix">
                                 <div class="area-comment-right">
-                                    <div class="area-comment-title">{{ comment.user.get_nickname_or_username }}<span
+                                    <div class="area-comment-title"><span class="user-name">{{ comment.user.get_nickname_or_username }}</span><span
                                             class="time_day">发表于</span> <span
                                             class="time_times">{{ comment.comment_time|date:'Y-m-d H:i:s' }}
                                         </span>
                                     </div>
                                     <div class="area-comment-des">
-                                        <p>{{ comment.content|safe }}</p>
+                                        <div id="comment_{{ comment.pk }}">{{ comment.content|safe }}</div>
                                     </div>
                                     <div class="area-comment-tool">
                                         <a class="area-comment-up {% get_like_status comment %}"
@@ -151,17 +151,16 @@
                                             </div>
                                             <div class="area-comment-des">
                                                 {% if reply.parent == reply.root %}
-                                                <p>{{ reply.content|safe }}</p>
+                                                <div id="comment_{{ reply.pk }}">{{ reply.content|safe }}</div>
                                                 {% else %}
-                                                <p>回复 {{ reply.reply_to.get_nickname_or_username }}
-                                                        :{{ reply.content|safe }}</p>
+                                                <div id="comment_{{ reply.pk }}">回复 {{ reply.reply_to.get_nickname_or_username }} : {{ reply.content|safe }}</div>
                                                 {% endif %}
                                             </div>
                                             <div class="area-comment-tool">
                                                 <a class="area-comment-up {% get_like_status comment %}"
-                                                    onclick="like_change(this, '{% get_content_type comment %}', '{{ comment.pk }}')">
+                                                    onclick="like_change(this, '{% get_content_type comment %}', '{{ reply.pk }}')">
                                                     赞{% get_like_num comment %}</a>
-                                                <a href="javascript:reply({{ comment.pk }})" class="area-comment-reply">
+                                                <a href="javascript:reply({{ reply.pk }})" class="area-comment-reply">
                                                     回复
                                                 </a>
                                             </div>
