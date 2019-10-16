@@ -7,13 +7,6 @@ body {
     margin-top: 80px !important;
 }
 
-/* 设置全局样式 */
-/* .container {
-    padding-left: 100px;
-    padding-right: 100px;
-} */
-
-
 @media (max-width:768px) {
     .footer {
         width: 100%;
@@ -140,7 +133,6 @@ div.navbar {
     z-index: 2;
 }
 
-
 .area-comm-title {
     height: 50px;
     line-height: 50px;
@@ -206,7 +198,6 @@ div.navbar {
     line-height: 1.4
 }
 
-
 .alert.info {
     background-color: #d9edf7;
     border-color: #bce8f1;
@@ -217,3 +208,5 @@ div.navbar {
 div .paginator {
     padding-left: 48px;
 }
+
+

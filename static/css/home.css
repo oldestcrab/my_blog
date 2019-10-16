@@ -5,9 +5,3 @@ div#container{
     min-width: 20em;
     max-width: 30em;
 }
-
-/* 热门博客样式设置 */
-div.hot-data {
-    text-align: center;
-    margin: 2em;
-}

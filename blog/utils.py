@@ -40,8 +40,8 @@ def get_range_day_hot_blog(day:int):
     """
     date = timezone.now().date() - datetime.timedelta(day)
     if day == 0:
-        hot_blog_data = Blog.objects.filter(read_num_details__date=date).values('id', 'title').annotate(read_num_detail=Sum('read_num_details__read_num')).order_by('-read_num_detail')[:7]
+        hot_blog_data = Blog.objects.filter(read_num_details__date=date).values('id', 'title').annotate(read_num_detail=Sum('read_num_details__read_num')).order_by('-read_num_detail')[:5]
     else:
-        hot_blog_data = Blog.objects.filter(read_num_details__date__gt=date).values('id', 'title').annotate(read_num_detail=Sum('read_num_details__read_num')).order_by('-read_num_detail')[:7]
+        hot_blog_data = Blog.objects.filter(read_num_details__date__gt=date).values('id', 'title').annotate(read_num_detail=Sum('read_num_details__read_num')).order_by('-read_num_detail')[:5]
 
     return hot_blog_data

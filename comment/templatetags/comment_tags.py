@@ -42,3 +42,14 @@ def get_comment_count(obj):
     """
     content_type = ContentType.objects.get_for_model(obj)
     return Comment.objects.filter(content_type=content_type, object_id=obj.pk).count()
+
+@register.simple_tag()
+def get_comment_count_by_str(obj_str, pk):
+    """
+    通过模型的字符串名称以及具体模型ID获取评论数量统计
+    :param obj_str: 模型的字符串名称
+    :param pk: 具体模型ID
+    :return: 具体模型的评论统计
+    """
+    content_type = ContentType.objects.get(model=obj_str)
+    return Comment.objects.filter(content_type=content_type, object_id=pk).count()

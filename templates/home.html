@@ -1,8 +1,8 @@
 {% extends "share_layout/base.html" %}
 {% block title %}首页{% endblock title %}
 {% load staticfiles %}
+{% load comment_tags %}
 {% block header_extends %}
-// todo:样式css文件整理
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 <link href="{% static 'css/blogchannel.css' %}" rel="stylesheet">
 <script src="{% static 'js/highcharts.js' %}"></script>
@@ -32,8 +32,11 @@
                     <div class="recom-list clearfix">
                         <div class="recom-item fl clearfix">
                             <div class="item-info fl clearfix"><a href="{% url 'blog:blog_detail' blog.id %}"
-                                    target="_blank" class="item-title">{{ blog.title }}</a>
-                                <p><span class="item-count">阅读量: {{  blog.read_num_detail }}</span></p>
+                                    target="_blank" class="item-title">{{ blog.title|truncatechars:30 }}</a>
+                                <p>
+                                    <span class="item-count">阅读量: {{  blog.read_num_detail }}</span>&nbsp;&nbsp;
+                                    <span class="item-count">评论: {% get_comment_count_by_str 'blog' blog.id %}</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -50,7 +53,10 @@
                         <div class="recom-item fl clearfix">
                             <div class="item-info fl clearfix"><a href="{% url 'blog:blog_detail' blog.id %}"
                                     target="_blank" class="item-title">{{ blog.title }}</a>
-                                <p><span class="item-count">阅读量: {{  blog.read_num_detail }}</span></p>
+                                    <p>
+                                        <span class="item-count">阅读量: {{  blog.read_num_detail }}</span>&nbsp;&nbsp;
+                                        <span class="item-count">评论: {% get_comment_count_by_str 'blog' blog.id %}</span>
+                                    </p>
                             </div>
                         </div>
                     </div>
