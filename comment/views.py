@@ -31,7 +31,7 @@ def comment_update(request):
             'obj': comment_form.cleaned_data['content_object'],
         }
         # 成功则异步刷新数据
-        return render(request, 'share_layout/comment_refresh.html', context=data)
+        return render(request, 'share_layout/comment_flesh.html', context=data)
     else:
         data = {
             'status': 'ERROR',
