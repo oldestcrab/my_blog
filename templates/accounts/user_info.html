@@ -7,7 +7,6 @@
             {% if user.is_authenticated %}
             <h2>你好，{{ user.username }}</h2>
             <ul>
-                <li>昵称:&nbsp;&nbsp;{{ user.profile.nickname }}&nbsp;&nbsp;&nbsp;<a href="{% url 'accounts:change_nickname' %}">修改昵称</a></li>
                 <li>邮箱:&nbsp;&nbsp;{{ user.email }}&nbsp;&nbsp;&nbsp;<a href="{% url 'accounts:change_email' %}">修改邮箱</a></li>
                 <li>上次登录时间:{{ user.last_login }}</li>
                 <li><a href="">修改密码</a></li>

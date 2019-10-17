@@ -86,6 +86,7 @@ def user_info(request):
     """
     return render(request, 'accounts/user_info.html')
 
+'''
 def change_nickname(request):
     """
     更换昵称视图
@@ -113,6 +114,7 @@ def change_nickname(request):
         'form': change_nickname_form,
     }
     return render(request, 'accounts/change_info_forms.html', context=context)
+'''
 
 def change_email(request):
     """
