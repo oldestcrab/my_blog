@@ -1,11 +1,15 @@
 from django.http import JsonResponse
-
-from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import render
 
 from .forms import CommentForm
 from .models import Comment
 
 def comment_update(request):
+    """
+    评论更新视图
+    :param request:
+    :return: 错误信息或者异步刷新评论
+    """
     comment_form = CommentForm(request.POST, user=request.user)
     # 判断数据是否合法
     if comment_form.is_valid():
@@ -21,23 +25,17 @@ def comment_update(request):
             comment.reply_to = parent.user
         comment.save()
         # 测试顶级评论和父辈评论是否一致，新评论ajax提交
-        data = {
-            'username': comment.user.get_nickname_or_username(),
-            'comment_time': comment.comment_time.strftime('%Y-%m-%d %H:%M:%S'),
-            'comment_content': comment.content,
-            'content_type': ContentType.objects.get_for_model(comment).model,
-            'status': 'SUCCESS',
-            'pk': comment.pk,
-            'root_pk': comment.root.pk if comment.root else '',
-        }
 
-        if parent:
-            data['reply_to'] = comment.reply_to.get_nickname_or_username()
-        else:
-            data['reply_to'] = ''
+        data = {
+            'status': 'SUCCESS',
+            'obj': comment_form.cleaned_data['content_object'],
+        }
+        # 成功则异步刷新数据
+        return render(request, 'share_layout/comment_flesh.html', context=data)
     else:
         data = {
             'status': 'ERROR',
             'message': list(comment_form.errors.values())[0][0],
         }
-    return JsonResponse(data)
+        # 失败则返回错误信息
+        return JsonResponse(data)
