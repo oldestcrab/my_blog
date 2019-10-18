@@ -7,7 +7,7 @@ class RegisterForm(forms.Form):
     注册表单
     """
     username = forms.CharField(label='用户名(不可修改)', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名'}))
-    nickname = forms.CharField(label='昵称(可为空)', max_length=20,required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入昵称'}))
+    # nickname = forms.CharField(label='昵称(可为空)', max_length=20,required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入昵称'}))
     email = forms.EmailField(label='邮箱', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入邮箱'}))
     password = forms.CharField(label='密码', min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入密码'}))
     password_again = forms.CharField(label='密码确认', min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请再次输入密码'}))
@@ -58,12 +58,18 @@ class LoginForm(forms.Form):
         """
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
+
+        user = User.objects.get(username=username)
+        if user:
+            if not user.is_active:
+                raise forms.ValidationError('帐号尚未激活，请先激活帐号！')
+
         # 验证
         user = authenticate(username=username, password=password)
         if user:
             self.cleaned_data['user'] = user
         else:
-            raise forms.ValidationError('用户名或者密码错误')
+            raise forms.ValidationError('用户名或者密码错误！')
 
         return self.cleaned_data
 

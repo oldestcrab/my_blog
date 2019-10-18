@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'ckeditor',
     'ckeditor_uploader',
@@ -136,6 +137,22 @@ STATIC_ROOT = '/static/'
 # media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 当前SITE_ID
+SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# 是否启动安全链接
+EMAIL_USE_TLS = False
+
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+#前缀
+EMAIL_SUBJECT_PREFIX = '[OldestCrab Blog]'
+
 
 # 配置ckeditor
 CKEDITOR_UPLOAD_PATH = 'upload/'
