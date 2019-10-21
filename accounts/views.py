@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 
-from .forms import RegisterForm, LoginForm, ChangeEmailForm, ActiveEmailForm
+from .forms import RegisterForm, LoginForm, ChangeEmailForm, ActiveEmailForm, ChangePassword
 from my_blog.utils import get_current_site, get_md5
 
 def register(request):
@@ -262,3 +262,33 @@ def active_email(request):
         'form': active_form,
     }
     return render(request, 'accounts/active_email_forms.html', context=context)
+
+def change_password(request):
+    """
+    更换密码视图
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        # 传递post数据
+        change_password_form = ChangePassword(request.POST, user=request.user)
+        # 数据验证
+        if change_password_form.is_valid():
+            user = request.user
+            password_new = change_password_form.cleaned_data['password_new']
+            # 重置密码
+            user.set_password(password_new)
+            user.save()
+            # 退出登录
+            auth.logout(request)
+            # 回到登录页
+            return redirect(reverse('accounts:login'))
+    else:
+        # 初始化表单
+        change_password_form = ChangePassword()
+
+    context = {
+        'title': '更改密码',
+        'form': change_password_form,
+    }
+    return render(request, 'accounts/change_info_forms.html', context=context)

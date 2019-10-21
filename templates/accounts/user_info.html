@@ -9,7 +9,7 @@
             <ul>
                 <li>邮箱:&nbsp;&nbsp;{{ user.email }}&nbsp;&nbsp;&nbsp;<a href="{% url 'accounts:change_email' %}">修改邮箱</a></li>
                 <li>上次登录时间:{{ user.last_login }}</li>
-                <li><a href="">修改密码</a></li>
+                <li><a href="{% url 'accounts:change_password' %}">修改密码</a></li>
             </ul>
             {% else %}
             <span>您尚未登录，请先登录</span>

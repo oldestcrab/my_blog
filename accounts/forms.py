@@ -179,3 +179,39 @@ class ActiveEmailForm(forms.Form):
             self.cleaned_data['user'] = user
 
         return self.cleaned_data
+
+
+class ChangePassword(forms.Form):
+    """
+    修改密码表单
+    """
+    password_old = forms.CharField(label='请输入旧的密码', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入旧的密码'}))
+    password_new = forms.CharField(label='请输入新的密码', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入新的密码'}))
+    password_new_again = forms.CharField(label='请再次输入新的密码', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请再次输入新的密码'}))
+
+    def __init__(self, *args, **kwargs):
+        if 'user' in kwargs:
+            self.user = kwargs.pop('user')
+        super(ChangePassword, self).__init__(*args, **kwargs)
+
+    def clean_password_old(self):
+        """
+        判断旧密码是否正确
+        :return:
+        """
+        password_old = self.cleaned_data['password_old']
+        # 判断旧密码是否正确
+        if not self.user.check_password(password_old):
+            raise forms.ValidationError('旧密码不正确')
+        return  password_old
+
+    def clean(self):
+        """
+        判断两次输入的新密码是否一致
+        :return:
+        """
+        password_new = self.cleaned_data['password_new']
+        password_new_again = self.cleaned_data['password_new_again']
+        if password_new != password_new_again or password_new == '':
+            raise forms.ValidationError('两次输入的新密码不一致')
+        return self.cleaned_data
