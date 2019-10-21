@@ -217,6 +217,11 @@ def change_email(request):
     return render(request, 'accounts/change_info_forms.html', context=context)
 
 def active_email(request):
+    """
+    激活邮箱视图
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         active_form = ActiveEmailForm(request.POST)
         if active_form.is_valid():

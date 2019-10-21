@@ -8,7 +8,7 @@ class RegisterForm(forms.Form):
     """
     username = forms.CharField(label='用户名(不可修改)', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名'}))
     # nickname = forms.CharField(label='昵称(可为空)', max_length=20,required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入昵称'}))
-    email = forms.EmailField(label='邮箱', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入邮箱'}))
+    email = forms.EmailField(label='邮箱', widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'请输入邮箱'}))
     password = forms.CharField(label='密码', min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入密码'}))
     password_again = forms.CharField(label='密码确认', min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请再次输入密码'}))
 
@@ -120,7 +120,7 @@ class ChangeEmailForm(forms.Form):
     """
     修改邮箱表单
     """
-    email_new = forms.EmailField(label='请输入新的邮箱', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入新的邮箱'}))
+    email_new = forms.EmailField(label='请输入新的邮箱', widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'请输入新的邮箱'}))
 
     def __init__(self, *args, **kwargs):
         if 'user' in kwargs:
@@ -154,30 +154,28 @@ class ActiveEmailForm(forms.Form):
     """
     激活邮箱表单
     """
-    email = forms.EmailField(label='请输入邮箱', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入新的邮箱'}))
     username = forms.CharField(label='请输入用户名', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名'}))
+    email = forms.EmailField(label='请输入邮箱', widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'请输入新的邮箱'}))
 
     def clean(self):
         """
         判断用户与邮箱是否有错
         :return:
         """
-        print(self.cleaned_data)
-        username = self.cleaned_data['username']
-        # todo:cleaned_data获取不到email
-        # email = self.cleaned_data['email']
-        # if not email:
-        #     raise forms.ValidationError('邮箱不能为空！')
+        username = self.cleaned_data.get('username')
+        email = self.cleaned_data.get('email')
+        if not email:
+            raise forms.ValidationError('邮箱不能为空！')
         if not User.objects.filter(username=username).exists():
             raise forms.ValidationError('用户不存在')
-        # else:
-        #     user = User.objects.get(username=username)
-        #     # 判断用户绑定的邮箱是否是用户输入的邮箱
-        #     # if email != user.email:
-        #     #     raise forms.ValidationError('邮箱帐号与用户不对应')
-        #     # 判断是否已激活帐号
-        #     if user.is_active:
-        #         raise forms.ValidationError('该用户邮箱已激活，请直接登录')
-        #     self.cleaned_data['user'] = user
+        else:
+            user = User.objects.get(username=username)
+            # 判断用户绑定的邮箱是否是用户输入的邮箱
+            if email != user.email:
+                raise forms.ValidationError('邮箱帐号与用户不对应')
+            # 判断是否已激活帐号
+            if user.is_active:
+                raise forms.ValidationError('该用户邮箱已激活，请直接登录')
+            self.cleaned_data['user'] = user
 
         return self.cleaned_data
