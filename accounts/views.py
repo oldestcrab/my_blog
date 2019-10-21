@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 
-from .forms import RegisterForm, LoginForm, ChangeEmailForm
+from .forms import RegisterForm, LoginForm, ChangeEmailForm, ActiveEmailForm
 from my_blog.utils import get_current_site, get_md5
 
 def register(request):
@@ -112,8 +112,6 @@ def logout(request):
     # 跳转回之前的页面或者首页
     return redirect(request.GET.get('from', reverse('home')))
 
-
-
 def result(request):
     type = request.GET.get('type')
     id = request.GET.get('id')
@@ -125,7 +123,11 @@ def result(request):
             'title': '注册成功',
             'content': f'恭喜您注册成功，一封验证邮件已经发送到您的邮箱：{user.email}, 请验证您的邮箱后登录本站。',
         }
-
+    elif type == 'active':
+        context = {
+            'title': '激活邮箱',
+            'content': f'一封验证邮件已经发送到您的邮箱：{user.email}, 请验证您的邮箱后登录本站。',
+        }
     elif type == 'validation':
         sign_url = request.GET.get('sign')
         today = timezone.now().date()
@@ -213,3 +215,45 @@ def change_email(request):
         'form': change_email_form,
     }
     return render(request, 'accounts/change_info_forms.html', context=context)
+
+def active_email(request):
+    if request.method == 'POST':
+        active_form = ActiveEmailForm(request.POST)
+        if active_form.is_valid():
+            user = active_form.cleaned_data['user']
+            # 获取当前站点
+            site = get_current_site()
+            # 测试环境下为127
+            if settings.DEBUG:
+                site = '127.0.0.1:8000'
+
+            # 当前日期，验证邮箱链接当天有效
+            today = timezone.now().date()
+            # 加密参数
+            sign = get_md5(get_md5(settings.SECRET_KEY+str(user.pk))+str(today))
+            path = reverse('accounts:result')
+            url = f'http://{site}{path}?type=validation&id={user.pk}&sign={sign}'
+            print(url)
+            content =f"""
+                            <p>请点击下面链接验证您的邮箱</p>
+                            <a href="{url}" rel="bookmark">{url}</a>
+                            <p>再次感谢您！</p>
+                            <p>如果上面链接无法打开，请将此链接复制至浏览器。<p>
+                            <p>{url}<p>
+                            """
+            # 发送邮件
+            msg = EmailMultiAlternatives('邮箱验证', content, from_email=settings.EMAIL_HOST_USER, to=[user.email])
+            msg.content_subtype = "html"
+            msg.send()
+
+            url = path + f'?type=active&id={str(user.pk)}'
+            # 跳转到结果页面
+            return HttpResponseRedirect(url)
+    else:
+        active_form = ActiveEmailForm()
+
+    context = {
+        'title': '激活邮箱',
+        'form': active_form,
+    }
+    return render(request, 'accounts/active_email_forms.html', context=context)

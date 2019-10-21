@@ -12,4 +12,5 @@ urlpatterns = [
     path('user_info', views.user_info, name='user_info'),
     # path('change_nickname', views.change_nickname, name='change_nickname'),
     path('change_email', views.change_email, name='change_email'),
+    path('active_email', views.active_email, name='active_email'),
 ]

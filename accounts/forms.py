@@ -63,7 +63,7 @@ class LoginForm(forms.Form):
         if User.objects.filter(username=username_or_email).exists():
             user = User.objects.get(username=username_or_email)
             if not user.is_active:
-                raise forms.ValidationError('帐号尚未激活，请先激活帐号！')
+                raise forms.ValidationError('邮箱尚未激活，请先激活邮箱！')
 
         # 验证
         user = authenticate(username=username_or_email, password=password)
@@ -73,7 +73,7 @@ class LoginForm(forms.Form):
             if User.objects.filter(email=username_or_email).exists():
                 user = User.objects.get(email=username_or_email)
                 if not user.is_active:
-                    raise forms.ValidationError('帐号尚未激活，请先激活帐号！')
+                    raise forms.ValidationError('邮箱尚未激活，请先激活邮箱！')
 
                 # 邮箱验证
                 user = authenticate(username=user.username, password=password)
@@ -148,4 +148,36 @@ class ChangeEmailForm(forms.Form):
             self.cleaned_data['user'] = self.user
         else:
             raise forms.ValidationError('您尚未登录')
+        return self.cleaned_data
+
+class ActiveEmailForm(forms.Form):
+    """
+    激活邮箱表单
+    """
+    email = forms.EmailField(label='请输入邮箱', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入新的邮箱'}))
+    username = forms.CharField(label='请输入用户名', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名'}))
+
+    def clean(self):
+        """
+        判断用户与邮箱是否有错
+        :return:
+        """
+        print(self.cleaned_data)
+        username = self.cleaned_data['username']
+        # todo:cleaned_data获取不到email
+        # email = self.cleaned_data['email']
+        # if not email:
+        #     raise forms.ValidationError('邮箱不能为空！')
+        if not User.objects.filter(username=username).exists():
+            raise forms.ValidationError('用户不存在')
+        # else:
+        #     user = User.objects.get(username=username)
+        #     # 判断用户绑定的邮箱是否是用户输入的邮箱
+        #     # if email != user.email:
+        #     #     raise forms.ValidationError('邮箱帐号与用户不对应')
+        #     # 判断是否已激活帐号
+        #     if user.is_active:
+        #         raise forms.ValidationError('该用户邮箱已激活，请直接登录')
+        #     self.cleaned_data['user'] = user
+
         return self.cleaned_data
