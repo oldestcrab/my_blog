@@ -9,7 +9,16 @@ from django.core.mail import EmailMultiAlternatives
 from .forms import RegisterForm, LoginForm, ChangeEmailForm, ActiveEmailForm, ChangePassword
 from my_blog.utils import get_current_site, get_md5
 
-def common_sent_email(user, title, to_email, type):
+def sent_confirm_email(user, email_title, to_email, type_next, type_result):
+    """
+    通用的发送验证邮件
+    :param user: user
+    :param email_title: 邮件标题
+    :param to_email: 收件人
+    :param type_next: 验证通过之后的操作判断
+    :param type_result: 发送邮件之后跳转到result要展示的内容判断
+    :return: 跳转到result页面
+    """
     # 获取当前站点
     site = get_current_site()
     # 测试环境下为127
@@ -21,7 +30,7 @@ def common_sent_email(user, title, to_email, type):
     # 加密参数
     sign = get_md5(get_md5(settings.SECRET_KEY + str(user.pk)) + str(today))
     path = reverse('accounts:result')
-    url = f'http://{site}{path}?type=validation&id={user.pk}&sign={sign}'
+    url = f'http://{site}{path}?type=validation&type_next={type_next}&id={user.pk}&sign={sign}'
     print(url)
     content = f"""
                     <p>请点击下面链接验证您的邮箱</p>
@@ -31,11 +40,11 @@ def common_sent_email(user, title, to_email, type):
                     <p>{url}<p>
                     """
     # 发送邮件
-    msg = EmailMultiAlternatives(title, content, from_email=settings.EMAIL_HOST_USER, to=[to_email])
+    msg = EmailMultiAlternatives(email_title, content, from_email=settings.EMAIL_HOST_USER, to=[to_email])
     msg.content_subtype = "html"
     msg.send()
 
-    url = path + f'?{type}=active&id={str(user.pk)}'
+    url = path + f'?type={type_result}&id={str(user.pk)}'
     # 跳转到结果页面
     return HttpResponseRedirect(url)
 
@@ -65,34 +74,8 @@ def register(request):
             #     profile.nickname = nickname
             #     profile.save()
 
-            # 获取当前站点
-            site = get_current_site()
-            # 测试环境下为127
-            if settings.DEBUG:
-                site = '127.0.0.1:8000'
-
-            # 当前日期，验证邮箱链接当天有效
-            today = timezone.now().date()
-            # 加密参数
-            sign = get_md5(get_md5(settings.SECRET_KEY+str(user.pk))+str(today))
-            path = reverse('accounts:result')
-            url = f'http://{site}{path}?type=validation&id={user.pk}&sign={sign}'
-            print(url)
-            content =f"""
-                            <p>请点击下面链接验证您的邮箱</p>
-                            <a href="{url}" rel="bookmark">{url}</a>
-                            <p>再次感谢您！</p>
-                            <p>如果上面链接无法打开，请将此链接复制至浏览器。<p>
-                            <p>{url}<p>
-                            """
-            # 发送邮件
-            msg = EmailMultiAlternatives('邮箱验证', content, from_email=settings.EMAIL_HOST_USER, to=[user.email])
-            msg.content_subtype = "html"
-            msg.send()
-
-            url = path + f'?type=register&id={str(user.pk)}'
-            # 跳转到结果页面
-            return HttpResponseRedirect(url)
+            # 发送验证邮件
+            return sent_confirm_email(user, '邮箱验证', user.email, 'active_email_validation', 'register')
     else:
         # 初始化注册表单
         reg_form = RegisterForm()
@@ -144,9 +127,10 @@ def logout(request):
 
 def result(request):
     type = request.GET.get('type')
+    type_next = request.GET.get('type_next')
     id = request.GET.get('id')
     # 获取用户
-    user = get_object_or_404(User, pk=int(id))
+    user = get_object_or_404(User, pk=id)
 
     if type == 'register':
         context = {
@@ -154,12 +138,19 @@ def result(request):
             'content': f'恭喜您注册成功，一封验证邮件已经发送到您的邮箱：{user.email}, 请验证您的邮箱后登录本站。',
         }
 
-    elif type == 'active':
+    elif type == 'active_email':
         context = {
             'title': '激活邮箱',
             'content': f'一封验证邮件已经发送到您的邮箱：{user.email}, 请验证您的邮箱后登录本站。',
         }
 
+    # 更换邮箱
+    elif type == 'change_email':
+        email_new = request.session.get('email_new')
+        context = {
+            'title': '更换邮箱',
+            'content': f'一封验证邮件已经发送到您新的邮箱：{email_new}, 请验证您的邮箱后登录本站。',
+        }
 
     elif type == 'validation':
         sign_url = request.GET.get('sign')
@@ -169,12 +160,28 @@ def result(request):
 
         # 判断加密参数是否相等，相等则验证通过
         if sign == sign_url:
-            user.is_active = True
-            user.save()
-            context = {
-                'title': '验证成功',
-                'content': '恭喜您完成邮箱验证，您现在可以使用您的账号来登录本站。',
-            }
+            context = {}
+            # 更换邮箱
+            if type_next == 'change_email_validation':
+                email_new = request.session.get('email_new', False)
+                if email_new:
+                    user.email = email_new
+                    user.save()
+                    context = {
+                        'title': '验证成功',
+                        'content': f'恭喜您完成邮箱验证，您现在绑定的邮箱帐号更改为{email_new}',
+                    }
+                    # 删除保存的session key，避免多次绑定
+                    del request.session['email_new']
+
+            elif type_next == 'active_email_validation':
+                user.is_active = True
+                user.save()
+                context = {
+                    'title': '验证成功',
+                    'content': '恭喜您完成邮箱验证，您现在可以使用您的账号来登录本站。',
+                }
+
         else:
             context = {
                 'title': '验证失败',
@@ -237,8 +244,10 @@ def change_email(request):
             # 更新邮箱
             email = change_email_form.cleaned_data['email_new']
             user = request.user
+            request.session['email_new'] = email
+            # 邮箱验证
+            return sent_confirm_email(user, '邮箱更换', email, 'change_email_validation', 'change_email')
 
-    #         todo:通用邮箱确认模板
     else:
         # 初始化登录表单
         change_email_form = ChangeEmailForm()
@@ -259,34 +268,8 @@ def active_email(request):
         active_form = ActiveEmailForm(request.POST)
         if active_form.is_valid():
             user = active_form.cleaned_data['user']
-            # 获取当前站点
-            site = get_current_site()
-            # 测试环境下为127
-            if settings.DEBUG:
-                site = '127.0.0.1:8000'
-
-            # 当前日期，验证邮箱链接当天有效
-            today = timezone.now().date()
-            # 加密参数
-            sign = get_md5(get_md5(settings.SECRET_KEY+str(user.pk))+str(today))
-            path = reverse('accounts:result')
-            url = f'http://{site}{path}?type=validation&id={user.pk}&sign={sign}'
-            print(url)
-            content =f"""
-                            <p>请点击下面链接验证您的邮箱</p>
-                            <a href="{url}" rel="bookmark">{url}</a>
-                            <p>再次感谢您！</p>
-                            <p>如果上面链接无法打开，请将此链接复制至浏览器。<p>
-                            <p>{url}<p>
-                            """
-            # 发送邮件
-            msg = EmailMultiAlternatives('邮箱验证', content, from_email=settings.EMAIL_HOST_USER, to=[user.email])
-            msg.content_subtype = "html"
-            msg.send()
-
-            url = path + f'?type=active&id={str(user.pk)}'
-            # 跳转到结果页面
-            return HttpResponseRedirect(url)
+            # 发送邮箱
+            return sent_confirm_email(user, '邮箱验证', user.email, 'active_email_validation', 'active_email')
     else:
         active_form = ActiveEmailForm()
 

@@ -134,7 +134,9 @@ class ChangeEmailForm(forms.Form):
         """
         email_new = self.cleaned_data['email_new'].strip()
         if not email_new:
-            raise forms.ValidationError('新的邮箱不能为空！')
+            raise forms.ValidationError('新的邮箱不能为空')
+        if self.user.email == email_new:
+            raise forms.ValidationError('新邮箱不能与旧邮箱相同')
         if User.objects.filter(email=email_new).exists():
             raise forms.ValidationError('该邮箱已注册！')
         return email_new
