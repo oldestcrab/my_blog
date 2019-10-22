@@ -1,0 +1,74 @@
+/* 表单样式修改 */
+
+/* 面板 */
+.panel {
+    width: 430px;
+}
+
+/* 面板标题栏 */
+.panel-default>.panel-heading {
+    color: #333;
+    background-color:#fff;
+    /* border-color: #fff; */
+    font-size: 18px;
+}
+
+.panel-title {
+    margin-left: 20px;
+    font-size: 22px;
+}
+
+.promt-info {
+    margin-left: 40px;
+    height: 18px;
+    color: #fd4c5b;
+    font-size: 14px;
+    line-height: 18px;
+    left: 35px;
+    top: 22px;
+    z-index: 4;
+}
+
+.form-area {
+    /* margin: 20px 0; */
+}
+
+.form-control {
+    width: 318px;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+.btn-submit {
+    margin-left: 40px;
+    width: 320px;
+    height: 40px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #fd4c5b;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.login-options a {
+    float: left;
+    font: 14px 'PingFangSC-Semibold';
+    color: #333;
+    cursor: pointer;
+}
+
+.login-options {
+    height: 20px;
+}
+
+.login-options .login-help {
+    color: #9b9b9b;
+    width: 61px;
+    margin-right: 188px;
+}
+
+

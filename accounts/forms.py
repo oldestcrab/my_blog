@@ -6,11 +6,11 @@ class RegisterForm(forms.Form):
     """
     注册表单
     """
-    username = forms.CharField(label='用户名(不可修改)', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名'}))
+    username = forms.CharField(label=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名'}))
     # nickname = forms.CharField(label='昵称(可为空)', max_length=20,required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入昵称'}))
-    email = forms.EmailField(label='邮箱', widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'请输入邮箱'}))
-    password = forms.CharField(label='密码', min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入密码'}))
-    password_again = forms.CharField(label='密码确认', min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请再次输入密码'}))
+    email = forms.EmailField(label=False, widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'请输入邮箱'}))
+    password = forms.CharField(label=False, min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入密码'}))
+    password_again = forms.CharField(label=False, min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请再次输入密码'}))
 
     def clean_username(self):
         """
@@ -48,8 +48,8 @@ class LoginForm(forms.Form):
     """
     登录表单
     """
-    username_or_email = forms.CharField(label='用户名或邮箱', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名或邮箱'}))
-    password = forms.CharField(label='密码', min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入密码'}))
+    username_or_email = forms.CharField(label=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名或邮箱'}))
+    password = forms.CharField(label=False, min_length=6, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入密码'}))
 
     def clean(self):
         """

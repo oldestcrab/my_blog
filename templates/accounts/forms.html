@@ -1,4 +1,8 @@
 {% extends "share_layout/base.html" %}
+{% load staticfiles %}
+{% block header_extends %}
+<link href="{% static 'css/forms.css' %}" rel="stylesheet">
+{% endblock header_extends %}
 {% block title %}{{ title }}{% endblock title %}
 {% block content %}
 <div class="container">
@@ -10,19 +14,29 @@
                     <h3 class="panel-title">{{ title }}</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        {{ form }}
-                        <input type="submit" class="btn btn-primary pull-right" value="{{ title }}">
-                    </form>
-                    <a href="{% url 'accounts:active_email' %}">激活邮箱</a>
-                    <a href="{% url 'accounts:sent_email_reset_password' %}">忘记密码</a>
+                    <div class="form-area">
+                        <div id="prompt-tips" class="promt-info">{{ form.non_field_errors }}</div>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            <div id="prompt-tips" class="promt-info">{{ field.errors.as_text }}</div>
+                            {{ field }}
+                            {% endfor %}
+                            <input type="submit" class="btn btn-submit" value="{{ title }}">
+                        </form>
+                    </div>
+                    <div class="login-options clearfix">
+                        <a href="{% url 'accounts:active_email' %}" class="login-help">激活邮箱</a>
+                        <a href="{% url 'accounts:sent_email_reset_password' %}">忘记密码</a>
+                        <a href="/reg/" class="register">立即注册</a>
+                    </div>
                 </div>
             </div>
+
             {% else %}
             <span>您已登录，2秒即将跳转到首页</span>
             <script type="text/javascript">
-                setTimeout("window.location.href='/'",2000);
+                setTimeout("window.location.href='/'", 2000);
             </script>
             {% endif %}
         </div>
