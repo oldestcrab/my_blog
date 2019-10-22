@@ -219,8 +219,8 @@ def result(request):
             }
         else:
             context = {
-                'title': '错误',
-                'content': f'something wrong',
+                'title': '出错啦！',
+                'content': f'咦？世界线变动了，你好像来到了奇怪的地方。看看其他内容吧~',
             }
     return render(request, 'accounts/result.html', context=context)
 

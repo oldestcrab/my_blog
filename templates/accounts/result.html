@@ -1,7 +1,16 @@
 {% extends "share_layout/base.html" %}
+{% load staticfiles %}
+{% block header_extends %}
+<link href="{% static 'css/tips.css' %}" rel="stylesheet">
+{% endblock header_extends %}
 {% block title %}
 {{ title }}
 {% endblock title %}
 {% block content %}
-<p style="text-align:center">{{ content }}</p>
+<div class="container">
+    <div class="content">
+        <h3 class="topTitle"><span></span><strong>{{ title }}</strong></h3>
+        <p>{{ content }}</p>
+    </div>
+</div>
 {% endblock content %}
