@@ -167,7 +167,7 @@ class ActiveEmailForm(forms.Form):
         username = self.cleaned_data.get('username')
         email = self.cleaned_data.get('email')
         if not email:
-            raise forms.ValidationError('邮箱不能为空！')
+            raise forms.ValidationError('邮箱地址不正确')
         if not User.objects.filter(username=username).exists():
             raise forms.ValidationError('用户不存在')
         else:
@@ -216,4 +216,52 @@ class ChangePassword(forms.Form):
         password_new_again = self.cleaned_data['password_new_again']
         if password_new != password_new_again or password_new == '':
             raise forms.ValidationError('两次输入的新密码不一致')
+        return self.cleaned_data
+
+
+class SenTEmailResetPasswordForm(forms.Form):
+    """
+    发送邮件确认重置密码表单
+    """
+    username = forms.CharField(label='请输入用户名', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'请输入用户名'}))
+    email = forms.EmailField(label='请输入邮箱', widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'请输入邮箱'}))
+
+    def clean(self):
+        """
+        判断用户与邮箱是否有错
+        :return:
+        """
+        username = self.cleaned_data.get('username')
+        email = self.cleaned_data.get('email')
+        if not email:
+            raise forms.ValidationError('邮箱地址不正确')
+        if not User.objects.filter(username=username).exists():
+            raise forms.ValidationError('用户不存在')
+        else:
+            user = User.objects.get(username=username)
+            # 判断用户绑定的邮箱是否是用户输入的邮箱
+            if email != user.email:
+                raise forms.ValidationError('邮箱帐号与用户不对应')
+            self.cleaned_data['user'] = user
+
+        return self.cleaned_data
+
+
+class ResetPasswordForm(forms.Form):
+    """
+    重置密码表单
+    """
+    password_new = forms.CharField(label='请输入新的密码', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请输入新的密码'}))
+    password_new_again = forms.CharField(label='请再次输入新的密码', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'请再次输入新的密码'}))
+
+    def clean(self):
+        """
+        判断两次输入的密码是否一致
+        :return:
+        """
+        password_new = self.cleaned_data['password_new']
+        password_new_again = self.cleaned_data['password_new_again']
+        if password_new != password_new_again or password_new == '':
+            raise forms.ValidationError('两次输入的新密码不一致')
+
         return self.cleaned_data

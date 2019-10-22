@@ -16,7 +16,7 @@
                         <input type="submit" class="btn btn-primary pull-right" value="{{ title }}">
                     </form>
                     <a href="{% url 'accounts:active_email' %}">激活邮箱</a>
-                    <a href="">忘记密码</a>
+                    <a href="{% url 'accounts:sent_email_reset_password' %}">忘记密码</a>
                 </div>
             </div>
             {% else %}
