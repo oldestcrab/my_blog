@@ -2,24 +2,25 @@
 {% load staticfiles %}
 {% block header_extends %}
 <link href="{% static 'css/forms.css' %}" rel="stylesheet">
+<link href="{% static 'css/tips.css' %}" rel="stylesheet">
 {% endblock header_extends %}
 {% block title %}{{ title }}{% endblock title %}
 {% block content %}
 <div class="container">
+    {% if not user.is_authenticated %}
     <div class="row">
         <div class="col-xs-4 col-xs-offset-4">
-            {% if not user.is_authenticated %}
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">{{ title }}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="form-area">
-                        <div id="prompt-tips" class="promt-info">{{ form.non_field_errors }}</div>
+                        <div class="promt-top">{{ form.non_field_errors }}</div>
                         <form action="" method="POST">
                             {% csrf_token %}
                             {% for field in form %}
-                            <div id="prompt-tips" class="promt-info">{{ field.errors.as_text }}</div>
+                            <div class="promt-info">{{ field.errors.as_text }}</div>
                             {{ field }}
                             {% endfor %}
                             <input type="submit" class="btn btn-submit" value="{{ title }}">
@@ -27,19 +28,25 @@
                     </div>
                     <div class="login-options clearfix">
                         <a href="{% url 'accounts:active_email' %}" class="login-help">激活邮箱</a>
-                        <a href="{% url 'accounts:sent_email_reset_password' %}">忘记密码</a>
-                        <a href="/reg/" class="register">立即注册</a>
+                        <a href="{% url 'accounts:sent_email_reset_password' %}" class="reset-pwd">忘记密码</a>
+                        {% if title == '注册' %}
+                        <a href="{% url 'accounts:login' %}">登录</a>
+                        {% else %}
+                        <a href="{% url 'accounts:register' %}">注册</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-
-            {% else %}
-            <span>您已登录，2秒即将跳转到首页</span>
-            <script type="text/javascript">
-                setTimeout("window.location.href='/'", 2000);
-            </script>
-            {% endif %}
         </div>
     </div>
+    {% else %}
+    <div class="content">
+        <h3 class="topTitle"><span></span><strong>出错啦</strong></h3>
+        <p>您已登录，2秒即将跳转到首页</p>
+    </div>
+    <script type="text/javascript">
+        setTimeout("window.location.href='/'", 2000);
+    </script>
+    {% endif %}
 </div>
 {% endblock content %}

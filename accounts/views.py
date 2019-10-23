@@ -309,7 +309,7 @@ def active_email(request):
         'title': '激活邮箱',
         'form': active_form,
     }
-    return render(request, 'accounts/active_email_forms.html', context=context)
+    return render(request, 'accounts/forms.html', context=context)
 
 def change_password(request):
     """
@@ -356,7 +356,7 @@ def sent_email_reset_password(request):
         'title': '发送邮件重置密码',
         'form': sent_email_reset_password_form,
     }
-    return render(request, 'accounts/active_email_forms.html', context=context)
+    return render(request, 'accounts/forms.html', context=context)
 
 def reset_password(request):
     if request.method == 'POST':
@@ -388,4 +388,4 @@ def reset_password(request):
         'title': '重置密码',
         'form': reset_password_form,
     }
-    return render(request, 'accounts/active_email_forms.html', context=context)
+    return render(request, 'accounts/forms.html', context=context)
