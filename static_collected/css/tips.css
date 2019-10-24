@@ -1,0 +1,54 @@
+/* 用户信息修改结果页面样式设置 */
+.content {
+    margin: 0 auto;
+    padding: 28px 43px 82px 37px;
+    /* background: #fafafa; */
+    border-radius: 2px;
+}
+
+.content .topTitle {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #e3e3e3;
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.content .topTitle span {
+    display: inline-block;
+    width: 4px;
+    height: 20px;
+    border-radius: 100px;
+    background: #fd4c5b;
+}
+
+.content .topTitle strong {
+    margin: 0 0 0 10px;
+    color: #000;
+}
+
+.content p {
+    line-height: 24px;
+    color: #464646;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* 页面提示按钮 */
+.btn-a {
+    background: #fd4c5b;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: 0;
+    text-align: center;
+    display: block;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    margin: 10px auto;
+}
+
+.btn-a:hover{
+    color: #fff;
+}

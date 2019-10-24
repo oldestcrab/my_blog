@@ -1,0 +1,7 @@
+/* 图标容器 */
+div#container{
+    margin: 0 auto;
+    height: 20em;
+    min-width: 20em;
+    max-width: 30em;
+}

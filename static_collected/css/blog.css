@@ -1,0 +1,456 @@
+.container-fluid {
+    padding: 0 90px;
+}
+
+/* 博客列表每列样式 */
+div.blog:not(:last-child) {
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #eee;
+}
+
+div.blog.h3 {
+    margin-top: 0.5em;
+}
+
+/* 博客信息描述 */
+ul.blog-info-description {
+    list-style-type: none;
+    margin-bottom: 1em;
+}
+
+ul.blog-info-description li {
+    display: inline-block;
+    margin-right: 2em;
+}
+
+/* 博客内容 */
+div.blog-content {
+    text-indent: 2em;
+    margin-bottom: 2em;
+}
+
+/* 上下篇博客 */
+div.blog-more {
+    margin-top: 1em;
+}
+
+/* 评论区域样式设置 */
+div.comment-area {
+    margin-top: 2em;
+}
+
+h3.comment-area-title {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.4em;
+}
+
+div.django-ckeditor-widget {
+    width: 100%;
+}
+
+div.comment {
+    border-bottom: 1px dashed #ccc;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+div.reply {
+    margin-left: 3em;
+}
+
+div#reply_content_container {
+    border: 1px solid #d1d1d1;
+    border-bottom: none;
+    background-color: #f8f8f8;
+    overflow: hidden;
+    padding: 1em 1em 0.5em;
+}
+
+/* 点赞样式设置 */
+div.like {
+    color: #337ab7;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.5em 0.3em;
+}
+
+div.like .active {
+    color: #f22;
+}
+
+
+/* 标题设置 */
+.art-title-head {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.art-title-head .caption {
+    margin-bottom: 9px;
+    width: 100%;
+    font-size: 26px;
+    line-height: 40px;
+    color: #333;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word
+}
+
+.art-title-head .art-title-census {
+    width: 100%;
+    margin-bottom: 20px
+}
+
+.art-title-head .art-title-census div {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    line-height: 12px;
+    color: #999
+}
+
+.art-title-head .art-title-census span {
+    vertical-align: middle;
+    font-size: 12px;
+    line-height: 12px
+}
+
+.art-title-head .art-title-census i {
+    vertical-align: middle;
+    font-size: 12px;
+    line-height: 12px;
+    color: #999;
+    cursor: pointer
+}
+
+.art-title-head .art-title-census .article-parent {
+    margin-right: 20px
+}
+
+.art-title-head .art-title-census .article-parent a,
+.art-title-head .art-title-census .article-parent span {
+    vertical-align: middle;
+    color: #999
+}
+
+.art-title-head .art-title-census .census-left {
+    border-right: 1px solid #eee
+}
+
+.art-title-head .art-title-census .census-left .viewcount,
+.art-title-head .art-title-census .census-left .comcount,
+.art-title-head .art-title-census .census-left .likecount {
+    min-width: 58px;
+    width: auto;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 20px;
+}
+
+
+/* 内容设置 */
+
+/* 用户信息 */
+#article-content #article-up .up-abstract {
+    display: inline-block;
+    vertical-align: middle;
+    width: 650px;
+    height: 50px
+}
+
+#article-content #article-up .up-abstract .upname {
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    line-height: 22px;
+    color: #333;
+    margin-right: 6px;
+    position: relative;
+    top: 2px
+}
+
+#article-content #article-up .up-abstract .up-name {
+    margin-top: 6px
+}
+
+#article-content #article-up .up-abstract .up-name .up-type {
+    width: 44px;
+    height: 22px;
+    font-size: 12px;
+    line-height: 22px;
+    background-color: #4a8eff;
+    text-align: center;
+    border-radius: 4px;
+    color: #fff
+}
+
+#article-content #article-up .up-abstract .up-time {
+    width: 100%;
+    height: 12px;
+    margin-top: 7px;
+    text-align: left;
+    font-size: 12px;
+    line-height: 12px;
+    color: #999
+}
+
+#article-content #article-up .up-abstract div {
+    display: inline-block;
+    vertical-align: middle
+}
+
+#article-content #article-up .action-up {
+    float: right;
+    width: 65px;
+    height: 18px;
+    margin-top: 10px
+}
+
+#article-content #article-up .action-up a {
+    display: inline-block;
+    vertical-align: middle;
+    width: 30px;
+    height: 18px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #4a8eff;
+    cursor: pointer
+}
+
+#article-content #article-up .action-up a:first-child {
+    margin-right: 5px
+}
+
+#article-content #article-tags {
+    width: 100%;
+    margin: 0 0 20px;
+    position: relative;
+}
+
+/* 博客正文内容设置 */
+#article-content .article-content {
+    width: 740px;
+    margin-left: 60px;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    line-height: 24px;
+    color: #555;
+    overflow: hidden;
+    font-size: 14px
+}
+
+#article-content .article-content .btn {
+    color: #2596d2;
+    border: 0;
+    box-shadow: none;
+    float: none;
+    margin: 0;
+    height: 0;
+    position: relative;
+    bottom: 2px;
+    padding: 0
+}
+
+#article-content .article-content img {
+    max-width: 740px !important;
+    display: inline-block;
+    cursor: pointer;
+    margin: 10px 0;
+    vertical-align: baseline
+}
+
+#article-content .article-content p {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 4px;
+    color: #333;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-indent: 0 !important;
+    height: auto !important
+}
+
+#article-content .article-content a {
+    color: #4a8eff
+}
+
+#article-content .article-content span {
+    display: inline;
+    white-space: normal !important;
+    word-break: break-all;
+    word-wrap: break-word
+}
+
+#article-content .article-content h1 {
+    font-size: 225%;
+    line-height: 100%
+}
+
+#article-content .article-content h3 {
+    font-size: 175%;
+    line-height: 100%
+}
+
+#article-content .article-content li {
+    list-style-position: inside
+}
+
+
+
+#article-content #article-operation {
+    margin: 40px 0 20px;
+    width: 100%
+}
+
+#article-content #article-operation #art-operate {
+    width: 400px;
+    float: left;
+    height: 36px
+}
+
+#article-content #article-operation #art-operate div {
+    display: inline-block;
+    vertical-align: middle
+}
+
+
+
+#article-content #article-operation #art-operate .img {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    margin-top: 8px
+}
+
+
+
+#article-content #article-operation #art-operate .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 8px;
+    cursor: pointer
+}
+
+/* 评论设置 */
+
+.area-comm-title {
+    height: 50px;
+    line-height: 50px;
+    margin-top: 8px;
+}
+
+.area-comment-login {
+    height: 100px;
+    background: #f7f7f7;
+    border-radius: 0 0 3px 3px;
+    text-align: center;
+    line-height: 100px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.area-top-close {
+    padding-top: 20px;
+    clear: both;
+    width: 100%;
+}
+
+.area-comment-top {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin-top: 18px;
+}
+
+.time_day, .area-comment-title .time_times {
+    font-size: 12px;
+    color: #999;
+}
+
+.time_day {
+    margin: 0 5px;
+}
+
+.area-comment-des {
+    color: #333;
+    font-size: 14px;
+    margin: 8px 0 13px;
+    word-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.38;
+}
+
+
+#comment a {
+    text-decoration: none;
+    height: auto;
+    outline: none;
+    cursor: pointer;
+}
+
+.area-comment-tool {
+    clear: both;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 18px;
+}
+
+.area-comment-up {
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTNweCIgaGVpZ2h0PSIxM3B4IiB2aWV3Qm94PSIwIDAgMTMgMTMiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUyLjUgKDY3NDY5KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5pY29uX2NvbW1lbnRfejwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxnIGlkPSJpY29uX2NvbW1lbnRfeiIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9InphbjEiIGZpbGw9IiM5OTk5OTkiIGZpbGwtcnVsZT0ibm9uemVybyI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0xLjUsMyBDMi4zMjg0MjcxMiwzIDMsMy42NzE1NzI4OCAzLDQuNSBMMywxMC41IEMzLDExLjMyODQyNzEgMi4zMjg0MjcxMiwxMiAxLjUsMTIgQzAuNjcxNTcyODc1LDEyIDEuNTU0MzEyMjNlLTE1LDExLjMyODQyNzEgLTEuMTEwMjIzMDJlLTE2LDEwLjUgTC0xLjExMDIyMzAyZS0xNiw0LjUgQy0xLjExMDIyMzAyZS0xNiwzLjY3MTU3Mjg4IDAuNjcxNTcyODc1LDMgMS41LDMgWiIgaWQ9IlJlY3RhbmdsZS0xNSI+PC9wYXRoPgogICAgICAgICAgICA8cGF0aCBkPSJNMTAuNzI0Njg3NSwzLjg5NjQzNDI0IEMxMi4xNzUyNzM5LDMuODk2NDM0MjQgMTMuMjkwNjc2Nyw1LjI4MTY0OTIgMTIuOTM3NTY1Miw2LjQ3MTUxNTkgTDExLjg1NDEwMjcsMTAuMTIyNDE4MyBDMTEuNDE0OTkyNSwxMS42MDIwNzEzIDEwLjkxODg0OTgsMTIgOS40MjQ1MzI1OCwxMiBMNC41LDEyIEM0LjIyMzg1NzYzLDEyIDQsMTEuNzc2MTQyNCA0LDExLjUgTDQsNC4zNSBDNCw0LjE4MDExMDQzIDQuMDg2MjY1NDEsNC4wMjE4NDQzMSA0LjIyOTA0NzMzLDMuOTI5NzgwMjQgTDUuMjM4MDAzODIsMy4yODA5MTY0NSBDNS41NjY5MDY4NiwzLjAzMTc2Mjg3IDUuNzkzNTMxMDIsMi43NDE0OTM3MyA1Ljk1MzY0MjQ5LDIuMzk1MDE4OTggQzYuMDkyOTI0MTksMi4wOTM2MTkwMiA2LjEyMjA3MDY5LDEuOTgxNjQyMjYgNi4yNzc0ODI4OCwxLjI1OTk1OTU2IEM2LjQ4OTkzNzgsMC4yNzMzODkzNDcgNi44NjM3MzY2OSwtMC4xNjExNDk5NjggNy43OTc0MTA0NiwwLjA0MjIyODg2MTYgQzkuMjg0MjE3OTgsMC4zNjYwOTQ4NDUgOS41NzE5NDQ1MSwxLjczNDE4MTczIDguODQzMDE1OTksMy44OTY0MzQyNCBMMTAuNzI0Njg3NSwzLjg5NjQzNDI0IFoiIGlkPSJQYXRoLTQiPjwvcGF0aD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==) no-repeat;
+    background-size: 13px 13px;
+    background-position: 1px 1px;
+    padding-left: 20px;
+    color: #999;
+}
+
+.area-comment-up.active {
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTNweCIgaGVpZ2h0PSIxM3B4IiB2aWV3Qm94PSIwIDAgMTMgMTMiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUyLjUgKDY3NDY5KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5pY29uX2NvbW1lbnRfel9hY3RpdmU8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZyBpZD0iaWNvbl9jb21tZW50X3pfYWN0aXZlIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0iemFuMiIgZmlsbD0iI0ZENEM1QyIgZmlsbC1ydWxlPSJub256ZXJvIj4KICAgICAgICAgICAgPHBhdGggZD0iTTEuNSwzIEMyLjMyODQyNzEyLDMgMywzLjY3MTU3Mjg4IDMsNC41IEwzLDEwLjUgQzMsMTEuMzI4NDI3MSAyLjMyODQyNzEyLDEyIDEuNSwxMiBDMC42NzE1NzI4NzUsMTIgMCwxMS4zMjg0MjcxIDAsMTAuNSBMMCw0LjUgQzAsMy42NzE1NzI4OCAwLjY3MTU3Mjg3NSwzIDEuNSwzIFoiIGlkPSJSZWN0YW5nbGUtMTUiPjwvcGF0aD4KICAgICAgICAgICAgPHBhdGggZD0iTTguODQzMDE1OTksMy44OTY0MzQyNCBMMTAuNzI0Njg3NSwzLjg5NjQzNDI0IEMxMi4xNzUyNzM5LDMuODk2NDM0MjQgMTMuMjkwNjc2Nyw1LjI4MTY0OTIgMTIuOTM3NTY1Miw2LjQ3MTUxNTkgTDExLjg1NDEwMjcsMTAuMTIyNDE4MyBDMTEuNDE0OTkyNSwxMS42MDIwNzEzIDEwLjkxODg0OTgsMTIgOS40MjQ1MzI1OCwxMiBMNC41LDEyIEM0LjIyMzg1NzYzLDEyIDQsMTEuNzc2MTQyNCA0LDExLjUgTDQsNC4zNSBDNCw0LjE4MDExMDQzIDQuMDg2MjY1NDEsNC4wMjE4NDQzMSA0LjIyOTA0NzMzLDMuOTI5NzgwMjQgTDUuMjM4MDAzODIsMy4yODA5MTY0NSBDNS41NjY5MDY4NiwzLjAzMTc2Mjg3IDUuNzkzNTMxMDIsMi43NDE0OTM3MyA1Ljk1MzY0MjQ5LDIuMzk1MDE4OTggQzYuMDkyOTI0MTksMi4wOTM2MTkwMiA2LjEyMjA3MDY5LDEuOTgxNjQyMjYgNi4yNzc0ODI4OCwxLjI1OTk1OTU2IEM2LjQ4OTkzNzgsMC4yNzMzODkzNDcgNi44NjM3MzY2OSwtMC4xNjExNDk5NjggNy43OTc0MTA0NiwwLjA0MjIyODg2MTYgQzkuMjg0MjE3OTgsMC4zNjYwOTQ4NDUgOS41NzE5NDQ1MSwxLjczNDE4MTczIDguODQzMDE1OTksMy44OTY0MzQyNCBaIiBpZD0iUGF0aC00Ij48L3BhdGg+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=) no-repeat;
+    background-size: 13px 13px;
+    background-position: 1px 1px;
+    padding-left: 20px;
+    color: #999;
+}
+
+.area-comment-reply {
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTNweCIgaGVpZ2h0PSIxM3B4IiB2aWV3Qm94PSIwIDAgMTMgMTMiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUyLjUgKDY3NDY5KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5pY29uX2NvbW1lbnRfcGw8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZyBpZD0iaWNvbl9jb21tZW50X3BsIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0iaWNvbl/mlofnq6Dor4TorrotY29weS0yIiBmaWxsPSIjOTk5OTk5IiBmaWxsLXJ1bGU9Im5vbnplcm8iPgogICAgICAgICAgICA8cGF0aCBkPSJNNC4wNzAwMjc0NywxMiBMMC42MzczNjA1NjQsMTIuOTgwNzYyIEMwLjMxNzk1MjQ2MSwxMy4wNzIwMjE0IDAsMTIuODMyMTg5NCAwLDEyLjUgTDAsNCBDMCwyLjcyMzg1NzYzIDAuNzIzODU3NjI1LDIgMiwyIEwxMSwyIEMxMi4yNzYxNDI0LDIgMTMsMi43MjM4NTc2MyAxMyw0IEwxMywxMCBDMTMsMTEuMjc2MTQyNCAxMi4yNzYxNDI0LDEyIDExLDEyIEw0LjA3MDAyNzQ3LDEyIFogTTksNSBDOC40NDc3MTUyNSw1IDgsNS40NDc3MTUyNSA4LDYgTDgsNyBDOCw3LjU1MjI4NDc1IDguNDQ3NzE1MjUsOCA5LDggQzkuNTUyMjg0NzUsOCAxMCw3LjU1MjI4NDc1IDEwLDcgTDEwLDYgQzEwLDUuNDQ3NzE1MjUgOS41NTIyODQ3NSw1IDksNSBaIE00LDUgQzMuNDQ3NzE1MjUsNSAzLDUuNDQ3NzE1MjUgMyw2IEwzLDcgQzMsNy41NTIyODQ3NSAzLjQ0NzcxNTI1LDggNCw4IEM0LjU1MjI4NDc1LDggNSw3LjU1MjI4NDc1IDUsNyBMNSw2IEM1LDUuNDQ3NzE1MjUgNC41NTIyODQ3NSw1IDQsNSBaIiBpZD0iQ29tYmluZWQtU2hhcGUiPjwvcGF0aD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==) no-repeat;
+    background-size: 13px 13px;
+    background-position: 0 1px;
+    padding-left: 17px;
+    color: #999;
+}
+
+.area-comment-reply,
+.area-comment-up,
+.area-comment-up.active {
+    /* text-align: center; */
+    margin-right: 13px;
+    cursor: pointer;
+}
+
+.area-comment-first {
+    position: relative;
+    height: auto;
+}
+
+.area-sec-close {
+    padding-top: 20px;
+    clear: both;
+    padding: 20px 0 0;
+    background: #f7f7f7;
+    margin-bottom: 20px;
+    height: auto;
+}
+
+.area-comment-sec {
+    padding-left: 15px;
+    position: relative;
+    height: auto;
+}
