@@ -145,18 +145,19 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # 是否启动安全链接
 EMAIL_USE_TLS = False
 
+
 # 配置ckeditor
 CKEDITOR_UPLOAD_PATH = 'upload/'
 CKEDITOR_CONFIGS = {
     'default': {
-# 工具栏风格
+        # 工具栏风格
         'toolbar': 'Custom',
         # 工具栏按钮
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
             ['TextColor', 'BGColor', 'RemoveFormat'],
             ['NumberedList', 'BulletedList'],
-            ['Link', 'Unlink'],
+            ['Link', 'Unlink', 'Image'],
             ['Smiley', 'SpecialChar', 'CodeSnippet', 'Markdown'],
         ],
         # tab键转换空格数
