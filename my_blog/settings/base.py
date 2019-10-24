@@ -149,22 +149,7 @@ EMAIL_USE_TLS = False
 # 配置ckeditor
 CKEDITOR_UPLOAD_PATH = 'upload/'
 CKEDITOR_CONFIGS = {
-    'default': {
-        # 工具栏风格
-        'toolbar': 'Custom',
-        # 工具栏按钮
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
-            ['TextColor', 'BGColor', 'RemoveFormat'],
-            ['NumberedList', 'BulletedList'],
-            ['Link', 'Unlink', 'Image'],
-            ['Smiley', 'SpecialChar', 'CodeSnippet', 'Markdown'],
-        ],
-        # tab键转换空格数
-        'tabSpaces': 4,
-        #  添加插件
-        'extraPlugins': ','.join(['codesnippet', 'markdown']),
-    },
+    'default': {},
     'comment_ckeditor': {
         # 工具栏风格
         'toolbar': 'Custom',
@@ -174,7 +159,7 @@ CKEDITOR_CONFIGS = {
             ['TextColor', 'BGColor', 'RemoveFormat'],
             ['NumberedList', 'BulletedList'],
             ['Link', 'Unlink'],
-            ['Smiley', 'SpecialChar', 'CodeSnippet', 'Markdown'],
+            ['Smiley', 'SpecialChar', 'CodeSnippet',],
         ],
         # 编辑器宽度自适应
         'width': 'auto',
@@ -184,6 +169,6 @@ CKEDITOR_CONFIGS = {
         'removePlugins': 'elementspath',
         'resize_enabled': False,
         #  添加插件
-        'extraPlugins': ','.join(['codesnippet', 'markdown']),
+        'extraPlugins': ','.join(['codesnippet',]),
     }
 }
