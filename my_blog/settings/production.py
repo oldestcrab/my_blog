@@ -49,7 +49,7 @@ LOGGING = {
         'log_file': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',  # 与default相同
-            'filename': 'my_blog.log',  # 日志输出文件
+            'filename': '/home/my_blog.log',  # 日志输出文件
             'maxBytes': 16777216,  # 16MB
             'formatter': 'verbose'  # 制定输出的格式，注意 在上面的formatter配置里面选择一个，否则会报错
         },
