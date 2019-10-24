@@ -1,0 +1,18 @@
+{% extends "share_layout/base.html" %}
+{% load staticfiles %}
+{% block header_extends %}
+<link href="{% static 'css/tips.css' %}" rel="stylesheet">
+{% endblock header_extends %}
+{% block title %}
+出错啦！
+{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="content">
+        <h3 class="topTitle"><span></span><strong>出错啦！</strong></h3>
+        <p>咦？世界线变动了，你好像来到了奇怪的地方。</p>
+        <p>问题已经通过邮件报告管理员了哦。看看其他内容吧~</p>
+        <a href="{% url 'home' %}" class="btn-a">首页</a>
+    </div>
+</div>
+{% endblock content %}
