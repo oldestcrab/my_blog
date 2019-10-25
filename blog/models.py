@@ -23,7 +23,7 @@ class Blog(models.Model, ReadNumExpandMethod):
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='发布时间')
     last_update_time = models.DateTimeField(auto_now=True, verbose_name='更新时间')
     blog_type = models.ForeignKey(BlogType, on_delete=models.CASCADE,verbose_name='博客分类')
-    is_delete = models.BooleanField(default=False, verbose_name='删除')
+    is_delete = models.BooleanField(default=False, verbose_name='是否删除')
     # # 反向关联模型，产生对应关系，不会产生字段
     read_num_details = GenericRelation(ReadNumDetail)
 

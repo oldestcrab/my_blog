@@ -19,6 +19,9 @@ class Comment(models.Model):
     # 评论指向谁
     reply_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='replies', null=True, verbose_name='指向评论')
 
+    def __str__(self):
+        return self.content
+
     class Meta:
         verbose_name = '评论'
         verbose_name_plural = verbose_name

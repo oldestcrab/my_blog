@@ -8,7 +8,7 @@ class LikeCount(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    like_num = models.IntegerField(default=0, verbose_name='点赞量')
+    like_num = models.IntegerField(default=0, verbose_name='点赞统计')
 
     class Meta:
         verbose_name = '点赞统计'
