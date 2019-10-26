@@ -1,0 +1,101 @@
+{% extends "share_layout/base.html" %}
+{% block title %}博客{% endblock title %}
+{% load staticfiles %}
+{% load comment_tags %}
+{% load likes_tags %}
+{% block header_extends %}
+<link href="{% static 'css/blog.css' %}" rel="stylesheet">
+<link href="{% static 'css/blogchannel.css' %}" rel="stylesheet">
+<link href="{% static 'css/search.css' %}" rel="stylesheet">
+{% endblock header_extends %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <!-- 设置在不同大小屏幕显示的大小 -->
+    {# 内容左侧 #}
+    <div class="col-md-9">
+      <div class="a-column-left">
+        {# 列表标题栏 #}
+        <div class="search-nav">
+          <ul class="wp clearfix">
+            <li class="fl active">博客</li>
+          </ul>
+        </div>
+        <div class="article-list">
+          <div class="result-count">共<span>{{ search_result_count }}</span>条结果</div>
+          {% for blog in current_page.object_list %}
+          <div class="article-item clearfix weblog-item">
+            <div class="atc-left fl clearfix">
+              <div class="comm-count">{% get_comment_count blog %}</div>
+              <div class="comm-tt">评论</div>
+            </div>
+            <div class="atc-right fl clearfix">
+              <div class="act-cont-top clearfix"><a href="{% url 'blog:blog_detail' blog.pk %}" target="_blank"
+                  class="atc-title fl">{{ blog.title }}</a>
+              </div>
+              <div class="atc-content clearfix">{{ blog.content|striptags|truncatechars:120 }}
+              </div>
+              <div class="atc-info clearfix">
+                <a href="" class="atc-up act-info-mg fl">UP：{{ request.user }}</a>
+                <p class="atc-time act-info-mg fl">{{ blog.created_time }}</p>
+                <p class="atc-view act-info-mg fl"><span class="glyphicon glyphicon-eye-open"></span><span
+                    class="views">{{ blog.get_read_num }}</span>
+                  <p class="atc-domain-t fr">来自：<a class="act-domain-t fr"
+                      href="{% url 'blog:blog_with_type' blog.blog_type.pk %}">{{ blog.blog_type }}</a></p>
+              </div>
+            </div>
+          </div>
+          <hr class="article-item-hr">
+          {% endfor %}
+        </div>
+        {# 分页 #}
+        {% if range_page|length > 1 %}
+        {% include "share_layout/pagination.html" %}
+        {% endif %}
+      </div>
+    </div>
+    {# 内容右侧 #}
+    <div class="col-md-3">
+      {# 内容右侧 #}
+      <div class="a-column-right">
+        {# 按类型分类 #}
+        <div class="recom">
+          <div class="recom-head">
+            <div class="recom-title">博客分类</div>
+            <hr class="article-hr recom-hr">
+          </div>
+          {% for blog_type in blog_type_list %}
+          <div class="recom-list clearfix">
+            <div class="recom-item fl clearfix">
+              <div class="item-info fl clearfix"><a href="{% url 'blog:blog_with_type' blog_type.pk %}" target="_blank"
+                  class="item-title">{{ blog_type }}</a>
+                <p><span class="item-count">文章: {{ blog_type.blog_count }}</span></p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {# 按月分类 #}
+        <div class="recom">
+          <div class="recom-head">
+            <div class="recom-title">日期归档</div>
+            <hr class="article-hr recom-hr">
+          </div>
+          {% for blog_date,blog_count in blog_date_dict.items %}
+          <div class="recom-list clearfix">
+            <div class="recom-item fl clearfix">
+              <div class="item-info fl clearfix"><a
+                  href="{% url 'blog:blog_with_date' blog_date.year blog_date.month %}" target="_blank"
+                  class="item-title">{{ blog_date|date:'Y-m' }}</a>
+                <p><span class="item-count">文章: {{ blog_count }}</span></p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

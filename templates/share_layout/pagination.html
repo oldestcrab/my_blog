@@ -4,7 +4,7 @@
         {# 判断是否有上一页 #}
         {% if current_page.has_previous %}
         <li>
-            <a href="?page={{ current_page.previous_page_number }}" aria-label="Previous">
+            <a href="?{{ paginator_kw }}page={{ current_page.previous_page_number }}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
@@ -13,18 +13,18 @@
         {# 循环页码 #}
         {% for page_num in range_page %}
         {% if page_num == current_page.number %}
-        <li class="active"><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+        <li class="active"><a href="?{{ paginator_kw }}page={{ page_num }}">{{ page_num }}</a></li>
         {% elif page_num == '...' %}
         <li class="disabled"><a href="#">{{ page_num }}</a></li>
         {% else %}
-        <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+        <li><a href="?{{ paginator_kw }}page={{ page_num }}">{{ page_num }}</a></li>
         {% endif %}
         {% endfor %}
 
         {# 判断是否有下一页 #}
         {% if current_page.has_next %}
         <li>
-            <a href="?page={{ current_page.next_page_number }}" aria-label="Next">
+            <a href="?{{ paginator_kw }}page={{ current_page.next_page_number }}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

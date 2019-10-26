@@ -2,10 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Count
 
 from .models import BlogType, Blog
-from .utils import common_paginator
+from my_blog.utils import common_paginator
 from read_statistics.utils import read_statistics_once_read
 
-def get_blog_common_data(request, object_list ):
+def get_blog_common_data(request, object_list):
     """
     # 获取博客的一些通用信息
     :param request: request

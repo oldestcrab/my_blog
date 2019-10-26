@@ -29,6 +29,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
     path('', views.home, name='home'),
+    path('search', views.search, name='search'),
 ]
 
 # 开发环境中访问文件方法

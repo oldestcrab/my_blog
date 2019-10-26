@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-  <title>{% block title %}{% endblock title %}  -  QHL Blog - 认真你就输啦(^ω^)</title>
+  <title>{% block title %}{% endblock title %} - QHL Blog - 认真你就输啦(^ω^)</title>
 
   <!-- Bootstrap -->
   <link href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -46,6 +46,14 @@
               href="{% url 'blog:blog_list' %}">博客</a></li>
           <li><a href="#">about</a></li>
           <li><a href="#">contact</a></li>
+          <li id="search-box" class="fr search-box">
+            <form id="search-form" target="_blank" method="get" action="{% url 'search' %}">
+              <input id="search-text" type="text" placeholder="请输入搜索内容~！" name="wd" value="" autocomplete="off" maxlength="30">
+              <button id="search-btn" data-name="search" class="search-btn log-dot">
+                <i class="glyphicon glyphicon-search"></i>
+                <span>搜索</span></button>
+            </form>
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
@@ -72,7 +80,7 @@
 
   {% block content %}{% endblock content %}
   <!-- 底部 -->
-  <footer class="navbar navbar-default navbar-fixed-bottom", id="footer">
+  <footer class="navbar navbar-default navbar-fixed-bottom" , id="footer">
     <div class="container footer-con">
       <div class="clearfix footer-top">
         <div class="fl footer-nav">

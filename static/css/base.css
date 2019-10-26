@@ -209,4 +209,70 @@ div .paginator {
     padding-left: 48px;
 }
 
+/* 搜索栏 */
+.search-box {
+    top: 9px;
+    margin-left: 100px;
+    width: 362px;
+}
 
+.search-box form {
+    vertical-align: top;
+    height: 32px
+}
+
+.search-box .icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 32px;
+    width: 30px;
+}
+
+.search-box .icon:before {
+    font-size: 14px;
+    color: #fff
+}
+
+.search-box input {
+    border: 1px solid #e5e5e5;
+    border-right: none;
+    padding: 8px 10px;
+    height: 32px;
+    line-height: 14px;
+    border-radius: 3px 0 0 3px;
+    width: 316px;
+    vertical-align: top;
+    color: #999;
+    box-sizing: border-box
+}
+
+.search-box .search-btn {
+    border: none;
+    width: 40px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    vertical-align: top;
+    background: #fd4c5d;
+    color: #fff;
+    border-radius: 0 3px 3px 0;
+    margin-left: -2px;
+    cursor: pointer;
+}
+
+.search-box .search-btn:hover {
+    background: #eb4556
+}
+
+.search-box .search-btn i.icon {
+    display: inline;
+}
+
+.search-box .search-btn i.icon:before {
+    font-size: 16px
+}
+
+.search-box .search-btn span {
+    display: none
+}

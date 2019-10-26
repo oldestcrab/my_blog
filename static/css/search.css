@@ -1,0 +1,30 @@
+/* 搜索页面设置 */
+.search-nav {
+    border-bottom: 1px solid #ececec;
+    background: #fff;
+}
+
+.search-nav li {
+    height: 44px;
+    line-height: 44px;
+    font-size: 20px;
+    position: relative;
+    padding: 0 15px;
+    cursor: pointer;
+    margin-left: -10px;
+}
+
+.search-nav li:hover {
+    color: #fd4c5d
+}
+
+.search-nav li.active {
+    color: #fd4c5d;
+    border-bottom: 3px solid #fd4c5d;
+}
+
+.result-count {
+    margin: 20px 0;
+    color: #999;
+    font-size: 14px;
+}
