@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+import notifications.urls
 
 from . import views
 
@@ -27,6 +28,8 @@ urlpatterns = [
     path('comment/', include('comment.urls', namespace='comment')),
     path('likes/', include('likes.urls', namespace='likes')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('notifications/', include(notifications.urls, namespace='notifications')),
+    path('my_notifications/', include('my_notifications.urls', namespace='my_notifications')),
 
     path('', views.home, name='home'),
     path('search', views.search, name='search'),

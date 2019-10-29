@@ -39,12 +39,14 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'ckeditor_uploader',
+    'notifications',
 
     'blog',
     'accounts',
     'comment',
     'read_statistics',
     'likes',
+    'my_notifications',
 ]
 
 MIDDLEWARE = [

@@ -48,7 +48,8 @@
           <li><a href="#">contact</a></li>
           <li id="search-box" class="fr search-box">
             <form id="search-form" target="_blank" method="get" action="{% url 'search' %}">
-              <input id="search-text" type="text" placeholder="请输入搜索内容~！" name="wd" value="" autocomplete="off" maxlength="30">
+              <input id="search-text" type="text" placeholder="请输入搜索内容~！" name="wd" value="" autocomplete="off"
+                maxlength="30">
               <button id="search-btn" data-name="search" class="search-btn log-dot">
                 <i class="glyphicon glyphicon-search"></i>
                 <span>搜索</span></button>
@@ -59,14 +60,24 @@
           {% if user.is_authenticated %}
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-              aria-expanded="false">{{ user.username }}<span class="caret"></span></a>
-            <ul class="dropdown-menu">
+              data-hover="dropdown" aria-expanded="false">{{ user.username }}</a>
+            <ul class="dropdown-menu dropdown-menu-left" >
               <li><a href="{% url 'accounts:user_info' %}">个人中心</a></li>
               <li><a href="{% url 'accounts:change_password' %}">修改密码</a></li>
               {% if user.is_superuser %}
               <li><a href="{% url 'admin:index' %}">后台管理</a></li>
               {% endif %}
               <li><a href="{% url 'accounts:logout' %}?from={{ request.get_full_path }}">退出</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+              data-hover="dropdown" aria-expanded="false" target="_black" class="icon icon-message item">消息中心</a>
+            <ul class="dropdown-menu dropdown-menu-left" >
+              <li><a href="{% url 'accounts:user_info' %}">评论</a></li>
+              <li><a href="{% url 'accounts:change_password' %}">赞</a></li>
+              <li><a href="{% url 'admin:index' %}">站内公告</a></li>
+              <li><a href="{% url 'accounts:logout' %}?from={{ request.get_full_path }}">系统通知</a></li>
             </ul>
           </li>
           {% else %}
@@ -125,6 +136,7 @@
   <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
   <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
   <script src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/twitter-bootstrap-hover-dropdown.min.js' %}"></script>
   <script type="text/javascript">
     // 解决底部自动导航的问题
     $(window).resize(function () {
