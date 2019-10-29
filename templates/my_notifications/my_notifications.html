@@ -1,0 +1,5 @@
+{% extends "share_layout/base.html" %}
+{% block title %}消息中心{% endblock title %}
+{% block content %}
+{{ request.user.notifications.all }}
+{% endblock content %}
