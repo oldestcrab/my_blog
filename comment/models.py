@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class Comment(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -26,3 +27,9 @@ class Comment(models.Model):
         verbose_name = '评论'
         verbose_name_plural = verbose_name
         ordering = ['comment_time']
+
+    def get_user(self):
+        return self.user
+
+    def get_url(self):
+        return self.content_object.get_url()

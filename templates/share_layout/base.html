@@ -59,7 +59,7 @@
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            <a href="{% url 'accounts:user_info' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
               data-hover="dropdown" aria-expanded="false">{{ user.username }}</a>
             <ul class="dropdown-menu dropdown-menu-left" >
               <li><a href="{% url 'accounts:user_info' %}">个人中心</a></li>
@@ -71,7 +71,7 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            <a href="{% url 'my_notifications:my_notifications' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
               data-hover="dropdown" aria-expanded="false" target="_black" class="icon icon-message item">消息中心</a>
             <ul class="dropdown-menu dropdown-menu-left" >
               <li><a href="{% url 'accounts:user_info' %}">评论</a></li>
