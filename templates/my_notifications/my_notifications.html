@@ -1,5 +1,36 @@
 {% extends "share_layout/base.html" %}
 {% block title %}消息中心{% endblock title %}
 {% block content %}
-{{ request.user.notifications.all }}
+<div class="container">
+    <div id="nav">
+        <div class="title">我的消息</div>
+        <ul class="nav-list">
+            <li class="msg-item comment active">
+                <a> 评论
+                </a>
+            </li>
+            <li class="msg-item like">
+                <a> 赞
+                </a>
+            </li>
+            <li class="msg-item sysmsg">
+                <a> 站内公告
+                </a>
+            </li>
+            <li class="msg-item resmsg">
+                <a> 系统通知
+                </a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="content">
+        <div>
+            <div>
+                <p>消息</p>
+            </div>
+        </div>
+
+    </div>
+</div>
 {% endblock content %}

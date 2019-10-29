@@ -59,9 +59,9 @@
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
           <li class="dropdown">
-            <a href="{% url 'accounts:user_info' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-              data-hover="dropdown" aria-expanded="false">{{ user.username }}</a>
-            <ul class="dropdown-menu dropdown-menu-left" >
+            <a href="{% url 'accounts:user_info' %}" class="dropdown-toggle" data-toggle="dropdown" role="button"
+              aria-haspopup="true" data-hover="dropdown" aria-expanded="false">{{ user.username }}</a>
+            <ul class="dropdown-menu dropdown-menu-left">
               <li><a href="{% url 'accounts:user_info' %}">个人中心</a></li>
               <li><a href="{% url 'accounts:change_password' %}">修改密码</a></li>
               {% if user.is_superuser %}
@@ -71,9 +71,10 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a href="{% url 'my_notifications:my_notifications' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-              data-hover="dropdown" aria-expanded="false" target="_black" class="icon icon-message item">消息中心</a>
-            <ul class="dropdown-menu dropdown-menu-left" >
+            <a href="{% url 'my_notifications:my_notifications' %}" class="dropdown-toggle" data-toggle="dropdown"
+              data-hover="dropdown">
+              <span class="glyphicon glyphicon-envelope"></span></a>
+            <ul class="dropdown-menu dropdown-menu-left">
               <li><a href="{% url 'accounts:user_info' %}">评论</a></li>
               <li><a href="{% url 'accounts:change_password' %}">赞</a></li>
               <li><a href="{% url 'admin:index' %}">站内公告</a></li>
@@ -166,7 +167,12 @@
         i.text(parseInt(value) + 1);
       };
       i.addClass('active');
-    })
+    });
+
+    $('.dropdown-toggle').click(function(){
+      var url = $(this).attr('href')
+      window.open(url, "_blank");
+    });
   </script>
   {% block script_extends %}{% endblock script_extends %}
 </body>

@@ -6,7 +6,7 @@ from notifications.signals import notify
 from .models import LikeRecord
 
 @receiver(post_save, sender=LikeRecord)
-def send_notifications(sender, instance, **kwargs):
+def send_notification(sender, instance, **kwargs):
     """
     点赞发送通知
     :param sender:

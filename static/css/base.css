@@ -121,6 +121,10 @@ a {
 }
 
 /* 导航栏设置 */
+.navbar-top {
+    border-bottom: none !important;
+}
+
 div.navbar {
     line-height: 46px;
     box-sizing: border-box;
@@ -275,4 +279,40 @@ div .paginator {
 
 .search-box .search-btn span {
     display: none
+}
+
+/* 导航栏消息中心设置 */
+a.dropdown-toggle:hover {
+    background: #fff !important;
+}
+
+.dropdown-menu {
+    border: none !important;
+}
+
+.dropdown-menu>li {
+    font-size: 12px;
+    width: 100%;
+    padding: 12px 0 0 0;
+    line-height: 1.2;
+}
+
+.dropdown-menu>li>a:focus,
+.dropdown-menu>li>a:hover {
+    background: #fff !important;
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {
+    background-color: #fff;
+    color: #f00;
+}
+
+.navbar-default .navbar-nav>.open>a:hover {
+    color: #f00;
+}
+
+.dropdown-menu>li>a:hover{
+    color: #f00;
 }

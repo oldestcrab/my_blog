@@ -4,9 +4,15 @@ from notifications.signals import notify
 from django.contrib.auth.models import User
 
 @receiver(post_save, sender=User)
-def send_notifications(sender, instance, **kwargs):
-    print(1)
-    print(kwargs)
+def send_notification(sender, instance, **kwargs):
+    """
+    注册发送通知
+    :param sender:
+    :param instance:
+    :param kwargs:
+    :return:
+    """
+    # 判断是否是注册操作
     if kwargs['created'] == True:
         admin = User.objects.get(pk=1)
         verb = '恭喜注册成功，请继续探索吧~'
