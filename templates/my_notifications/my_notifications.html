@@ -1,36 +1,89 @@
 {% extends "share_layout/base.html" %}
 {% block title %}消息中心{% endblock title %}
+{% load staticfiles %}
+{% block header_extends %}
+<link rel="stylesheet" href="{% static 'css/my_notifications.css' %}">
+{% endblock header_extends %}
 {% block content %}
 <div class="container">
-    <div id="nav">
-        <div class="title">我的消息</div>
-        <ul class="nav-list">
-            <li class="msg-item comment active">
-                <a> 评论
-                </a>
-            </li>
-            <li class="msg-item like">
-                <a> 赞
-                </a>
-            </li>
-            <li class="msg-item sysmsg">
-                <a> 站内公告
-                </a>
-            </li>
-            <li class="msg-item resmsg">
-                <a> 系统通知
-                </a>
-            </li>
-        </ul>
-
-    </div>
-    <div class="content">
-        <div>
-            <div>
-                <p>消息</p>
+    <div class="row">
+        <div class="col-md-2 nav">
+            <div class="title">我的消息</div>
+            <ul class="nav-list">
+                <li class="msg-item comment active">
+                    <a href="/" ajaxpipe="1" data-quickviewid="upCollageMain"> 评论
+                        <span class="badget transparent"></span>
+                    </a>
+                </li>
+                <li class="msg-item like">
+                    <a href="/like" ajaxpipe="1" data-quickviewid="upCollageMain"> 赞
+                        <span class="badget transparent"></span>
+                    </a>
+                </li>
+                <li class="msg-item sysmsg">
+                    <a href="/sysmsg" ajaxpipe="1" data-quickviewid="upCollageMain"> 站内公告
+                        <span class="badget transparent"></span>
+                    </a>
+                </li>
+                <li class="msg-item resmsg">
+                    <a href="/resmsg" ajaxpipe="1" data-quickviewid="upCollageMain"> 系统通知
+                        <span class="badget transparent"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9 content">
+            <div id="listview">
+                <ul class="comment-item">
+                    <li class="content">
+                        <div class="titlebar">
+                            <a class="name" href="//www.acfun.cn/u/12606590.aspx" target="_blank">破绽gay佬有点多</a>
+                            <span class="time">2019-10-14</span>
+                        </div>
+                        <div class="intro">在文章<a href="//www.acfun.cn/a/ac11371137" target="_blank">《请问怎么追女孩子呢》</a>中回复了你
+                        </div>
+                        <a class="msg-reply" href="//www.acfun.cn/a/ac11371137#ncid=95450605" target="_blank">
+                            <div class="clamp-text">
+                                <div class="inner" style="-webkit-box-orient: vertical">
+                                    手不搭在扶手上吗？
+                                </div>
+                            </div>
+                        </a>
+                        <div class="msg-replied">
+                            <div class="clamp-text">
+                                <div class="inner" style="-webkit-box-orient: vertical">
+                                    每次看到这个，我都在想，电影的椅子不是有扶手的吗？怎么摸？蹲下来？[表情]
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="comment-item">
+                        <li class="content">
+                            <div class="titlebar">
+                                <a class="name" href="//www.acfun.cn/u/12606590.aspx" target="_blank">有点多</a>
+                                <span class="time">2019-10-14</span>
+                            </div>
+                            <div class="intro">在文章<a href="//www.acfun.cn/a/ac11371137" target="_blank">《请问呢》</a>中回复了你
+                            </div>
+                            <a class="msg-reply" href="//www.acfun.cn/a/ac11371137#ncid=95450605" target="_blank">
+                                <div class="clamp-text">
+                                    <div class="inner" style="-webkit-box-orient: vertical">
+                                        手不搭
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="msg-replied">
+                                <div class="clamp-text">
+                                    <div class="inner" style="-webkit-box-orient: vertical">
+                                        每次看到这个
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
             </div>
         </div>
-
     </div>
 </div>
 {% endblock content %}
