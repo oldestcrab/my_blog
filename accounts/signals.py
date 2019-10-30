@@ -17,4 +17,4 @@ def send_notification(sender, instance, **kwargs):
         admin = User.objects.get(pk=1)
         verb = '恭喜注册成功，请继续探索吧~'
         notify.send(admin, recipient=instance, verb=verb, target=instance,
-                    action_object=instance, )
+                    action_object=admin, )

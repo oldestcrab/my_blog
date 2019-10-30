@@ -53,3 +53,19 @@ def get_comment_count_by_str(obj_str, pk):
     """
     content_type = ContentType.objects.get(model=obj_str)
     return Comment.objects.filter(content_type=content_type, object_id=pk).count()
+
+@register.simple_tag()
+def get_comment_model_title(pk):
+    """
+    通过评论ID返回对应模型的标题
+    :param pk: 评论ID
+    :return: 对应模型的标题
+    """
+    comment =Comment.objects.get(id=pk)
+    return comment.content_object.title
+
+@register.simple_tag()
+def get_comment_model_title(pk):
+
+    comment =Comment.objects.get(id=pk)
+    return comment.content_object.title
