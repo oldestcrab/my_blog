@@ -11,19 +11,19 @@
         <div class="col-md-2 nav">
             <div class="title">我的消息</div>
             <ul class="nav-list">
-                <li class="msg-item comment active">
+                <li class="msg-item comment {% if type == 'comment' %}active{% endif %}">
                     <a href="{% url 'my_notifications:my_notifications' %}?type=comment"> 评论
                     </a>
                 </li>
-                <li class="msg-item like">
+                <li class="msg-item like {% if type == 'likes' %}active{% endif %}">
                     <a href="{% url 'my_notifications:my_notifications' %}?type=likes"> 赞
                     </a>
                 </li>
-                <li class="msg-item sysmsg">
+                <li class="msg-item sysmsg {% if type == 'sysmsg' %}active{% endif %}">
                     <a href="{% url 'my_notifications:my_notifications' %}?type=sysmsg"> 站内公告
                     </a>
                 </li>
-                <li class="msg-item resmsg">
+                <li class="msg-item resmsg {% if type == 'resmsg' %}active{% endif %}">
                     <a href="{% url 'my_notifications:my_notifications' %}?type=resmsg"> 系统通知
                     </a>
                 </li>

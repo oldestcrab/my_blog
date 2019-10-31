@@ -31,4 +31,4 @@ def send_notification(sender, instance, **kwargs):
     # 添加锚点，方便前端定位
     url = instance.get_url() + '#comment_' + str(instance.pk)
     notify.send(instance.user, recipient=recipient, verb=verb, description=instance.content, action_object=instance,
-           target=instance, url=url, reply_to=reply_to)
+           target=instance.content_object, url=url, reply_to=reply_to)

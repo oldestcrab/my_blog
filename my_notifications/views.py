@@ -32,6 +32,7 @@ def my_notifications(request):
     context = {
         'current_page': current_page,
         'range_page': range_page,
-        'paginator_kw' : f'type={type}&'
+        'paginator_kw' : f'type={type}&',
+        'type': type,
     }
     return render(request, 'my_notifications/my_notifications.html', context=context)
