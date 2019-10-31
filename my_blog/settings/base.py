@@ -174,3 +174,5 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': ','.join(['codesnippet',]),
     }
 }
+
+DJANGO_NOTIFICATIONS_CONFIG = { 'USE_JSONFIELD': True}

@@ -13,55 +13,57 @@
             <ul class="nav-list">
                 <li class="msg-item comment active">
                     <a href="{% url 'my_notifications:my_notifications' %}?type=comment"> 评论
-                        <span class="badget transparent"></span>
                     </a>
                 </li>
                 <li class="msg-item like">
                     <a href="{% url 'my_notifications:my_notifications' %}?type=likes"> 赞
-                        <span class="badget transparent"></span>
                     </a>
                 </li>
                 <li class="msg-item sysmsg">
                     <a href="{% url 'my_notifications:my_notifications' %}?type=sysmsg"> 站内公告
-                        <span class="badget transparent"></span>
                     </a>
                 </li>
                 <li class="msg-item resmsg">
                     <a href="{% url 'my_notifications:my_notifications' %}?type=resmsg"> 系统通知
-                        <span class="badget transparent"></span>
                     </a>
                 </li>
             </ul>
         </div>
         <div class="col-md-9 content">
             <div id="listview">
-                {% for notificaion in notification_list %}
+                {% for notification in current_page %}
                 <ul class="comment-item">
                     <li class="content">
                         <div class="titlebar">
-                            <a class="name" href="//www.acfun.cn/u/12606590.aspx" target="_blank">{{ notificaion.actor.username }}</a>
-                            <span class="time">{{ notificaion.timestamp|date:'Y-m-d H:i:s' }}</span>
+                            <a class="name">{{ notification.actor.username }}</a>
+                            <span class="time">{{ notification.timestamp|date:'Y-m-d H:i:s' }}</span>
                         </div>
-                        <div class="intro">在文章<a href="//www.acfun.cn/a/ac11371137" target="_blank">《{% get_comment_model_title notificaion.action_object_object_id %}》</a>中回复了你
+                        <div class="intro">{{ notification.verb|safe }}
                         </div>
-                        <a class="msg-reply" href="//www.acfun.cn/a/ac11371137#ncid=95450605" target="_blank">
+                        <a class="msg-reply" href="{{ notification.data.url }}" target="_blank">
                             <div class="clamp-text">
                                 <div class="inner" style="-webkit-box-orient: vertical">
-                                    手不搭在扶手上吗？
+                                    {{ notification.description|striptags|safe }}
                                 </div>
                             </div>
                         </a>
+                        {% if notification.data.reply_to %}
                         <div class="msg-replied">
                             <div class="clamp-text">
                                 <div class="inner" style="-webkit-box-orient: vertical">
-                                    每次看到这个，我都在想，电影的椅子不是有扶手的吗？怎么摸？蹲下来？[表情]
+                                    {{ notification.data.reply_to|striptags|safe }}
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                     </li>
                 </ul>
                 {% endfor %}
             </div>
+            {% if range_page|length >  1 %}
+              {% include "share_layout/pagination.html" %}
+            {% endif %}
+
         </div>
     </div>
 </div>

@@ -102,7 +102,7 @@ ul.comment-item {
 ul.comment-item .content {
     margin-left: 10px;
     width: calc(100% - 10px - 40px);
-    margin-top: 1px;
+    margin-top: 20px;
 }
 
 ul.comment-item>li {
@@ -116,20 +116,18 @@ ul.comment-item .content .titlebar {
     font-size: 0;
 }
 
-ul.comment-item .content .titlebar .time, ul.comment-item .content .titlebar .name {
-    font-size: 12px;
+ul.comment-item .content .titlebar .time,
+ul.comment-item .content .titlebar .name {
+    font-size: 15px;
 }
 
 ul.comment-item .content .titlebar .time {
     color: #999;
     margin-left: 10px;
 }
-ul.comment-item .content .titlebar .time, ul.comment-item .content .titlebar .name {
-    font-size: 12px;
-}
 
 ul.comment-item .content .intro {
-    font-size: 12px;
+    font-size: 15px;
     margin-top: 10px;
     color: #999;
 }
@@ -153,7 +151,7 @@ ul.comment-item .content .msg-reply .clamp-text .inner {
     line-height: 1.57;
 }
 .clamp-text .inner {
-    font-size: 14px;
+    font-size: 15px;
     max-height: 33px;
     overflow: hidden;
     line-height: 1.2;
@@ -178,18 +176,9 @@ ul.comment-item .content .msg-replied .clamp-text {
 ul.comment-item .content .msg-replied .clamp-text .inner {
     max-height: 40px;
     line-height: 1.7;
-    font-size: 12px;
+    font-size: 15px;
 }
 
-.clamp-text .inner {
-    font-size: 14px;
-    max-height: 33px;
-    overflow: hidden;
-    line-height: 1.2;
-    word-break: break-word;
-    word-wrap: break-word;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
+div .paginator {
+    padding-left: 0 !important;
 }
-

@@ -4,7 +4,14 @@ from django.http import Http404
 
 from notifications.models import Notification
 
+from my_blog.utils import common_paginator
+
 def my_notifications(request):
+    """
+    消息页面视图
+    :param request:
+    :return:
+    """
     type = request.GET.get('type', 'comment')
     # 评论
     if type == 'comment':
@@ -17,14 +24,14 @@ def my_notifications(request):
         action_object_content_type = ContentType.objects.get(model='user')
     else:
         raise Http404
-
     # 获取消息列表
     notification_list = Notification.objects.filter(recipient=request.user, action_object_content_type=action_object_content_type)
-    for i in notification_list:
-        print(i.action_object_content_type)
-        print(i.action_object_object_id)
-        print(i.action_object)
+    # 分页
+    current_page, range_page = common_paginator(request, notification_list, 7)
+
     context = {
-        'notification_list': notification_list,
+        'current_page': current_page,
+        'range_page': range_page,
+        'paginator_kw' : f'type={type}&'
     }
     return render(request, 'my_notifications/my_notifications.html', context=context)
