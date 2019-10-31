@@ -21,5 +21,5 @@ def send_notification(sender, instance, **kwargs):
                     action_object=admin, )
         # 站内公告
         verb_sys = '请遵守协议，不要干坏事哦~'
-        notify.send(admin, recipient=instance, verb=verb_sys, target=admin, public=True,
+        notify.send(admin, recipient=instance, verb=verb_sys, target=instance, public=True,
                     action_object=admin, )
