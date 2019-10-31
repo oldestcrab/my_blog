@@ -12,20 +12,35 @@ def my_notifications(request):
     :param request:
     :return:
     """
+    # 判断用户是否登录
+    if not request.user.is_authenticated:
+        raise Http404
+
     type = request.GET.get('type', 'comment')
+
+    # 获取消息列表
     # 评论
     if type == 'comment':
-        action_object_content_type = ContentType.objects.get(model=type)
+        notification_list = Notification.objects.filter(recipient=request.user,
+                                                        action_object_content_type=ContentType.objects.get(model=type))
     # 点赞
     elif type == 'likes':
-        action_object_content_type = ContentType.objects.get(model='likerecord')
+        notification_list = Notification.objects.filter(recipient=request.user,
+                                                        action_object_content_type=ContentType.objects.get(model='likerecord'))
     # 系统通知
     elif type == 'resmsg':
-        action_object_content_type = ContentType.objects.get(model='user')
+        # admin = User.objects.get(pk=1)
+        content_type = ContentType.objects.get(model='user')
+        notification_list = Notification.objects.filter(actor_content_type=content_type, actor_object_id=1, recipient=request.user, public=False)
+
+    # 站内公告
+    elif type == 'sysmsg':
+        # admin = User.objects.get(pk=1)
+        content_type = ContentType.objects.get(model='user')
+        notification_list = Notification.objects.filter(actor_content_type=content_type, actor_object_id=1, recipient=request.user, public=True)
     else:
         raise Http404
-    # 获取消息列表
-    notification_list = Notification.objects.filter(recipient=request.user, action_object_content_type=action_object_content_type)
+
     # 分页
     current_page, range_page = common_paginator(request, notification_list, 7)
 

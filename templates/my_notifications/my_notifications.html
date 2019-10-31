@@ -32,6 +32,8 @@
         <div class="col-md-9 content">
             <div id="listview">
                 {% for notification in current_page %}
+                {# 评论样式 #}
+                {% if type == 'comment' %}
                 <ul class="comment-item">
                     <li class="content">
                         <div class="titlebar">
@@ -58,10 +60,39 @@
                         {% endif %}
                     </li>
                 </ul>
+                {# 点赞样式 #}
+                {% elif type == 'likes' %}
+                <ul class="like-item">
+                    <li class="content">
+                        <div class="titlebar">
+                            <a class="name">{{ notification.actor.username }}</a>
+                            <span class="time">{{ notification.timestamp|date:'Y-m-d H:i:s' }}</span>
+                        </div>
+                        <div class="intro">{{ notification.verb|safe }}
+                            <a class="replied" href="{{ notification.data.url }}" target="_blank">
+                                <div class="clamp-text">
+                                    <div class="inner" style="-webkit-box-orient: vertical">
+                                        {{ notification.description|striptags|safe }}
+                                    </div>
+                                </div>
+                            </a>
+                    </li>
+                </ul>
+                {# 系统通知、站内公告样式 #}
+                {% elif type == 'resmsg' or type == 'sysmsg' %}
+                <div class="main-block-msg-item">
+                    <div>
+                        {{ notification.verb|safe }}
+                    </div>
+                    <div class="msg-item-time">
+                        {{ notification.timestamp|date:'Y-m-d H:i:s' }}
+                    </div>
+                </div>
+                {% endif %}
                 {% endfor %}
             </div>
             {% if range_page|length >  1 %}
-              {% include "share_layout/pagination.html" %}
+            {% include "share_layout/pagination.html" %}
             {% endif %}
 
         </div>

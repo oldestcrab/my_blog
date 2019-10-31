@@ -15,6 +15,11 @@ def send_notification(sender, instance, **kwargs):
     # 判断是否是注册操作
     if kwargs['created'] == True:
         admin = User.objects.get(pk=1)
-        verb = '恭喜注册成功，请继续探索吧~'
-        notify.send(admin, recipient=instance, verb=verb, target=instance,
+        # 系统通知
+        verb_res = '恭喜注册成功，请继续探索吧~'
+        notify.send(admin, recipient=instance, verb=verb_res, target=instance, public=False,
+                    action_object=admin, )
+        # 站内公告
+        verb_sys = '请遵守协议，不要干坏事哦~'
+        notify.send(admin, recipient=instance, verb=verb_sys, target=admin, public=True,
                     action_object=admin, )

@@ -85,10 +85,8 @@ div.row>.content {
     overflow-y: auto;
 }
 
-div#main>.content #upCollageMain #listview {
-    min-height: 420px;
-}
 
+/* 评论样式设置 */
 ul.comment-item:first-child {
     margin-top: 4px;
 }
@@ -96,7 +94,7 @@ ul.comment-item:first-child {
 ul.comment-item {
     padding-bottom: 20px;
     border-bottom: 1px solid #e6e6e6;
-    font-size: 0;
+    font-size: 14px;
 }
 
 ul.comment-item .content {
@@ -113,12 +111,12 @@ ul.comment-item>li {
 
 ul.comment-item .content .titlebar {
     margin-top: 4px;
-    font-size: 0;
+    font-size: 14px;
 }
 
 ul.comment-item .content .titlebar .time,
 ul.comment-item .content .titlebar .name {
-    font-size: 15px;
+    font-size: 14px;
 }
 
 ul.comment-item .content .titlebar .time {
@@ -127,7 +125,7 @@ ul.comment-item .content .titlebar .time {
 }
 
 ul.comment-item .content .intro {
-    font-size: 15px;
+    font-size: 14px;
     margin-top: 10px;
     color: #999;
 }
@@ -151,7 +149,7 @@ ul.comment-item .content .msg-reply .clamp-text .inner {
     line-height: 1.57;
 }
 .clamp-text .inner {
-    font-size: 15px;
+    font-size: 14px;
     max-height: 33px;
     overflow: hidden;
     line-height: 1.2;
@@ -176,9 +174,97 @@ ul.comment-item .content .msg-replied .clamp-text {
 ul.comment-item .content .msg-replied .clamp-text .inner {
     max-height: 40px;
     line-height: 1.7;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 div .paginator {
     padding-left: 0 !important;
+}
+
+/* 点赞样式设置 */
+ul.like-item:first-child {
+    margin-top: 4px;
+}
+
+ul.like-item {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 14px;
+}
+
+ul.like-item .content {
+    margin-left: 10px;
+    width: calc(100% - 10px - 40px);
+    margin-top: 1px;
+}
+
+ul.like-item>li {
+    display: inline-block;
+    list-style: none;
+    vertical-align: top;
+}
+
+ul.like-item .content .titlebar {
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+ul.like-item .content .titlebar .name {
+    margin-right: 4px;
+}
+
+ul.like-item .content .titlebar .time {
+    color: #999;
+    margin-left: 10px;
+}
+
+ul.like-item .content .intro {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #999;
+}
+
+ul.like-item .content .intro a {
+    color: #333;
+    font-weight: 700;
+    font-family: PingFangSC-Regular,"Helvetica Neue",Helvetica,"Microsoft Yahei",STHeiti,sans-serif;
+}
+
+ul.like-item .content .replied {
+    display: block;
+    margin-top: 10px;
+    color: #999;
+    background: #f7f7f7;
+    padding: 6px 10px;
+    border-radius: 2px;
+}
+
+ul.like-item .content .replied .clamp-text .inner {
+    font-size: 12px;
+    line-height: 1.7;
+    max-height: 40px;
+}
+
+.main-block-msg-item:not(:last-child) {
+    border-bottom: 1px solid #e6e6e6;
+}
+.main-block-msg-item:not(:last-child) {
+    border-bottom: 1px solid #e6e6e6;
+}
+.main-block-msg-item {
+    color: #333;
+    padding-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.57142857;
+    font-family: PingFangSC-Regular,"Helvetica Neue",Helvetica,"Microsoft Yahei",STHeiti,sans-serif;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.main-block-msg-item .msg-item-time {
+    font-size: 12px;
+    line-height: 1;
+    color: #999;
+    margin-top: 11px;
 }
