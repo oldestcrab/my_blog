@@ -20,6 +20,7 @@ def my_notifications(request):
 
     # 获取消息列表
     # 评论
+    """
     if type == 'comment':
         notification_list = Notification.objects.filter(recipient=request.user,
                                                         action_object_content_type=ContentType.objects.get(model=type))
@@ -40,9 +41,15 @@ def my_notifications(request):
         notification_list = Notification.objects.filter(actor_content_type=content_type, actor_object_id=1, recipient=request.user, public=True)
     else:
         raise Http404
-
+    """
+    if type == 'comment' or type == 'likes' or type == 'resmsg' or type == 'sysmsg':
+        notification_list = Notification.objects.filter(recipient=request.user, data__contains=f'"type":"{type}"')
+        # 标记为已读
+        notification_list.mark_all_as_read()
+    else:
+        raise Http404
     # 分页
-    current_page, range_page = common_paginator(request, notification_list, 7)
+    current_page, range_page = common_paginator(request, notification_list, 10)
 
     context = {
         'current_page': current_page,

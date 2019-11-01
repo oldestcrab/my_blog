@@ -76,6 +76,7 @@ TEMPLATES = [
             'libraries': {
                 'comment_tags': 'comment.templatetags.comment_tags',
                 'likes_tags': 'likes.templatetags.likes_tags',
+                'my_notifications_tags': 'my_notifications.templatetags.my_notifications_tags',
             },
         },
     },

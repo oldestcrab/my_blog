@@ -23,8 +23,11 @@ def send_notification(sender, instance, **kwargs):
         description = f'<a href="{url}" target="_blank">{instance.content_object.content}</a>'
     else:
         return
-    # 添加锚点，方便前端定位
+
+    # 用于查询分类
+    type = 'likes'
+
     notify.send(instance.user, recipient=instance.content_object.get_user(),
                 verb=verb, description=description, target=instance.content_object,
-                action_object=instance, url=url)
+                action_object=instance, url=url, type=type)
 

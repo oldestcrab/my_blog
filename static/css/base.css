@@ -316,3 +316,30 @@ a.dropdown-toggle:hover {
 .dropdown-menu>li>a:hover{
     color: #f00;
 }
+
+/* 导航栏消息通知小红点 */
+.badget {
+    background: #fd4c5c;
+    border-radius: 7px;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 14px;
+    min-width: 14px;
+    height: 14px;
+    padding: 0 4px;
+    text-align: center;
+    font-family: Helvetica,sans-serif;
+    box-sizing: border-box;
+}
+
+.badget.user-message-count {
+    position: absolute;
+    top: -9px;
+    left: 10px;
+}
+
+.badget.type-message-count {
+    /* position: absolute; */
+    right: 0;
+}

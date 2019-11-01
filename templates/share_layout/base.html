@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load notifications_tags %}
+{% load my_notifications_tags %}
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -71,14 +73,42 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a href="{% url 'my_notifications:my_notifications' %}?type=comment" class="dropdown-toggle" data-toggle="dropdown"
-              data-hover="dropdown">
-              <span class="glyphicon glyphicon-envelope"></span></a>
+            <a href="{% url 'my_notifications:my_notifications' %}?type=comment" class="dropdown-toggle"
+              data-toggle="dropdown" data-hover="dropdown">
+              <span class="glyphicon glyphicon-envelope">
+                {% if notifications_unread %}
+                <span style="display: inline-block;" class="badget user-message-count">{% notifications_unread %}</span>
+                {% endif %}
+              </span></a>
             <ul class="dropdown-menu dropdown-menu-left">
-              <li><a href="{% url 'my_notifications:my_notifications' %}?type=comment">评论</a></li>
-              <li><a href="{% url 'my_notifications:my_notifications' %}?type=likes">赞</a></li>
-              <li><a href="{% url 'my_notifications:my_notifications' %}?type=sysmsg">站内公告</a></li>
-              <li><a href="{% url 'my_notifications:my_notifications' %}?type=resmsg">系统通知</a></li>
+              <li><a href="{% url 'my_notifications:my_notifications' %}?type=comment">评论
+                  {# 评论未读消息计数 #}
+                  {% my_notifications_unread 'comment' as comment_unread_count %}
+                  {% if comment_unread_count %}
+                  <span style="display: inline-block;"
+                    class="badget type-message-count">{{ comment_unread_count }}</span>
+                  {% endif %}
+                </a></li>
+              <li><a href="{% url 'my_notifications:my_notifications' %}?type=likes">赞
+                  {# 赞未读消息计数 #}
+                  {% my_notifications_unread 'likes' as likes_unread_count %}
+                  {% if likes_unread_count %}
+                  <span style="display: inline-block;" class="badget type-message-count">{{ likes_unread_count }}</span>
+                  {% endif %}</a></li>
+              <li><a href="{% url 'my_notifications:my_notifications' %}?type=sysmsg">站内公告
+                  {# 站内公告未读消息计数 #}
+                  {% my_notifications_unread 'sysmsg' as sysmsg_unread_count %}
+                  {% if sysmsg_unread_count %}
+                  <span style="display: inline-block;"
+                    class="badget type-message-count">{{ sysmsg_unread_count }}</span>
+                  {% endif %}</a></li>
+              <li><a href="{% url 'my_notifications:my_notifications' %}?type=resmsg">系统通知
+                  {# 系统通知未读消息计数 #}
+                  {% my_notifications_unread 'resmsg' as resmsg_unread_count %}
+                  {% if resmsg_unread_count %}
+                  <span style="display: inline-block;"
+                    class="badget type-message-count">{{ resmsg_unread_count }}</span>
+                  {% endif %}</a></li>
             </ul>
           </li>
           {% else %}
@@ -169,7 +199,7 @@
       i.addClass('active');
     });
 
-    $('.dropdown-toggle').click(function(){
+    $('.dropdown-toggle').click(function () {
       var url = $(this).attr('href')
       window.open(url, "_blank");
     });
