@@ -318,15 +318,14 @@ a.dropdown-toggle:hover {
 }
 
 /* 导航栏消息通知小红点 */
-.badget {
-    background: #fd4c5c;
+.badget{
+    background: #fd4c5c !important;
     border-radius: 7px;
     color: #fff;
     display: inline-block;
     font-size: 12px;
     line-height: 14px;
     min-width: 14px;
-    height: 14px;
     padding: 0 4px;
     text-align: center;
     font-family: Helvetica,sans-serif;
@@ -340,6 +339,10 @@ a.dropdown-toggle:hover {
 }
 
 .badget.type-message-count {
-    /* position: absolute; */
-    right: 0;
+    position: absolute;
+    right: 10px;
+}
+
+.notification {
+    margin-right: 100px;
 }
