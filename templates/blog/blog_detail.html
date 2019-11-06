@@ -6,6 +6,7 @@
 {% block header_extends %}
 <link href="{% static 'css/blog.css' %}" rel="stylesheet">
 <link href="{% static 'css/blogchannel.css' %}" rel="stylesheet">
+<link href="{% static 'css/github-markdown.css' %}" rel="stylesheet">
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 {% endblock header_extends %}
@@ -48,7 +49,7 @@
                     </div>
                     <div class="action-up"><a class="message-back">回复</a><a class="reportAction">举报</a></div>
                     <div id="article-tags" class="clearfix"></div>
-                    <div class="article-content">
+                    <div class="article-content markdown-body">
                         {{ blog.content|safe }}
                     </div>
                     <div id="article-operation" class="clearfix">

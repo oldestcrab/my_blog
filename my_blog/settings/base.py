@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'notifications',
+    'mdeditor',
 
     'blog',
     'accounts',

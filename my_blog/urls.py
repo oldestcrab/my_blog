@@ -30,10 +30,13 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('notifications/', include(notifications.urls, namespace='notifications')),
     path('my_notifications/', include('my_notifications.urls', namespace='my_notifications')),
+    path('mdeditor/', include('mdeditor.urls')),
 
     path('', views.home, name='home'),
     path('search', views.search, name='search'),
 ]
 
 # 开发环境中访问文件方法
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    # static files (images, css, javascript, etc.)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

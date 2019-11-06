@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count
+import markdown
 
 from .models import BlogType, Blog
 from my_blog.utils import common_paginator
@@ -45,6 +46,13 @@ def blog_list(request):
     # 获取通用信息
     context = get_blog_common_data(request, blog_list)
     context['blog_title'] = '博客列表'
+
+    # markdown语法渲染为html
+    for blog in context['current_page']:
+        blog.content = markdown.markdown(blog.content.replace("\r\n", '  \n'),
+                                         extensions=['markdown.extensions.extra',
+                                                     'markdown.extensions.codehilite',
+                                                     'markdown.extensions.toc', ], )
 
     return render(request, 'blog/blog_list.html', context=context)
 
@@ -95,6 +103,10 @@ def blog_detail(request, blog_pk):
     # 获取博客，没有则404
     blog = get_object_or_404(Blog, pk=blog_pk)
 
+    blog.content = markdown.markdown(blog.content.replace("\r\n", '  \n'),
+                                                extensions=['markdown.extensions.extra',
+                                                            'markdown.extensions.codehilite',
+                                                            'markdown.extensions.toc', ], )
     # 获取同个分类下的上一篇博客
     previously_blog = Blog.objects.filter(blog_type=blog.blog_type, created_time__lt=blog.created_time).first()
 
