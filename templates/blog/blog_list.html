@@ -51,7 +51,7 @@
               <div class="atc-content clearfix">{{ blog.content|striptags|truncatechars:120 }}
               </div>
               <div class="atc-info clearfix">
-                <a href="" class="atc-up act-info-mg fl">UP：{{ request.user }}</a>
+                <a href="" class="atc-up act-info-mg fl">UP：{{ blog.author.username }}</a>
                 <p class="atc-time act-info-mg fl">{{ blog.created_time }}</p>
                 <p class="atc-view act-info-mg fl"><span class="glyphicon glyphicon-eye-open"></span><span
                     class="views">{{ blog.get_read_num }}</span>
