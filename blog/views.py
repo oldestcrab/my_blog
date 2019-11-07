@@ -16,6 +16,13 @@ def get_blog_common_data(request, object_list):
     # 获取分页器当前页以及页码列表
     current_page, range_page = common_paginator(request, object_list, 10)
 
+    # markdown语法渲染为html
+    for blog in current_page:
+        blog.content = markdown.markdown(blog.content.replace("\r\n", '  \n'),
+                                         extensions=['markdown.extensions.extra',
+                                                     'markdown.extensions.codehilite',
+                                                     'markdown.extensions.toc', ], )
+
     # 获取所有博客分类
     blog_type_list = BlogType.objects.annotate(blog_count=Count('blog'))
 
@@ -46,13 +53,6 @@ def blog_list(request):
     # 获取通用信息
     context = get_blog_common_data(request, blog_list)
     context['blog_title'] = '博客列表'
-
-    # markdown语法渲染为html
-    for blog in context['current_page']:
-        blog.content = markdown.markdown(blog.content.replace("\r\n", '  \n'),
-                                         extensions=['markdown.extensions.extra',
-                                                     'markdown.extensions.codehilite',
-                                                     'markdown.extensions.toc', ], )
 
     return render(request, 'blog/blog_list.html', context=context)
 
