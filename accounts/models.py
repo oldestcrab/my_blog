@@ -5,6 +5,7 @@ class Profile(models.Model):
     # 关联自带的用户模型
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # nickname = models.CharField(max_length=20, verbose_name='昵称')
+    avatar = models.ImageField(upload_to='avatar/%Y-%m-%d', blank=True, verbose_name='用户头像')
 
     def __str__(self):
         return f'<Profile: for {self.user}>'

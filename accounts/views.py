@@ -5,9 +5,11 @@ from django.conf import settings
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
+from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm, LoginForm, ChangeEmailForm, ActiveEmailForm, ChangePassword, ResetPasswordForm, SenTEmailResetPasswordForm
 from my_blog.utils import get_current_site, get_md5
+from blog.models import Blog
 
 def sent_confirm_email(user, email_title, to_email, type, type_result, content='验证您的邮箱'):
     """
@@ -103,7 +105,7 @@ def login(request):
             # 登录
             auth.login(request, user)
             # 跳转回之前的页面或者首页
-            return redirect(request.GET.get('from', reverse('home')))
+            return redirect(request.GET.get('next', reverse('home')))
     else:
         # 初始化登录表单
         login_form = LoginForm()
@@ -224,13 +226,17 @@ def result(request):
             }
     return render(request, 'accounts/result.html', context=context)
 
+@login_required(login_url='/accounts/login')
 def user_info(request):
     """
     用户中心视图
     :param request:
     :return:
     """
-    return render(request, 'accounts/user_info.html')
+    context = {
+        'blog_count': Blog.objects.filter(author=request.user).count()
+    }
+    return render(request, 'accounts/user_info.html', context=context)
 
 '''
 def change_nickname(request):
