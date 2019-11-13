@@ -1,21 +1,17 @@
 from django.shortcuts import render
-from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
-
+from django.contrib.auth.decorators import login_required
 from notifications.models import Notification
 
 from my_blog.utils import common_paginator
 
+@login_required(login_url='/accounts/login')
 def my_notifications(request):
     """
     消息页面视图
     :param request:
     :return:
     """
-    # 判断用户是否登录
-    if not request.user.is_authenticated:
-        raise Http404
-
     type = request.GET.get('type', 'comment')
 
     # 获取消息列表
