@@ -7,9 +7,10 @@ from django.http import HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm, LoginForm, ChangeEmailForm, ActiveEmailForm, ChangePassword, ResetPasswordForm, SenTEmailResetPasswordForm
+from .forms import RegisterForm, LoginForm, ChangeEmailForm, ActiveEmailForm, ChangePassword, ResetPasswordForm, SenTEmailResetPasswordForm, ChangeAvatarForm
 from my_blog.utils import get_current_site, get_md5
 from blog.models import Blog
+from accounts.models import Profile
 
 def sent_confirm_email(user, email_title, to_email, type, type_result, content='验证您的邮箱'):
     """
@@ -234,6 +235,7 @@ def user_info(request):
     :return:
     """
     context = {
+        'title': '个人中心',
         'blog_count': Blog.objects.filter(author=request.user).count()
     }
     return render(request, 'accounts/user_info.html', context=context)
@@ -265,7 +267,7 @@ def change_nickname(request):
         'title': '更换昵称',
         'form': change_nickname_form,
     }
-    return render(request, 'accounts/change_info_forms.html', context=context)
+    return render(request, 'accounts/change_info.html', context=context)
 '''
 
 def change_email(request):
@@ -294,7 +296,7 @@ def change_email(request):
         'title': '更换邮箱',
         'form': change_email_form,
     }
-    return render(request, 'accounts/change_info_forms.html', context=context)
+    return render(request, 'accounts/change_info.html', context=context)
 
 def active_email(request):
     """
@@ -345,7 +347,7 @@ def change_password(request):
         'title': '更改密码',
         'form': change_password_form,
     }
-    return render(request, 'accounts/change_info_forms.html', context=context)
+    return render(request, 'accounts/change_info.html', context=context)
 
 def sent_email_reset_password(request):
     if request.method == 'POST':
@@ -395,3 +397,28 @@ def reset_password(request):
         'form': reset_password_form,
     }
     return render(request, 'accounts/forms.html', context=context)
+
+@login_required(login_url='/accounts/login')
+def change_avatar(request):
+    """
+    更换头像视图
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        change_avatar_form = ChangeAvatarForm(request.POST, request.FILES)
+        if change_avatar_form.is_valid():
+            if 'avatar' in request.FILES:
+                profile = Profile.objects.get(user=request.user)
+                profile.avatar = request.FILES['avatar']
+                profile.save()
+    else:
+        # 初始化表单
+        change_avatar_form = ChangeAvatarForm()
+
+    context = {
+        'title': '更换头像',
+        'form':change_avatar_form,
+    }
+
+    return render(request, 'accounts/change_avatar.html', context=context)

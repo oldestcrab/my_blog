@@ -1,0 +1,16 @@
+{% extends "share_layout/user_info_base.html" %}
+{% block user_info_content %}
+<div class="panel-body">
+    <div class="form-area">
+        <div class="promt-top">{{ form.non_field_errors }}</div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="promt-info">{{ field.errors.as_text }}</div>
+            {{ field }}
+            {% endfor %}
+            <input type="submit" class="btn btn-submit" value="{{ title }}">
+        </form>
+    </div>
+</div>
+{% endblock user_info_content %}

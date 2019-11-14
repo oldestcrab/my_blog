@@ -1,0 +1,18 @@
+{% extends "share_layout/user_info_base.html" %}
+{% block user_info_content %}
+<div class="panel-body">
+    <div class="form-area">
+        <div class="promt-top">{{ form.non_field_errors }}</div>
+        <form enctype="multipart/form-data" action="" method="POST">
+            {% csrf_token %}
+            <a href="#area=change-avatar" class="thumb"><img id="img-avatar-personal" title="单击修改头像"
+                    src="{{ user.get_avatar_url }}" class="avatar"></a>
+            {% for field in form %}
+            <div class="promt-info">{{ field.errors.as_text }}</div>
+            {{ field }}
+            {% endfor %}
+            <input type="submit" class="btn btn-submit" value="{{ title }}">
+        </form>
+    </div>
+</div>
+{% endblock user_info_content %}

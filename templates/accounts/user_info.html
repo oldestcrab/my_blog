@@ -1,78 +1,37 @@
-{% extends "share_layout/base.html" %}
-{% block title %}个人中心{% endblock title %}
-{% load staticfiles %}
-{% block header_extends %}
-<link rel="stylesheet" href="{% static 'css/accounts/member.css' %}">
-{% endblock header_extends %}
-{% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-2" id="area-main-left">
-            <div id="block-user-left" data-active="active"><a href="#area=profile" class="thumb"><img
-                        src=""
-                        class="avatar"><span class="cover"><i class="icon icon-user"></i>编辑资料</span></a>
-                <div class="d"><a class="name">{{ user.username }}</a></div>
-                <div class="area-extra">
-                    <div class="space"></div><a href=""><span class="pts">{{ blog_count }}</span><span
-                            class="hint">文章</span></a><span class="clearfix"></span>
-                </div>
-            </div>
-            <div id="shadow-guide-left" class="hidden" style="height: 524px;"></div>
-            <div id="list-guide-left" class="">
-                <div class="part-guide-left active">
-                    <div class="banner"><a href="#area=setting" class="tab fixed"><i
-                                class="glyphicon glyphicon-cog icon"></i>设置</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8" id="area-main-right">
-            <div id="area-cont-right">
-                <div id="block-title-banner">
-                    <p>编辑资料</p>
-                    <div><a href="{% url 'home' %}">QHL Blog</a></div><span class="clearfix"></span>
-                </div>
-                <div id="block-banner-right" class="block banner">
-                    <a href="#area=profile" class="tab active"><i class="glyphicon glyphicon-edit icon"></i>编辑资料</a>
-                </div>
-                <div id="block-first" class="block">
-                    <div class="banner">
-                        <p class="tab fixed">基本信息<span class="hint">Basic Information</span></p>
-                    </div>
-                    <div class="mainer form">
-                        <div id="unit-basic" class="">
-                            <div class="l a"><a href="#area=change-avatar" class="thumb"><img id="img-avatar-personal"
-                                        title="单击修改头像"
-                                        src=""
-                                        class="avatar"></a></div>
-                            <div class="l b"><a id="name-personal" href="" class="name">{{ user.username }}</a><span
-                                    id="uid-personal">Uid:{{ user.pk }}</span>
-                                <p id="hint-reg-personal">注册于 {{ user.date_joined|date:'Y-m-d H:i:s' }}</p>
-                            </div><span class="clearfix"></span>
-                        </div>
-                        <p class="divider"></p>
-                        <div class="unit-tool">
-                            <div class="l"><a id="btn-avatar-personal" href="" class="btn info"><i
-                                        class="icon icon-user"></i>修改头像</a></div>
-                            <div class="r"><a id="btn-password-personal" href="{% url 'accounts:change_password' %}"
-                                    class="btn info"><i class="icon icon-key"></i>修改密码</a></div><span
-                                class="clearfix"></span>
-                        </div>
-                        <p class="divider"></p>
-                        <div class="unit-tool">
-                            <div class="l">邮箱：{{ user.email }}</div>
-                            <div class="r"><a id="btn-password-personal" href="{% url 'accounts:change_email' %}"
-                                    class="btn info"><i class="icon icon-key"></i>更换邮箱</a></div><span
-                                class="clearfix"></span>
-                        </div>
-                        <p class="divider"></p>
-                        <div class="unit-tool">
-                            <div class="l">上次登录时间：{{ user.last_login }}</div>
-                            <div class="r"></div><span class="clearfix"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{% extends "share_layout/user_info_base.html" %}
+
+{% block user_info_content %}
+<div class="banner">
+    <p class="tab fixed">基本信息<span class="hint">Basic Information</span></p>
 </div>
-{% endblock content %}
+<div class="mainer form">
+<div id="unit-basic" class="">
+    <div class="l a"><a href="#area=change-avatar" class="thumb"><img id="img-avatar-personal"
+                title="单击修改头像" src="{{ user.get_avatar_url }}" class="avatar"></a></div>
+    <div class="l b"><a id="name-personal" href="" class="name">{{ user.username }}</a><span
+            id="uid-personal">Uid:{{ user.pk }}</span>
+        <p id="hint-reg-personal">注册于 {{ user.date_joined|date:'Y-m-d H:i:s' }}</p>
+    </div><span class="clearfix"></span>
+</div>
+<p class="divider"></p>
+<div class="unit-tool">
+    <div class="l"><a id="btn-avatar-personal" href="{% url 'accounts:change_avatar' %}" class="btn info"><i
+                class="icon icon-user"></i>修改头像</a></div>
+    <div class="r"><a id="btn-password-personal" href="{% url 'accounts:change_password' %}"
+            class="btn info"><i class="icon icon-key"></i>修改密码</a></div><span
+        class="clearfix"></span>
+</div>
+<p class="divider"></p>
+<div class="unit-tool">
+    <div class="l">邮箱：{{ user.email }}</div>
+    <div class="r"><a id="btn-password-personal" href="{% url 'accounts:change_email' %}"
+            class="btn info"><i class="icon icon-key"></i>更换邮箱</a></div><span
+        class="clearfix"></span>
+</div>
+<p class="divider"></p>
+<div class="unit-tool">
+    <div class="l">上次登录时间：{{ user.last_login }}</div>
+    <div class="r"></div><span class="clearfix"></span>
+</div>
+</div> 
+{% endblock user_info_content %}

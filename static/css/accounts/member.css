@@ -102,7 +102,7 @@ body {
 #block-user-left .cover .icon {
     display: block;
     margin: 0 auto 0;
-    font-size: 32px
+    font-size: 32px;
 }
 
 #block-user-left .lv {
@@ -182,7 +182,7 @@ body {
 
 #block-user-left .desc .icon {
     color: #bbb;
-    margin: 0 0 0 .5em
+    margin: 0 0 0 .5em;
 }
 
 #block-user-left .divider {
@@ -249,6 +249,7 @@ body {
 .part-guide-left .banner .tab .icon {
     margin: 0 .5em 0 0;
     color: #3a9bd9;
+    top: 2px;
 }
 
 .part-guide-left .banner span {
@@ -399,7 +400,6 @@ body {
     margin: 2px 4px 0 -2px;
     width: 16px;
     height: 16px;
-    background: url("image/img-icon-member.png") -76px -28px no-repeat;
     opacity: .5
 }
 
@@ -578,4 +578,16 @@ body {
     line-height: 26px;
     cursor: pointer;
     *zoom: 1;
+}
+
+.panel-body {
+    margin-left: 250px;
+}
+
+.btn-submit {
+    margin-left: -60px !important;
+}
+
+.form-control {
+    margin-left: -60px !important;
 }

@@ -265,3 +265,6 @@ class ResetPasswordForm(forms.Form):
             raise forms.ValidationError('两次输入的新密码不一致')
 
         return self.cleaned_data
+
+class ChangeAvatarForm(forms.Form):
+    avatar = forms.ImageField(label='请选择图片')
