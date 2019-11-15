@@ -294,6 +294,7 @@ def change_email(request):
 
     context = {
         'title': '更换邮箱',
+        'blog_count': Blog.objects.filter(author=request.user).count(),
         'form': change_email_form,
     }
     return render(request, 'accounts/change_info.html', context=context)
@@ -345,6 +346,7 @@ def change_password(request):
 
     context = {
         'title': '更改密码',
+        'blog_count': Blog.objects.filter(author=request.user).count(),
         'form': change_password_form,
     }
     return render(request, 'accounts/change_info.html', context=context)
@@ -418,6 +420,7 @@ def change_avatar(request):
 
     context = {
         'title': '更换头像',
+        'blog_count': Blog.objects.filter(author=request.user).count(),
         'form':change_avatar_form,
     }
 
