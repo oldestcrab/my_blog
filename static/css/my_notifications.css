@@ -99,7 +99,7 @@ ul.comment-item {
 
 ul.comment-item .content {
     margin-left: 10px;
-    width: calc(100% - 10px - 40px);
+    width: calc(100% - 15px - 40px);
     margin-top: 20px;
 }
 
@@ -188,13 +188,14 @@ ul.like-item:first-child {
 
 ul.like-item {
     padding-bottom: 20px;
+    padding-top: 20px;
     border-bottom: 1px solid #e6e6e6;
     font-size: 14px;
 }
 
 ul.like-item .content {
     margin-left: 10px;
-    width: calc(100% - 10px - 40px);
+    width: calc(100% - 15px - 40px);
     margin-top: 1px;
 }
 
@@ -267,4 +268,26 @@ ul.like-item .content .replied .clamp-text .inner {
     line-height: 1;
     color: #999;
     margin-top: 11px;
+}
+
+/* 用户头像设置 */
+
+
+.comment-item .avatar .avatar-section {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.avatar-section .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+img {
+    vertical-align: top;
+}
+
+.like-item .avatar .avatar-section {
+    display: inline-block;
 }

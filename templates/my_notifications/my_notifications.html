@@ -35,6 +35,9 @@
                 {# 评论样式 #}
                 {% if type == 'comment' %}
                 <ul class="comment-item">
+                    <li class="avatar"> <a class="avatar-section">
+                            <img class="avatar" src="{{ notification.actor.get_avatar_url }}">
+                        </a></li>
                     <li class="content">
                         <div class="titlebar">
                             <a class="name">{{ notification.actor.username }}</a>
@@ -63,6 +66,9 @@
                 {# 点赞样式 #}
                 {% elif type == 'likes' %}
                 <ul class="like-item">
+                    <li class="avatar"> <a class="avatar-section">
+                            <img class="avatar" src="{{ notification.actor.get_avatar_url }}">
+                        </a></li>
                     <li class="content">
                         <div class="titlebar">
                             <a class="name">{{ notification.actor.username }}</a>
