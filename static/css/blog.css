@@ -447,6 +447,11 @@ div.like .active {
     background: #f7f7f7;
     margin-bottom: 20px;
     height: auto;
+    margin-left: -20px;
+}
+
+hr {
+    margin-left: -20px;
 }
 
 .area-comment-sec {
@@ -469,4 +474,50 @@ div.like .active {
     .markdown-body {
         padding: 15px;
     }
+}
+
+.area-comment-right {
+    margin-left: 88px;
+}
+
+/* 评论用户头像设置 */
+.area-comment-left {
+    width: 7%;
+    height: 50px;
+    float: left;
+    left: 10px;
+    bottom: -5px;
+    margin-top: -5px;
+    position: relative;
+}
+
+#comment a {
+    text-decoration: none;
+    height: auto;
+}
+
+#comment a, #comment button {
+    outline: none;
+    cursor: pointer;
+}
+
+.area-comment-left .thumb {
+    position: relative;
+    border: none;
+    background: 0;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+}
+
+.area-comment-left .avatar {
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #fff;
+    box-shadow: 0 0 0 transparent;
+    border-radius: 50%;
 }
