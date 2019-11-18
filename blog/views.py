@@ -1,10 +1,41 @@
+import datetime
+
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Count
+from django.db.models import Count, Sum
 import markdown
+from django.utils import timezone
 
 from .models import BlogType, Blog
 from my_blog.utils import common_paginator
 from read_statistics.utils import read_statistics_once_read
+
+def get_object_list_new_order_by_time(object_list, day:int):
+    """
+    对object_list重新通过时间排序
+    :param object_list: object_list
+    :param day: 前几天范围 前7天：7
+    :return: 重新按照时间排序之后的object_list
+    """
+    # 获取日期范围
+    date = timezone.now().date() - datetime.timedelta(day)
+
+    # 时间无限制
+    if day == 0:
+        object_list_new = object_list.filter().annotate(read_num_detail=Sum('read_num_details__read_num')).order_by(
+            '-read_num_detail', 'created_time')
+    # 大于多少天前
+    else:
+        object_list_new = object_list.filter(read_num_details__date__gt=date).annotate(read_num_detail=Sum('read_num_details__read_num')).order_by(
+        '-read_num_detail', 'created_time')
+    # 转化为列表
+    object_list_new = list(object_list_new)
+
+    # 如果该博客无阅读量，则从原本的查询集中添加，按照创建时间排序
+    for object in object_list:
+        if object not in object_list_new:
+            object_list_new.append(object)
+    # 返回新的列表
+    return object_list_new
 
 def get_blog_common_data(request, object_list):
     """
@@ -13,6 +44,34 @@ def get_blog_common_data(request, object_list):
     :param object_list: object_list
     :return: 博客的一些通用信息
     """
+    # 排序方式，默认按照时间排序
+    order_type = request.GET.get('order_type')
+    # 时间范围
+    period_type = request.GET.get('period_type')
+
+    # 按照时间范围内的阅读量进行排序
+    if order_type == '2':
+        # 时间不限
+        if period_type == '0':
+            day = 0
+        # 24小时
+        elif period_type == '1':
+            day = 1
+        # 三天
+        elif period_type == '3':
+            day = 3
+        # 一周
+        elif period_type == '7':
+            day = 7
+        # 一个月
+        elif period_type == '30':
+            day = 30
+        # 默认为30天
+        else:
+            day = 30
+        # 获取新的按照时间排序的object_list
+        object_list = get_object_list_new_order_by_time(object_list, day)
+
     # 获取分页器当前页以及页码列表
     current_page, range_page = common_paginator(request, object_list, 10)
 
