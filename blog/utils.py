@@ -1,6 +1,7 @@
+import datetime
+
 from django.utils import timezone
 from django.db.models import Sum
-import datetime
 
 from blog.models import Blog
 
