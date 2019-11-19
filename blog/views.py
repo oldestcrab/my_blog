@@ -22,11 +22,11 @@ def get_object_list_new_order_by_time(object_list, day:int):
     # 时间无限制
     if day == 0:
         object_list_new = object_list.filter().annotate(read_num_detail=Sum('read_num_details__read_num')).order_by(
-            '-read_num_detail', 'created_time')
+            '-read_num_detail', '-created_time')
     # 大于多少天前
     else:
         object_list_new = object_list.filter(read_num_details__date__gt=date).annotate(read_num_detail=Sum('read_num_details__read_num')).order_by(
-        '-read_num_detail', 'created_time')
+        '-read_num_detail', '-created_time')
     # 转化为列表
     object_list_new = list(object_list_new)
 
@@ -45,32 +45,42 @@ def get_blog_common_data(request, object_list):
     :return: 博客的一些通用信息
     """
     # 排序方式，默认按照时间排序
-    order_type = request.GET.get('order_type')
+    order_type = request.GET.get('order_type', '1')
     # 时间范围
-    period_type = request.GET.get('period_type')
+    period_type = request.GET.get('period_type', '7')
+    # 排序方式显示名称
+    order_type_name = '最新发表'
+    # 排序方式时间范围
+    period_type_name = '一周'
 
     # 按照时间范围内的阅读量进行排序
     if order_type == '2':
         # 时间不限
         if period_type == '0':
             day = 0
+            period_type_name = '时间不限'
         # 24小时
         elif period_type == '1':
             day = 1
+            period_type_name = '24小时'
         # 三天
         elif period_type == '3':
             day = 3
+            period_type_name = '三天'
         # 一周
         elif period_type == '7':
             day = 7
+            period_type_name = '一周'
         # 一个月
         elif period_type == '30':
             day = 30
+            period_type_name = '一个月'
         # 默认为30天
         else:
-            day = 30
+            day = 7
         # 获取新的按照时间排序的object_list
         object_list = get_object_list_new_order_by_time(object_list, day)
+        order_type_name = '最热文章'
 
     # 获取分页器当前页以及页码列表
     current_page, range_page = common_paginator(request, object_list, 10)
@@ -96,6 +106,10 @@ def get_blog_common_data(request, object_list):
         'range_page': range_page,
         'blog_type_list': blog_type_list,
         'blog_date_dict': blog_date_dict,
+        'order_type_name': order_type_name,
+        'period_type_name': period_type_name,
+        # 分页keyword
+        'paginator_kw': f'order_type={order_type}&period_type={period_type}&',
     }
 
     return context

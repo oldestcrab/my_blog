@@ -25,30 +25,32 @@
             </div> -->
             <!-- <div data-select-type="1" style="margin-right:-10px" class="select article-select article-select1 fl"> -->
             <!-- Split button -->
-            <div class="dropdown order-by" style="display:none" id="period-type">
+            {% if order_type_name == '最热文章' %}
+            <div class="dropdown order-by" id="period-type">
               <a class="btn dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
-                一周
+                {{ period_type_name }}
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">时间不限</a></li>
-                <li><a href="#">24小时</a></li>
-                <li><a href="#">三天</a></li>
-                <li><a href="#">一周</a></li>
-                <li><a href="#">一个月</a></li>
+                <li><a href="?order_type=2&period_type=0">时间不限</a></li>
+                <li><a href="?order_type=2&period_type=1">24小时</a></li>
+                <li><a href="?order_type=2&period_type=3">三天</a></li>
+                <li><a href="?order_type=2&period_type=7">一周</a></li>
+                <li><a href="?order_type=2&period_type=30">一个月</a></li>
               </ul>
             </div>
+            {% endif %}
+
             <div class="dropdown order-by">
               <a class="btn dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="order-name">
-                最新发表
+                {{ order_type_name }}
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#" onclick="javascript:order_by(this, 1)">最新发表</a></li>
-                <li><a href="#" onclick="javascript:order_by(this, 2)">最热文章</a></li>
+                <li><a href="?order_type=1">最新发表</a></li>
+                <li><a href="?order_type=2&period_type=7">最热文章</a></li>
               </ul>
             </div>
-
 
           </div>
           <!-- </div> -->
@@ -135,19 +137,3 @@
 </div>
 
 {% endblock content %}
-{% block script_extends %}
-<script type="text/javascript">
-  // 显示排序方式
-  function order_by(obj, order_type) {
-    var order_name = $(obj).text();
-    // 更换显示的排序方式名称
-    $('#order-name').html(order_name + ' <span class="caret"></span>');
-    // 如果为日期的话显示日期范围
-    if (order_type == 2) {
-      $('#period-type').show();
-    } else {
-      $('#period-type').hide();
-    }
-  }
-</script>
-{% endblock script_extends %}
