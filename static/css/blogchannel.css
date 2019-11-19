@@ -441,3 +441,22 @@
         width: 1120px
     }
 }
+
+/* 博客排序下拉列表样式设置 */
+.order-by {
+    float: left;
+}
+
+.order-by a {
+    color: #333;
+}
+
+.order-by.open>a,
+.order-by.open>a:focus,
+.order-by.open>a:hover{
+    color: #f00;
+}
+
+.order-by .dropdown-menu {
+    min-width: 100px;
+}

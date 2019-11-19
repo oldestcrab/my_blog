@@ -21,20 +21,37 @@
             <div class="btn-all ref-bar-btn action fl">{{ blog_title }}</div>
           </div>
           <div class="bar-filter">
-            <div class="select article-select article-select2 fl hidden" style="display: none;">
+            <!-- <div class="select article-select article-select2 fl hidden" style="display: none;">
+            </div> -->
+            <!-- <div data-select-type="1" style="margin-right:-10px" class="select article-select article-select1 fl"> -->
+            <!-- Split button -->
+            <div class="dropdown order-by" style="display:none" id="period-type">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                一周
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">时间不限</a></li>
+                <li><a href="#">24小时</a></li>
+                <li><a href="#">三天</a></li>
+                <li><a href="#">一周</a></li>
+                <li><a href="#">一个月</a></li>
+              </ul>
             </div>
-            <div data-select-type="1" style="margin-right:-10px" class="select article-select article-select1 fl">
-              <div class="atc-select-label clearfix">
-                <p class="atc-label fl">最新发表</p>
-                <div class="icon fr"><img
-                    src="https://cdn.aixifan.com/acfun-pc/2.8.31/img/page/articlechannel/arrow.png"></div>
-              </div>
-              <div data-defaultsort="1" class="atc-select-list atcslect-list" style="display: none;">
-                <div data-type="1" data-select="true" class="ast-item action">最新发表</div>
-                <div data-type="2" data-showtimetpace="true" data-select="false" class="ast-item">最热文章</div>
-              </div>
+            <div class="dropdown order-by">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="order-name">
+                最新发表
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#" onclick="javascript:order_by(this, 1)">最新发表</a></li>
+                <li><a href="#" onclick="javascript:order_by(this, 2)">最热文章</a></li>
+              </ul>
             </div>
+
+
           </div>
+          <!-- </div> -->
           <hr class="refres-hr">
         </div>
         <div class="article-list">
@@ -68,7 +85,9 @@
           {% endfor %}
         </div>
         {# 分页 #}
+        {% if range_page|length >  1 %}
         {% include "share_layout/pagination.html" %}
+        {% endif %}
       </div>
     </div>
     {# 内容右侧 #}
@@ -116,3 +135,19 @@
 </div>
 
 {% endblock content %}
+{% block script_extends %}
+<script type="text/javascript">
+  // 显示排序方式
+  function order_by(obj, order_type) {
+    var order_name = $(obj).text();
+    // 更换显示的排序方式名称
+    $('#order-name').html(order_name + ' <span class="caret"></span>');
+    // 如果为日期的话显示日期范围
+    if (order_type == 2) {
+      $('#period-type').show();
+    } else {
+      $('#period-type').hide();
+    }
+  }
+</script>
+{% endblock script_extends %}

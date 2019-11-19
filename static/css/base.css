@@ -314,7 +314,7 @@ a.dropdown-toggle:hover {
 }
 
 .dropdown-menu>li>a:hover{
-    color: #f00;
+    color: #f00 !important;
 }
 
 /* 导航栏消息通知小红点 */
