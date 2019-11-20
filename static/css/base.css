@@ -346,3 +346,11 @@ a.dropdown-toggle:hover {
 .notification {
     margin-right: 100px;
 }
+
+/* 导航栏用户头像设置 */
+.user-avatar-img {
+    width: 30px;
+    height: 30px;
+    margin-top: -6px;
+    border-radius: 50%;
+}
