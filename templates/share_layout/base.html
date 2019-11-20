@@ -62,8 +62,9 @@
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
           <li class="dropdown">
-            <a href="{% url 'accounts:user_info' %}" class="dropdown-toggle dropdown-toggle-click" data-toggle="dropdown" role="button"
-              aria-haspopup="true" data-hover="dropdown" aria-expanded="false"><img src="{{ user.get_avatar_url }}" class='user-avatar-img'></a>
+            <a href="{% url 'accounts:user_info' %}" class="dropdown-toggle dropdown-toggle-click"
+              data-toggle="dropdown" role="button" aria-haspopup="true" data-hover="dropdown" aria-expanded="false"><img
+                src="{{ user.get_avatar_url }}" class='user-avatar-img'></a>
             <ul class="dropdown-menu dropdown-menu-left">
               <li><a href="{% url 'accounts:user_info' %}">个人中心</a></li>
               <!-- <li><a href="{% url 'accounts:change_password' %}">修改密码</a></li> -->
@@ -74,8 +75,8 @@
             </ul>
           </li>
           <li class="dropdown notification">
-            <a href="{% url 'my_notifications:my_notifications' %}?type=comment" class="dropdown-toggle dropdown-toggle-click"
-              data-toggle="dropdown" data-hover="dropdown">
+            <a href="{% url 'my_notifications:my_notifications' %}?type=comment"
+              class="dropdown-toggle dropdown-toggle-click" data-toggle="dropdown" data-hover="dropdown">
               <span class="glyphicon glyphicon-envelope">
                 {% notifications_unread as unread_count %}
                 <span style="display: inline-block;"
@@ -160,6 +161,10 @@
     </div>
   </footer>
 
+  <div id="toolbar" class="toolbar showAll">
+    <div id="to-top" title="返回顶部" class="glyphicon glyphicon-plane tool-to-top"></div>
+  </div>
+
   <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
   <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
   <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
@@ -236,6 +241,22 @@
         $('#resmsg-unread-count').html(resmsg)
       };
     }
+
+    // 回到顶部
+    $(function () {
+      $('#to-top').click(function () {
+        $('html,body').animate({
+          scrollTop: 0
+        }, 500);
+      });
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 200) {
+          $('#to-top').fadeIn(300);
+        } else {
+          $('#to-top').stop().fadeOut(300);
+        }
+      }).scroll();
+    });
   </script>
   {% register_notify_callbacks fetch=100 callbacks='my_special_notification_callback' %}
   {% block script_extends %}{% endblock script_extends %}

@@ -313,12 +313,12 @@ a.dropdown-toggle:hover {
     color: #f00;
 }
 
-.dropdown-menu>li>a:hover{
+.dropdown-menu>li>a:hover {
     color: #f00 !important;
 }
 
 /* 导航栏消息通知小红点 */
-.badget{
+.badget {
     background: #fd4c5c !important;
     border-radius: 7px;
     color: #fff;
@@ -328,7 +328,7 @@ a.dropdown-toggle:hover {
     min-width: 14px;
     padding: 0 4px;
     text-align: center;
-    font-family: Helvetica,sans-serif;
+    font-family: Helvetica, sans-serif;
     box-sizing: border-box;
 }
 
@@ -353,4 +353,44 @@ a.dropdown-toggle:hover {
     height: 30px;
     margin-top: -6px;
     border-radius: 50%;
+}
+
+/* 回到顶部按钮 */
+.toolbar.showAll {
+    opacity: 1;
+}
+
+.toolbar {
+    width: 44px;
+    position: fixed;
+    right: 0;
+    bottom: 50px;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 3px 0 0 3px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
+    opacity: .5;
+}
+
+.toolbar.showAll .tool-to-top {
+    display: block;
+    animation: fadeInHalf 1s;
+}
+
+.toolbar .tool-to-top {
+    display: none;
+    height: 40px;
+    line-height: 46px;
+}
+
+.toolbar .tool-to-top{
+    position: relative;
+    margin: 2px;
+    width: 40px;
+    color: #999;
+    font-size: 31px;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 3px;
+    cursor: pointer;
 }
