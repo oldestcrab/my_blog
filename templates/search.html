@@ -16,10 +16,43 @@
     <div class="col-md-9">
       <div class="a-column-left">
         {# 列表标题栏 #}
-        <div class="search-nav">
-          <ul class="wp clearfix">
-            <li class="fl active">博客</li>
-          </ul>
+        <div class="refresh-bar">
+          <div class="bar-action clearfix">
+            <div class="btn-all ref-bar-btn action fl">博客</div>
+          </div>
+          <div class="bar-filter">
+            <!-- <div class="select article-select article-select2 fl hidden" style="display: none;">
+            </div> -->
+            <!-- <div data-select-type="1" style="margin-right:-10px" class="select article-select article-select1 fl"> -->
+            <!-- Split button -->
+            {% if order_type_name == '最热文章' %}
+            <div class="dropdown order-by" id="period-type">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                {{ period_type_name }}
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="?wd={{ search_kw }}&order_type=2&period_type=0">时间不限</a></li>
+                <li><a href="?wd={{ search_kw }}&order_type=2&period_type=1">24小时</a></li>
+                <li><a href="?wd={{ search_kw }}&order_type=2&period_type=3">三天</a></li>
+                <li><a href="?wd={{ search_kw }}&order_type=2&period_type=7">一周</a></li>
+                <li><a href="?wd={{ search_kw }}&order_type=2&period_type=30">一个月</a></li>
+              </ul>
+            </div>
+            {% endif %}
+
+            <div class="dropdown order-by">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="order-name">
+                {{ order_type_name }}
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="?wd={{ search_kw }}&order_type=1">最新发表</a></li>
+                <li><a href="?wd={{ search_kw }}&order_type=2&period_type=7">最热文章</a></li>
+              </ul>
+            </div>
+          </div>
+          <hr class="refres-hr">
         </div>
         <div class="article-list">
           <div class="result-count">共<span>{{ search_result_count }}</span>条结果</div>

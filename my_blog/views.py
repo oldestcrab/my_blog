@@ -4,8 +4,10 @@ from django.db.models import Count, Q
 
 from blog.models import Blog, BlogType
 from blog.utils import get_range_day_hot_blog
+from blog.views import get_blog_common_data
 from read_statistics.utils import get_seven_days_read_data
 from .utils import common_paginator
+
 
 def home(request):
     """
@@ -23,26 +25,21 @@ def home(request):
     range_day_hot_blog_7 = get_range_day_hot_blog(7)
 
     context = {
-        'days':days,
-        'read_nums':read_nums,
-        'range_day_hot_blog_0':range_day_hot_blog_0,
-        'range_day_hot_blog_7':range_day_hot_blog_7,
+        'days': days,
+        'read_nums': read_nums,
+        'range_day_hot_blog_0': range_day_hot_blog_0,
+        'range_day_hot_blog_7': range_day_hot_blog_7,
     }
 
     return render(request, 'home.html', context=context)
 
+
 def search(request):
-
-    # 获取所有博客分类
-    blog_type_list = BlogType.objects.annotate(blog_count=Count('blog'))
-
-    # 按月分类，以及数量统计
-    blog_date_dict = {}
-    for blog in Blog.objects.dates('created_time', 'month', 'DESC'):
-        blog_count = Blog.objects.filter(created_time__year=blog.year, created_time__month=blog.month).count()
-        blog_date_dict[blog] = blog_count
-
-
+    """
+    搜索视图
+    :param request:
+    :return:
+    """
     # 获取搜索参数
     wd = request.GET.get('wd')
     # 判断搜索参数是否为空
@@ -58,20 +55,17 @@ def search(request):
         search_blog_list = Blog.objects.filter(condition)
         # 查询总数
         search_result_count = search_blog_list.count
-        # 查询结果分页
-        current_page, range_page = common_paginator(request, search_blog_list, 10)
+        # 查询结果分页,以及获取通用博客数据
+        context = get_blog_common_data(request, search_blog_list)
     else:
         search_result_count = 0
-        current_page, range_page = None, None
+        # 空集
+        search_blog_list = Blog.objects.filter(pk=99999999999)
 
-    context = {
-        # 分页的url参数
-        'paginator_kw': f'wd={wd}&',
-        'search_result_count': search_result_count,
-        'current_page': current_page,
-        'range_page': range_page,
-        'blog_type_list': blog_type_list,
-        'blog_date_dict': blog_date_dict,
-    }
+    context = get_blog_common_data(request, search_blog_list)
+    # 分页的url参数
+    context['paginator_kw'] += f'wd={wd}&'
+    context['search_kw'] = wd
+    context['search_result_count'] = search_result_count
 
     return render(request, 'search.html', context=context)
