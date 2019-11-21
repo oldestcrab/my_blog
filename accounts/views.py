@@ -411,7 +411,7 @@ def change_avatar(request):
         change_avatar_form = ChangeAvatarForm(request.POST, request.FILES)
         if change_avatar_form.is_valid():
             if 'avatar' in request.FILES:
-                profile = Profile.objects.get(user=request.user)
+                profile, create = Profile.objects.get_or_create(user=request.user)
                 profile.avatar = request.FILES['avatar']
                 profile.save()
     else:
