@@ -32,7 +32,7 @@ def sent_confirm_email(user, email_title, to_email, type, type_result, content='
     # 当前日期，验证邮箱链接当天有效
     today = timezone.now().date()
     # 加密参数
-    sign = get_md5(get_md5(settings.SECRET_KEY + str(user.pk)) + str(today) + type)
+    sign = get_md5(get_md5(settings.SECRET_KEY + str(user.pk) + str(today) + type))
     path = reverse('accounts:result')
     url = f'http://{site}{path}?type={type}&id={user.pk}&sign={sign}'
     print(url)
