@@ -27,27 +27,27 @@ class SuccessfulRegisterTests(TestCase):
     def setUp(self):
         url = reverse('accounts:register')
         data = {
-            'username': 'testtest',
-            'email': 'testtest@user.com',
-            'password': 'testtest',
-            'password_again': 'testtest',
+            'username': 'test',
+            'email': 'test@user.com',
+            'password': 'testpassword',
+            'password_again': 'testpassword',
         }
         self.response = self.client.post(url, data)
         self.result_url = reverse('accounts:result') + '?id=1&type=register'
-        self.user = User.objects.filter(pk=1).exists()
-        print(self.user)
-
-
-    def test_redirection(self):
-        self.assertRedirects(self.response, self.result_url)
-
 
     def test_user_creation(self):
-        self.assertTrue(User.objects.filter(pk=1).exists())
+        self.assertRedirects(self.response, self.result_url)
 
-    def tearDown(self) -> None:
-        # //todo:setUP tearDown有报错
-        User.objects.get(pk=1).delete()
+        self.assertTrue(User.objects.filter(username='test').exists())
 
+        self.assertFalse(User.objects.get(pk=1).is_active)
 
+class InvalidRegisterTests(TestCase):
+    def setUp(self):
+        url = reverse('accounts:register')
+        self.response = self.client.post(url, {})
+
+    def test_user_creation(self):
+
+        self.assertFalse(User.objects.filter(username='test').exists())
 
