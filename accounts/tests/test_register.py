@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.urls import reverse, resolve
 from django.contrib.auth.models import User
 
@@ -24,7 +24,11 @@ class RegisterTests(TestCase):
         self.assertIsInstance(form, forms.RegisterForm)
 
 class SuccessfulRegisterTests(TestCase):
-    def setUp(self):
+
+    @classmethod
+    def setUpClass(cls):
+        super(SuccessfulRegisterTests, cls).setUpClass()
+
         url = reverse('accounts:register')
         data = {
             'username': 'test',
@@ -32,14 +36,17 @@ class SuccessfulRegisterTests(TestCase):
             'password': 'testpassword',
             'password_again': 'testpassword',
         }
-        self.response = self.client.post(url, data)
-        self.result_url = reverse('accounts:result') + '?id=1&type=register'
+        client = Client()
+        cls.response = client.post(url, data)
+        cls.result_url = reverse('accounts:result') + '?id=1&type=register'
 
-    def test_user_creation(self):
+    def test_user_register_redirect_result_page(self):
         self.assertRedirects(self.response, self.result_url)
 
+    def test_user_creation(self):
         self.assertTrue(User.objects.filter(username='test').exists())
 
+    def test_user_register_not_active(self):
         self.assertFalse(User.objects.get(pk=1).is_active)
 
 class InvalidRegisterTests(TestCase):
