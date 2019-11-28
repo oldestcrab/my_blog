@@ -141,7 +141,7 @@ def result(request):
     id = request.GET.get('id')
     # 加密参数
     try:
-        sign = get_md5(get_md5(settings.SECRET_KEY + id) + str(today) + type)
+        sign = get_md5(get_md5(settings.SECRET_KEY + id + str(today) + type))
     # 404
     except:
         raise Http404()
