@@ -14,7 +14,11 @@ def send_notification(sender, instance, **kwargs):
     """
     # 判断是否是注册操作
     if kwargs['created'] == True:
-        admin = User.objects.get(pk=1)
+        try:
+            # 获取超级用户之一
+            admin = User.objects.filter(is_superuser=True)[0]
+        except:
+            admin = instance
 
         # 系统通知
         verb_res = '恭喜注册成功，请继续探索吧~'
