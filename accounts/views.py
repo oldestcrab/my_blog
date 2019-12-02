@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm, LoginForm, ChangeEmailForm, ActiveEmailForm, ChangePassword, ResetPasswordForm, SenTEmailResetPasswordForm, ChangeAvatarForm
+from .forms import RegisterForm, LoginForm, ChangeEmailForm, ActiveEmailForm, ChangePasswordForm, ResetPasswordForm, SenTEmailResetPasswordForm, ChangeAvatarForm
 from my_blog.utils import get_current_site, get_md5
 from blog.models import Blog
 from accounts.models import Profile
@@ -270,6 +270,7 @@ def change_nickname(request):
     return render(request, 'accounts/change_info.html', context=context)
 '''
 
+@login_required(login_url='/accounts/login')
 def change_email(request):
     """
     更换邮箱视图
@@ -320,6 +321,7 @@ def active_email(request):
     }
     return render(request, 'accounts/forms.html', context=context)
 
+@login_required(login_url='/accounts/login')
 def change_password(request):
     """
     更换密码视图
@@ -328,7 +330,7 @@ def change_password(request):
     """
     if request.method == 'POST':
         # 传递post数据
-        change_password_form = ChangePassword(request.POST, user=request.user)
+        change_password_form = ChangePasswordForm(request.POST, user=request.user)
         # 数据验证
         if change_password_form.is_valid():
             user = request.user
@@ -342,7 +344,7 @@ def change_password(request):
             return redirect(reverse('accounts:login'))
     else:
         # 初始化表单
-        change_password_form = ChangePassword()
+        change_password_form = ChangePasswordForm()
 
     context = {
         'title': '更改密码',
