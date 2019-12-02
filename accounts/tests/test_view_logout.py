@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from accounts.views import logout
 
-class LogoutTests(TestCase):
+class LogoutTest(TestCase):
     def setUp(self) -> None:
         url = reverse('accounts:logout')
         self.response = self.client.get(url, follow=True)
@@ -13,12 +13,12 @@ class LogoutTests(TestCase):
         # 测试能否正常访问
         self.assertEqual(self.response.status_code, 200)
 
-    def test_login_url_resolve_register_view(self):
+    def test_login_url_resolve_view(self):
         # 测试链接对应的view
         view = resolve('/accounts/logout')
         self.assertEqual(view.func, logout)
 
-class SuccessfulLogoutTests(TestCase):
+class SuccessfulLogoutTest(TestCase):
     def setUp(self) -> None:
         # 创建用户
         self.user = User.objects.create_user(username='test_logout', email='test_logout@user.com', password='test_logout')

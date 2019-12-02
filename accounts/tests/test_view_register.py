@@ -8,7 +8,7 @@ from accounts.views import register
 from accounts.forms import RegisterForm
 from my_blog.utils import get_md5
 
-class RegisterTests(TestCase):
+class RegisterTest(TestCase):
     def setUp(self) -> None:
         url = reverse('accounts:register')
         self.response = self.client.get(url)
@@ -17,7 +17,7 @@ class RegisterTests(TestCase):
         # 测试能否正常访问
         self.assertEqual(self.response.status_code, 200)
 
-    def test_register_url_resolve_register_view(self):
+    def test_register_url_resolve_view(self):
         # 测试链接对应的view
         view = resolve('/accounts/register')
         self.assertEqual(view.func, register)
@@ -31,11 +31,10 @@ class RegisterTests(TestCase):
         form = self.response.context.get('form')
         self.assertIsInstance(form, RegisterForm)
 
-class SuccessfulRegisterTests(TestCase):
-
+class SuccessfulRegisterTest(TestCase):
     @classmethod
     def setUpClass(cls):
-        super(SuccessfulRegisterTests, cls).setUpClass()
+        super(SuccessfulRegisterTest, cls).setUpClass()
 
         url = reverse('accounts:register')
         data = {

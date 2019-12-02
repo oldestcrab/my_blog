@@ -165,7 +165,6 @@ def blog_with_date(request, year, month):
 
     return render(request, 'blog/blog_list.html', context=context)
 
-
 def blog_detail(request, blog_pk):
     """
     博客内容展示

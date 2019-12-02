@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from accounts.views import login
 from accounts.forms import LoginForm
 
-class LoginTests(TestCase):
+class LoginTest(TestCase):
     def setUp(self) -> None:
         url = reverse('accounts:login')
         self.response = self.client.get(url)
@@ -14,7 +14,7 @@ class LoginTests(TestCase):
         # 测试能否正常访问
         self.assertEqual(self.response.status_code, 200)
 
-    def test_login_url_resolve_register_view(self):
+    def test_login_url_resolve_view(self):
         # 测试链接对应的view
         view = resolve('/accounts/login')
         self.assertEqual(view.func, login)
@@ -71,7 +71,7 @@ class SuccessfulLoginTestsByUsername(TestCase):
             self.assertRedirects(self.response, reverse('home'))
 
 
-class InvalidLoginTests(TestCase):
+class InvalidLoginTest(TestCase):
     def setUp(self):
         # 创建用户
         self.user = User.objects.create_user(username='test_login', email='test_login@user.com', password='test_login')
