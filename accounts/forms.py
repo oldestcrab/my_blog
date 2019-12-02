@@ -183,7 +183,7 @@ class ActiveEmailForm(forms.Form):
         return self.cleaned_data
 
 
-class ChangePassword(forms.Form):
+class ChangePasswordForm(forms.Form):
     """
     修改密码表单
     """
@@ -194,7 +194,7 @@ class ChangePassword(forms.Form):
     def __init__(self, *args, **kwargs):
         if 'user' in kwargs:
             self.user = kwargs.pop('user')
-        super(ChangePassword, self).__init__(*args, **kwargs)
+        super(ChangePasswordForm, self).__init__(*args, **kwargs)
 
     def clean_password_old(self):
         """
